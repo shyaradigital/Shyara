@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shyara</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <h1 class="loading-text">SHYARA</h1>
+        </div>
+    </div>
+
+    <!-- Main Website Content -->
+    <div id="main-content" class="main-content" style="display: none;">
+        <img class="image-gradient" src="gradient.png" alt="grad">
+        <div class="layer-blur"></div>
+
+        <div class="container">
+            <header>
+                <a href="index.html" class="logo-link"><h1 data-aos="fade-down" data-aos-duration="1500" class="logo">Shyara</h1></a>
+
+                <nav class="navbar-center">
+                    <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200" href="about.html">About</a>
+                    <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" href="services.html">Services</a>
+                    <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600" href="portfolio.html">Portfolio</a>
+                    <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="800" href="contact.html">Contact Us</a>
+                </nav>
+                <button data-aos="fade-down" data-aos-duration="1500" class="btn-signin">Sign In</button>
+            </header>
+            <main>
+                <div data-aos="fade-right"
+                    data-aos-easing="ease-in-back"
+                    data-aos-delay="500"
+                    data-aos-offset="0"
+                    data-aos-duration="1900"
+                    class="content">
+
+                    <h1>Creative Digital Solutions for Growing Brands.</h1>
+
+                    <p class="description">
+                        We combine data-driven strategy with creative storytelling to help
+                        your business stand out in a crowded digital world.
+                    </p>
+
+                    <div class="buttons">
+                        <div class="tag-box">
+                            <div class="tag">View our work &gt;</div>
+                        </div>
+                        <a href="#" class="btn-sign-in-main">Get Started &gt;</a>
+                    </div>
+                </div>
+            </main>
+            <spline-viewer class="cbot" url="https://prod.spline.design/7Xyc-4Wtw5VI1PDk/scene.splinecode"></spline-viewer>
+        </div>
+        <footer class="site-footer">
+            <div class="footer-content">
+                <span>© Shyara Agency 2025. All rights reserved.</span>
+                <div class="footer-socials">
+                    <a href="#" class="footer-icon" title="Instagram" target="_blank" rel="noopener">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
+                    </a>
+                    <a href="#" class="footer-icon" title="LinkedIn" target="_blank" rel="noopener">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect><line x1="16" y1="8" x2="16" y2="16"></line><line x1="8" y1="8" x2="8" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    </a>
+                    <a href="#" class="footer-icon" title="WhatsApp" target="_blank" rel="noopener">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.67 20.13A10 10 0 1 0 3.87 21.67l2.2-.61a1 1 0 0 1 1.11.27l1.65 1.65a1 1 0 0 0 1.41 0l2.2-2.2a1 1 0 0 1 1.11-.27l2.2.61a10 10 0 0 0 5.92-1.54z"></path><path d="M8.5 13.5a6 6 0 0 1 7-7"></path></svg>
+                    </a>
+                    <a href="#" class="footer-icon" title="Email" target="_blank" rel="noopener">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.27/build/spline-viewer.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Loading screen functionality
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                const mainContent = document.getElementById('main-content');
+                const loadingText = document.querySelector('.loading-text');
+                const robot = document.querySelector('.cbot');
+                
+                // Initially hide the robot
+                robot.style.opacity = '0';
+                robot.style.transition = 'opacity 2s ease-in-out';
+                
+                // Add zoom animation and gradual opacity decrease to loading screen
+                loadingScreen.style.transform = 'scale(3)';
+                loadingScreen.style.opacity = '0.05';
+                loadingScreen.style.transition = 'all 2.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                
+                // After zoom animation, make it background
+                setTimeout(function() {
+                    // Stop the pulsing animation
+                    loadingText.style.animation = 'none';
+                    
+                    // Set as background
+                    loadingScreen.style.position = 'fixed';
+                    loadingScreen.style.zIndex = '-2'; // Behind everything
+                    loadingScreen.style.pointerEvents = 'none'; // Disable interactions
+                    
+                    // Fade in main content smoothly
+                    mainContent.style.display = 'block';
+                    mainContent.style.opacity = '0';
+                    mainContent.style.transition = 'opacity 1s ease-in-out';
+                    
+                    setTimeout(function() {
+                        mainContent.style.opacity = '1';
+                        
+                        // Gradually increase SHYARA background opacity
+                        loadingScreen.style.transition = 'opacity 3s ease-in-out';
+                        loadingScreen.style.opacity = '0.15';
+                        
+                        // Fade in robot after main content is visible
+                        setTimeout(function() {
+                            robot.style.opacity = '1';
+                        }, 500);
+                        
+                        AOS.init(); // Initialize AOS after content is shown
+                    }, 100);
+                }, 2500);
+            }, 2000); // Wait 2 seconds before starting animation
+        });
+    </script>
+</body>
+</html>
