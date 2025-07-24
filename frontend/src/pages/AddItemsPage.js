@@ -24,7 +24,7 @@ const SERVICES = [
     title: 'Ads Campaign Management',
     desc: 'High-ROI ads across Meta, Google, and more. Free ad creatives, budget management, and reporting.',
     plans: [
-      { id: 'ads-mgmt', name: 'Ad Management Service', price: 0, label: '15% of Ad Spend' },
+      { id: 'ads-mgmt', name: 'Ad Management Service', price: 0, label: '₹0/month' },
       { id: 'ads-video', name: 'Ad Video Editing', price: 2000, label: '₹2,000 per video' },
     ],
   },
@@ -67,7 +67,7 @@ const AddItemsPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ minHeight: '100vh', color: '#e7e7e7', padding: '0 0 2.5rem 0', fontFamily: 'inherit', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0 0 2.5rem 0', fontFamily: 'inherit', position: 'relative' }}>
       <div style={{ maxWidth: 700, margin: '0 auto', padding: '0 1rem', marginTop: 0, display: 'flex', flexDirection: 'column', gap: 40 }}>
         <button
           style={{
@@ -95,17 +95,17 @@ const AddItemsPage = () => {
         </button>
         <div style={{ textAlign: 'center', maxWidth: 600, margin: '0 auto' }}>
           <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#a259f7', marginBottom: 8 }}>Add More Services</h1>
-          <p style={{ fontSize: '1.08rem', fontWeight: 400, color: '#a7a7a7', marginBottom: '2.5rem' }}>
+          <p style={{ fontSize: '1.08rem', fontWeight: 400, color: 'var(--color-text-secondary)', marginBottom: '2.5rem' }}>
             Browse and add more services to your cart. Choose what you need!
           </p>
         </div>
         {SERVICES.map(service => (
           <div key={service.title} style={{
-            background: 'rgba(30,30,30,0.92)',
-            border: '1.5px solid rgba(127,66,167,0.18)',
-            borderRadius: 22,
-            boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
-            padding: '2.5rem 2.5rem',
+            background: 'none',
+            border: 'none',
+            boxShadow: 'none',
+            borderRadius: 0,
+            padding: '2rem 0',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
@@ -114,55 +114,55 @@ const AddItemsPage = () => {
             overflow: 'hidden',
             margin: '0 auto',
             width: '100%',
-            maxWidth: 700,
+            maxWidth: 900,
+            borderBottom: '1.5px solid #2d1a3a',
           }}>
-            <h2 style={{ fontWeight: 700, fontSize: '1.35rem', color: '#a259f7', marginBottom: 10, letterSpacing: '-0.01em' }}>{service.title}</h2>
-            <p style={{ color: '#bdbdbd', fontSize: '1.08rem', fontWeight: 400, marginBottom: 22 }}>{service.desc}</p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: '100%' }}>
-              {service.plans.map(plan => {
-                const inCart = cart.some(item => item.id === plan.id);
-                return (
-                  <div key={plan.id} style={{
-                    background: 'rgba(40,40,50,0.92)',
-                    border: '1.5px solid rgba(127,66,167,0.10)',
-                    borderRadius: 12,
-                    padding: '1.1rem 1.5rem',
-                    marginBottom: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: 16,
-                  }}>
-                    <div>
-                      <div style={{ fontWeight: 600, color: '#e7e7e7', fontSize: '1.08rem' }}>{plan.name}</div>
-                      <div style={{ color: '#a7a7a7', fontSize: '1.01rem' }}>{plan.label}</div>
-                    </div>
-                    <button
-                      style={{
-                        background: inCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-                        color: inCart ? '#a259f7' : '#fff',
-                        fontWeight: 700,
-                        fontSize: '1.05rem',
-                        border: 'none',
-                        borderRadius: 999,
-                        padding: '0.7rem 1.7rem',
-                        boxShadow: inCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-                        cursor: inCart ? 'not-allowed' : 'pointer',
-                        opacity: inCart ? 0.6 : 1,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 8,
-                        transition: 'background 0.2s, color 0.2s',
-                      }}
-                      onClick={() => addToCart({ id: plan.id, name: `${service.title} - ${plan.name}`, price: plan.price })}
-                      disabled={inCart}
-                    >
-                      <ShoppingCart style={{ width: 18, height: 18 }} /> {inCart ? 'Added' : 'Add to Cart'}
-                    </button>
+            <h2 style={{ fontWeight: 700, fontSize: '1.35rem', color: 'var(--color-primary)', marginBottom: 10, letterSpacing: '-0.01em' }}>{service.title}</h2>
+            <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.08rem', fontWeight: 400, marginBottom: 22 }}>{service.desc}</p>
+            {service.plans.map(plan => {
+              const inCart = cart.some(item => item.id === plan.id);
+              return (
+                <div key={plan.id} style={{
+                  background: 'none',
+                  border: 'none',
+                  borderRadius: 0,
+                  padding: '1.1rem 0',
+                  marginBottom: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 16,
+                  borderBottom: '1px solid #2d1a3a',
+                }}>
+                  <div>
+                    <div style={{ fontWeight: 600, color: 'var(--color-text-primary)', fontSize: '1.08rem' }}>{plan.name}</div>
+                    <div style={{ color: 'var(--color-text-secondary)', fontSize: '1.01rem' }}>{plan.label}</div>
                   </div>
-                );
-              })}
-            </div>
+                  <button
+                    style={{
+                      background: inCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                      color: inCart ? '#a259f7' : '#fff',
+                      fontWeight: 700,
+                      fontSize: '1.05rem',
+                      border: 'none',
+                      borderRadius: 999,
+                      padding: '0.7rem 1.7rem',
+                      boxShadow: inCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                      cursor: inCart ? 'not-allowed' : 'pointer',
+                      opacity: inCart ? 0.6 : 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      transition: 'background 0.2s, color 0.2s',
+                    }}
+                    onClick={() => addToCart({ id: plan.id, name: `${service.title} - ${plan.name}`, price: plan.price })}
+                    disabled={inCart}
+                  >
+                    <ShoppingCart style={{ width: 18, height: 18 }} /> {inCart ? 'Added' : 'Add to Cart'}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>

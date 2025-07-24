@@ -1,3 +1,99 @@
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-regular.ttf') format('truetype'),
+       url('./components/salena-font/salena-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-bold.ttf') format('truetype'),
+       url('./components/salena-font/salena-bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-italic.ttf') format('truetype'),
+       url('./components/salena-font/salena-italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-bolditalic.ttf') format('truetype'),
+       url('./components/salena-font/salena-bolditalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-light.ttf') format('truetype'),
+       url('./components/salena-font/salena-light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-lightitalic.ttf') format('truetype'),
+       url('./components/salena-font/salena-lightitalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-medium.ttf') format('truetype'),
+       url('./components/salena-font/salena-medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-mediumitalic.ttf') format('truetype'),
+       url('./components/salena-font/salena-mediumitalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-semibold.ttf') format('truetype'),
+       url('./components/salena-font/salena-semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Salena';
+  src: url('./components/salena-font/salena-semibolditalic.ttf') format('truetype'),
+       url('./components/salena-font/salena-semibolditalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Davigo';
+  src: url('./components/davigo-font/DavigoDemoRegular-V4Bg0.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Global color variables */
+:root {
+  --color-primary: #bb6aff;
+  --color-text-primary: #e7e7e7;
+  --color-text-secondary: #bdbdbd;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,41 +102,43 @@
 
 /* Loading Screen Styles */
 .loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: all 1s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: none;
+  will-change: transform, opacity;
 }
-
+.loading-screen.loading-zooming {
+  /* The transform/opacity are set inline by JS for smooth zoom */
+}
 .loading-content {
-    text-align: center;
+  text-align: center;
 }
-
 .loading-text {
-    font-size: 6rem;
-    font-weight: 300;
-    color: #e7e7e7;
-    letter-spacing: 1rem;
-    animation: pulse 2s ease-in-out infinite, glow 3s ease-in-out infinite;
-    text-shadow: 0 0 20px rgba(231, 231, 231, 0.3);
-    transition: all 0.3s ease;
+  font-size: 5rem;
+  font-weight: 300;
+  color: #e7e7e7;
+  letter-spacing: 1rem;
+  animation: pulse 2s ease-in-out infinite, glow 3s ease-in-out infinite;
+  text-shadow: 0 0 20px rgba(231, 231, 231, 0.3);
+  transition: all 0.3s ease;
+  font-family: 'Davigo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.02); }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
 }
-
 @keyframes glow {
-    0%, 100% { text-shadow: 0 0 20px rgba(231, 231, 231, 0.3); }
-    50% { text-shadow: 0 0 30px rgba(231, 231, 231, 0.6), 0 0 40px rgba(231, 231, 231, 0.3); }
+  0%, 100% { text-shadow: 0 0 20px rgba(231, 231, 231, 0.3); }
+  50% { text-shadow: 0 0 30px rgba(231, 231, 231, 0.6), 0 0 40px rgba(231, 231, 231, 0.3); }
 }
 
 .main-content {
@@ -48,9 +146,8 @@
     min-height: 100vh;
 }
 
-body{
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
-    'Helvetica Neue', sans-serif;
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: black;
     color: #e7e7e7;
     min-height: 100vh;
@@ -75,8 +172,8 @@ html, body {
   opacity: 0.15;
   pointer-events: none;
   background: transparent;
+  transition: opacity 1.2s cubic-bezier(0.4,0,0.2,1);
 }
-
 .logo-bg-text {
   font-size: 7vw;
   font-weight: 300;
@@ -84,7 +181,7 @@ html, body {
   letter-spacing: 1rem;
   text-shadow: 0 0 20px rgba(231, 231, 231, 0.3);
   user-select: none;
-  font-family: inherit;
+  font-family: 'Davigo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .image-gradient {
@@ -125,6 +222,12 @@ header {
 .logo {
     text-align: left;
     z-index: 1;
+    font-family: 'Davigo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.2em;
+    font-weight: 400;
+    line-height: 1.1;
+    padding-top: 0.3rem;
 }
 
 .navbar-center {
@@ -164,22 +267,32 @@ nav a:hover{
     color: #a7a7a7;
 }
 
-.btn-signin{
+.btn-signin {
     margin-left: auto;
-    background-color: #a7a7a7;
-    color: black;
+  background: #fff;
+  color: #000;
     padding: 0.8rem 2rem;
     border-radius: 50px;
-    border: none;
+  border: 1.5px solid #181818;
     font-size: 1rem;
-    font-weight: 500;
-    transition: background-color 0.2s ease;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: background 0.16s, color 0.16s, border 0.16s;
     cursor: pointer;
     z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  box-shadow: none;
+}
+.btn-signin:hover, .btn-signin:focus {
+  background: #f3f3f3;
+  color: #000;
+  border-color: #181818;
 }
 
-.btn-signin:hover{
-    background-color: white;
+.btn-signin, .btn-signin *, .btn-signin:visited {
+  color: #000 !important;
 }
 
 main {
@@ -556,4 +669,43 @@ nav a {
   width: 100vw;
   min-height: 100vh;
   overflow: hidden;
+} 
+
+.logo, .loading-text {
+  font-family: 'Davigo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.2em;
+  font-weight: 400;
+  line-height: 1.1;
+  padding-top: 0.3rem;
+} 
+
+/* Home page entrance animation */
+.home-entrance {
+  opacity: 0;
+}
+.home-entrance.home-entrance-active {
+  opacity: 1;
+  transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1);
+}
+
+.home-content-entrance {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.home-entrance-active .home-content-entrance {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.robot-entrance {
+  opacity: 0;
+  transform: translateY(60px) scale(0.98);
+  transition: none;
+}
+.robot-entrance.robot-entrance-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s, transform 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s;
 } 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import LoadingScreen from '../components/LoadingScreen';
 import { useNavigate } from 'react-router-dom';
 import { User, Eye, EyeOff, Loader2, LogIn } from 'lucide-react';
 
@@ -10,6 +11,7 @@ const ClientLoginPage = () => {
   const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -37,64 +39,97 @@ const ClientLoginPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <div className="login-logo-bg">
-          <User className="login-logo-icon" />
-        </div>
-        <form className="login-form" onSubmit={handleLogin}>
-          <h2 className="login-title"><User className="login-title-icon" /> Client Login</h2>
-          <div className="login-field">
-            <input
-              type="email"
-              placeholder="Email"
-              className="login-input"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              autoComplete="username"
-              required
-            />
+    <>
+      {showLoading && <LoadingScreen message="Please buy a service first." />}
+      {!showLoading && (
+        <div className="login-container">
+          <div className="login-card">
+            <div className="login-logo-bg">
+              <User className="login-logo-icon" />
+            </div>
+            <form className="login-form" onSubmit={handleLogin}>
+              <h2 className="login-title"><User className="login-title-icon" /> Client Login</h2>
+              <div className="login-field">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="login-input"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  autoComplete="username"
+                  required
+                />
+              </div>
+              <div className="login-field login-password-field">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  className="login-input"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="login-eye-btn"
+                  tabIndex={-1}
+                  onClick={() => setShowPassword(v => !v)}
+                >
+                  {showPassword ? <EyeOff className="login-eye-icon" /> : <Eye className="login-eye-icon" />}
+                </button>
+              </div>
+              <div className="login-remember">
+                <input
+                  type="checkbox"
+                  id="remember"
+                  checked={remember}
+                  onChange={e => setRemember(e.target.checked)}
+                  className="login-checkbox"
+                />
+                <label htmlFor="remember" className="login-remember-label">Remember me</label>
+              </div>
+              {error && <div className="login-error">{error}</div>}
+              <button
+                className="login-btn"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? <Loader2 className="login-btn-icon login-spin" /> : <LogIn className="login-btn-icon" />} Login
+              </button>
+            </form>
           </div>
-          <div className="login-field login-password-field">
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              className="login-input"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              autoComplete="current-password"
-              required
-            />
-            <button
-              type="button"
-              className="login-eye-btn"
-              tabIndex={-1}
-              onClick={() => setShowPassword(v => !v)}
-            >
-              {showPassword ? <EyeOff className="login-eye-icon" /> : <Eye className="login-eye-icon" />}
-            </button>
-          </div>
-          <div className="login-remember">
-            <input
-              type="checkbox"
-              id="remember"
-              checked={remember}
-              onChange={e => setRemember(e.target.checked)}
-              className="login-checkbox"
-            />
-            <label htmlFor="remember" className="login-remember-label">Remember me</label>
-          </div>
-          {error && <div className="login-error">{error}</div>}
           <button
-            className="login-btn"
-            type="submit"
-            disabled={loading}
+            className="not-client-btn"
+            type="button"
+            onClick={() => {
+              setShowLoading(true);
+              setTimeout(() => navigate('/services'), 1400);
+            }}
+            style={{
+              marginTop: 24,
+              background: '#fff',
+              color: '#000',
+              border: '1.5px solid #181818',
+              borderRadius: 50,
+              padding: '0.7rem 2rem',
+              fontSize: '1rem',
+              fontWeight: 600,
+              letterSpacing: '0.04em',
+              cursor: 'pointer',
+              transition: 'background 0.16s, color 0.16s, border 0.16s',
+              boxShadow: 'none',
+              display: 'block',
+              width: 'fit-content',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
           >
-            {loading ? <Loader2 className="login-btn-icon login-spin" /> : <LogIn className="login-btn-icon" />} Login
+            Not our client?
           </button>
-        </form>
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

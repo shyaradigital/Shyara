@@ -3,14 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
-import SocialMediaManagementPage from './pages/services/SocialMediaManagementPage';
-import FestivePostsPage from './pages/services/FestivePostsPage';
-import AdsCampaignManagementPage from './pages/services/AdsCampaignManagementPage';
-import WebsiteDevelopmentPage from './pages/services/WebsiteDevelopmentPage';
-import AppDevelopmentPage from './pages/services/AppDevelopmentPage';
-import VideoEditingReelsPage from './pages/services/VideoEditingReelsPage';
-import PersonalizedServicesPage from './pages/services/PersonalizedServicesPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,8 +15,3 @@ root.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.unregister();
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { useNavigate, Link } from 'react-router-dom';
+import { LogIn } from 'lucide-react';
 
 const HomeNoLoading = () => {
   const [fadeIn, setFadeIn] = React.useState(false);
@@ -35,14 +37,14 @@ const HomeNoLoading = () => {
       <div className="layer-blur"></div>
       <div className="container">
         <header>
-          <a href="/" className="logo-link"><h1 data-aos="fade-down" data-aos-duration="1500" className="logo">Shyara</h1></a>
+          <Link to="/" className="logo-link"><h1 data-aos="fade-down" data-aos-duration="1500" className="logo">Shyara</h1></Link>
           <nav className="navbar-center">
-            <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200" href="/about">About</a>
-            <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" href="/services">Services</a>
-            <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600" href="/portfolio">Portfolio</a>
-            <a data-aos="fade-down" data-aos-duration="1000" data-aos-delay="800" href="/contact">Contact Us</a>
+            <Link data-aos="fade-down" data-aos-duration="1000" data-aos-delay="200" to="/about">About</Link>
+            <Link data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" to="/services">Services</Link>
+            <Link data-aos="fade-down" data-aos-duration="1000" data-aos-delay="600" to="/portfolio">Portfolio</Link>
+            <Link data-aos="fade-down" data-aos-duration="1000" data-aos-delay="800" to="/contact">Contact Us</Link>
           </nav>
-          <a href="/client-login" data-aos="fade-down" data-aos-duration="1500" className="btn-signin">Sign In</a>
+          <Link to="/client-login" data-aos="fade-down" data-aos-duration="1500" className="btn-signin"><LogIn style={{ width: 20, height: 20, marginRight: 4 }} />Sign In</Link>
         </header>
         <main>
           <div data-aos="fade-right"

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-
-// Fallback FancyText: just renders text with a span for now
-const FancyText = ({ text }) => <span style={{ color: '#a259f7', fontWeight: 600 }}>{text}</span>;
+import React, { useState } from 'react';
+import FancyText from '../components/FancyText';
+import AnimatedHeading from '../components/AnimatedHeading';
 
 const portfolioItems = [
   {
@@ -61,8 +60,8 @@ const PortfolioCard = ({ item }) => {
       tabIndex={0}
       style={{
         background: hovered ? 'rgba(30,30,30,0.85)' : 'rgba(30,30,30,0.65)',
-        border: hovered ? '2px solid #a259f7' : '2px solid rgba(127,66,167,0.18)',
-        boxShadow: hovered ? '0 8px 32px 0 #a259f799' : '0 8px 32px 0 rgba(80,80,120,0.18)',
+        border: hovered ? '2px solid var(--color-primary)' : '2px solid rgba(127,66,167,0.18)',
+        boxShadow: hovered ? '0 8px 32px 0 var(--color-primary)99' : '0 8px 32px 0 rgba(80,80,120,0.18)',
         borderRadius: 18,
         overflow: 'hidden',
         transition: 'all 0.3s',
@@ -87,12 +86,12 @@ const PortfolioCard = ({ item }) => {
         <div style={{ position: 'absolute', inset: 0, background: hovered ? 'rgba(0,0,0,0.10)' : 'rgba(0,0,0,0.25)', transition: 'all 0.5s' }}></div>
       </div>
       <div style={{ padding: 24, flex: 1 }}>
-        <p style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1, color: '#a259f7', marginBottom: 4 }}>{item.category}</p>
-        <h3 style={{ fontWeight: 700, fontSize: 22, color: '#e7e7e7', marginBottom: 8 }}><FancyText text={item.title} /></h3>
+        <p style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--color-primary)', marginBottom: 4 }}>{item.category}</p>
+        <h3 style={{ fontWeight: 700, fontSize: 22, color: 'var(--color-text-primary)', marginBottom: 8 }}><FancyText text={item.title} /></h3>
         <div style={{ maxHeight: hovered ? 200 : 0, opacity: hovered ? 1 : 0, marginTop: hovered ? 8 : 0, overflow: 'hidden', transition: 'all 0.3s' }}>
-          <p style={{ color: '#bdbdbd', fontSize: 15, marginBottom: 4 }}><span style={{ fontWeight: 600, color: '#e7e7e7' }}>Description:</span> {item.description}</p>
-          <p style={{ color: '#bdbdbd', fontSize: 15, marginBottom: 4 }}><span style={{ fontWeight: 600, color: '#e7e7e7' }}>Results:</span> {item.results}</p>
-          <p style={{ color: '#bdbdbd', fontSize: 15 }}><span style={{ fontWeight: 600, color: '#e7e7e7' }}>Services:</span> {item.services}</p>
+          <p style={{ color: 'var(--color-text-secondary)', fontSize: 15, marginBottom: 4 }}><span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Description:</span> {item.description}</p>
+          <p style={{ color: 'var(--color-text-secondary)', fontSize: 15, marginBottom: 4 }}><span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Results:</span> {item.results}</p>
+          <p style={{ color: 'var(--color-text-secondary)', fontSize: 15 }}><span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Services:</span> {item.services}</p>
         </div>
       </div>
       {hovered && <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', boxShadow: '0 0 32px 8px #A259F7aa', borderRadius: 18, transition: 'box-shadow 0.3s' }} />}
@@ -100,34 +99,10 @@ const PortfolioCard = ({ item }) => {
   );
 };
 
-const PortfolioHeading = () => {
-  const LINE = 'Our Work';
-  const [displayed, setDisplayed] = useState('');
-  useEffect(() => {
-    let i = 0;
-    const speed = 55;
-    const typeLine = () => {
-      if (i <= LINE.length) {
-        setDisplayed(LINE.slice(0, i));
-        i++;
-        setTimeout(typeLine, speed);
-      }
-    };
-    typeLine();
-    // eslint-disable-next-line
-  }, []);
-  return (
-    <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '1.5rem', minHeight: '2.5em', textAlign: 'center', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-      <FancyText text={displayed} />
-      <span style={{ display: 'inline-block', width: '0.5em', height: '1.2em', background: '#e7e7e7', marginLeft: 4, verticalAlign: '-0.2em', animation: 'pulse 1s infinite' }} aria-hidden="true"></span>
-    </h1>
-  );
-};
-
 const Portfolio = () => (
-  <div style={{ minHeight: '100vh', color: '#e7e7e7', padding: '0 0 3rem 0', marginTop:'-5rem', fontFamily: 'inherit' }}>
+  <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0 0 3rem 0', marginTop:'-5rem', fontFamily: 'inherit' }}>
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1rem' }}>
-      <PortfolioHeading />
+      <AnimatedHeading text="Our Work" />
       <p style={{ fontSize: '1.15rem', color: '#a7a7a7', textAlign: 'center', marginBottom: '2rem', maxWidth: 700, marginLeft: 'auto', marginRight: 'auto' }}>
         Explore some of our recent projects and success stories. We help brands grow with creative digital solutions, from social media to web and app development.
       </p>
@@ -138,7 +113,7 @@ const Portfolio = () => (
       </div>
       <div style={{ textAlign: 'center', marginTop: 32 }}>
         <p style={{ color: '#a7a7a7', fontSize: '1.08rem' }}>
-          Want to see more? <a href="/contact" style={{ color: '#a259f7', fontWeight: 600, textDecoration: 'underline' }}>Contact us</a> for a full portfolio or to discuss your project!
+          Want to see more? <a href="/contact" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'underline' }}>Contact us</a> for a full portfolio or to discuss your project!
         </p>
       </div>
     </div>
