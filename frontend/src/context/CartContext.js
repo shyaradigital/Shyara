@@ -4,6 +4,8 @@ export const CartContext = createContext({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  updateQuantity: () => {},
+  updateCartItem: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -18,8 +20,18 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (item) => {
     setCart((prev) => {
-      if (prev.some((i) => i.id === item.id)) return prev;
-      return [...prev, item];
+      // Check if item already exists
+      const existingItem = prev.find((i) => i.id === item.id);
+      if (existingItem) {
+        // If item exists, update its quantity
+        return prev.map((i) => 
+          i.id === item.id 
+            ? { ...i, quantity: (i.quantity || 1) + (item.quantity || 1) }
+            : i
+        );
+      }
+      // If item doesn't exist, add it with quantity 1
+      return [...prev, { ...item, quantity: item.quantity || 1 }];
     });
   };
 
@@ -27,8 +39,33 @@ export const CartProvider = ({ children }) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
+  const updateQuantity = (id, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(id);
+      return;
+    }
+    
+    setCart((prev) => 
+      prev.map((item) => 
+        item.id === id 
+          ? { ...item, quantity: newQuantity }
+          : item
+      )
+    );
+  };
+
+  const updateCartItem = (id, updates) => {
+    setCart((prev) => 
+      prev.map((item) => 
+        item.id === id 
+          ? { ...item, ...updates }
+          : item
+      )
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, updateCartItem }}>
       {children}
     </CartContext.Provider>
   );

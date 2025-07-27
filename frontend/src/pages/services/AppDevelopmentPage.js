@@ -63,6 +63,7 @@ const AppDevelopmentPage = () => {
   const { cart, addToCart } = useContext(CartContext);
   const isBasicInCart = cart.some(item => item.id === 'app-basic');
   const isEnterpriseInCart = cart.some(item => item.id === 'app-enterprise');
+  
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       {/* Sticky back button below navbar */}
@@ -114,7 +115,10 @@ const AppDevelopmentPage = () => {
           ))}
         </ul>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 18, marginTop: 32, alignItems: 'flex-start' }}>
-          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Packages</div>
+          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Choose Your App Type</div>
+          <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 16 }}>
+            Select one of the following app types. We'll develop exactly one app based on your choice.
+          </p>
           <button
             style={{
               background: isBasicInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
@@ -134,7 +138,7 @@ const AppDevelopmentPage = () => {
               transition: 'background 0.2s, color 0.2s',
               outline: 'none',
             }}
-            onClick={() => addToCart({ id: 'app-basic', name: 'App Development - Basic', price: 30000 })}
+            onClick={() => addToCart({ id: 'app-basic', name: 'App Development - Basic App', price: 30000, description: 'Simple app with core features, perfect for MVP or basic functionality' })}
             disabled={isBasicInCart}
           >
             <ShoppingCart style={{ width: 18, height: 18 }} /> {isBasicInCart ? 'Added' : 'Basic App ₹30,000+'}
@@ -158,14 +162,14 @@ const AppDevelopmentPage = () => {
               transition: 'background 0.2s, color 0.2s',
               outline: 'none',
             }}
-            onClick={() => addToCart({ id: 'app-enterprise', name: 'App Development - Enterprise', price: 0 })}
+            onClick={() => addToCart({ id: 'app-enterprise', name: 'App Development - Custom/Enterprise', price: 0, description: 'Complex app with advanced features, integrations, and custom requirements' })}
             disabled={isEnterpriseInCart}
           >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isEnterpriseInCart ? 'Added' : 'Enterprise (Custom)'}
+            <ShoppingCart style={{ width: 18, height: 18 }} /> {isEnterpriseInCart ? 'Added' : 'Custom App (Quote)'}
           </button>
         </div>
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
-          “Shyara’s freelance app developers brought our idea to reality ahead of schedule, with a sleek design and smooth performance.”<br />
+          "Shyara's freelance app developers brought our idea to reality ahead of schedule, with a sleek design and smooth performance."<br />
           <span style={{ fontWeight: 600, color: '#a259f7' }}>— Manish Gupta, Tech Startup Founder</span>
         </blockquote>
         <button

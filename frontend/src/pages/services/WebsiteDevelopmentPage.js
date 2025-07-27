@@ -63,6 +63,8 @@ const WebsiteDevelopmentPage = () => {
   const { cart, addToCart } = useContext(CartContext);
   const isBasicInCart = cart.some(item => item.id === 'web-basic');
   const isEcomInCart = cart.some(item => item.id === 'web-ecom');
+  const isCustomInCart = cart.some(item => item.id === 'web-custom');
+  
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       {/* Sticky back button below navbar */}
@@ -115,7 +117,10 @@ const WebsiteDevelopmentPage = () => {
           ))}
         </ul>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 18, marginTop: 32, alignItems: 'flex-start' }}>
-          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Packages</div>
+          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Choose Your Website Type</div>
+          <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 16 }}>
+            Select one of the following website types. We'll develop exactly one website based on your choice.
+          </p>
           <button
             style={{
               background: isBasicInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
@@ -135,7 +140,7 @@ const WebsiteDevelopmentPage = () => {
               transition: 'background 0.2s, color 0.2s',
               outline: 'none',
             }}
-            onClick={() => addToCart({ id: 'web-basic', name: 'Web Development - Basic Site', price: 15000 })}
+            onClick={() => addToCart({ id: 'web-basic', name: 'Website Development - Basic Site', price: 15000, description: 'Portfolio, business, or personal website with up to 5 pages' })}
             disabled={isBasicInCart}
           >
             <ShoppingCart style={{ width: 18, height: 18 }} /> {isBasicInCart ? 'Added' : 'Basic Site ₹15,000+'}
@@ -159,14 +164,38 @@ const WebsiteDevelopmentPage = () => {
               transition: 'background 0.2s, color 0.2s',
               outline: 'none',
             }}
-            onClick={() => addToCart({ id: 'web-ecom', name: 'Web Development - E-commerce/Booking', price: 45000 })}
+            onClick={() => addToCart({ id: 'web-ecom', name: 'Website Development - E-commerce/Booking', price: 45000, description: 'Online store or booking system with payment integration' })}
             disabled={isEcomInCart}
           >
             <ShoppingCart style={{ width: 18, height: 18 }} /> {isEcomInCart ? 'Added' : 'E-commerce ₹45,000+'}
           </button>
+          <button
+            style={{
+              background: isCustomInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+              color: isCustomInCart ? '#a259f7' : '#fff',
+              fontWeight: 700,
+              fontSize: '1.05rem',
+              border: 'none',
+              borderRadius: 999,
+              padding: '0.9rem 2.2rem',
+              boxShadow: isCustomInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+              cursor: isCustomInCart ? 'not-allowed' : 'pointer',
+              opacity: isCustomInCart ? 0.6 : 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              transition: 'background 0.2s, color 0.2s',
+              outline: 'none',
+            }}
+            onClick={() => addToCart({ id: 'web-custom', name: 'Website Development - Custom', price: 0, description: 'Fully custom website with unique features and requirements' })}
+            disabled={isCustomInCart}
+          >
+            <ShoppingCart style={{ width: 18, height: 18 }} /> {isCustomInCart ? 'Added' : 'Custom Website (Quote)'}
+          </button>
         </div>
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
-          “Our new website by Shyara’s developers is stunning and loads quickly on all devices. It’s already helping us attract more customers!”<br />
+          "Our new website by Shyara's developers is stunning and loads quickly on all devices. It's already helping us attract more customers!"<br />
           <span style={{ fontWeight: 600, color: '#a259f7' }}>— Sneha Mehta, Fitness Coach</span>
         </blockquote>
         <button
