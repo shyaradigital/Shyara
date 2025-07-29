@@ -639,8 +639,6 @@ const PersonalizedServicesPage = () => {
           {[
             'Choose from all available services',
             'Mix and match to create custom packages',
-            'Flexible engagement: one-time or ongoing',
-            'Direct collaboration with top freelancers',
             'Custom pricing for unique requirements',
           ].map((feature, idx) => (
             <FeatureItem key={idx}>
