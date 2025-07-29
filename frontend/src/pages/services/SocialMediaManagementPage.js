@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, CheckCircle, ShoppingCart, ArrowLeft } from 'lucide-react';
+import { Users, CheckCircle, ShoppingCart, ArrowLeft, Share2, X } from 'lucide-react';
 import { CartContext } from '../../context/CartContext';
 import FancyText from '../../components/FancyText';
 
@@ -58,9 +58,257 @@ const FeatureItem = ({ children }) => {
   );
 };
 
+const SliderModal = ({ isOpen, onClose, onAddToCart, cart, removeFromCart }) => {
+  const [numPosts, setNumPosts] = useState(2);
+  const [numReels, setNumReels] = useState(1);
+  const postsPricePer = 400;
+  const reelsPricePer = 1500;
+
+  // Check if items are in cart
+  const postsCartItem = cart.find(item => item.id === 'custom-posts');
+  const reelsCartItem = cart.find(item => item.id === 'custom-reels');
+  
+  const isPostsInCart = !!postsCartItem;
+  const isReelsInCart = !!reelsCartItem;
+
+  // Initialize sliders only when modal first opens
+  React.useEffect(() => {
+    if (isOpen) {
+      // Only set initial values if sliders are at default values
+      if (numPosts === 2 && numReels === 1) {
+        if (postsCartItem) {
+          setNumPosts(postsCartItem.quantity || 2);
+        }
+        if (reelsCartItem) {
+          setNumReels(reelsCartItem.quantity || 1);
+        }
+      }
+    }
+  }, [isOpen]); // Only depend on isOpen, not cart items
+
+  const handleAddPosts = () => {
+    const newItem = {
+      id: 'custom-posts',
+      name: `Social Media Posts (${numPosts} posts)`,
+      price: numPosts * postsPricePer,
+      quantity: numPosts,
+      description: `Custom social media posts package with ${numPosts} posts per month`
+    };
+    
+    if (isPostsInCart) {
+      // Remove old item and add new one to ensure complete replacement
+      removeFromCart('custom-posts');
+      onAddToCart(newItem);
+    } else {
+      // Add new item
+      onAddToCart(newItem);
+    }
+  };
+
+  const handleAddReels = () => {
+    const newItem = {
+      id: 'custom-reels',
+      name: `Social Media Reels (${numReels} reels)`,
+      price: numReels * reelsPricePer,
+      quantity: numReels,
+      description: `Custom social media reels package with ${numReels} reels per month`
+    };
+    
+    if (isReelsInCart) {
+      // Remove old item and add new one to ensure complete replacement
+      removeFromCart('custom-reels');
+      onAddToCart(newItem);
+    } else {
+      // Add new item
+      onAddToCart(newItem);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(0,0,0,0.8)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 10000,
+      padding: '1rem'
+    }}>
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(30,30,40,0.95) 0%, rgba(20,20,30,0.98) 100%)',
+        borderRadius: 20,
+        padding: '2rem',
+        maxWidth: 500,
+        width: '100%',
+        border: '1px solid rgba(162,89,247,0.3)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(20px)',
+        position: 'relative'
+      }}>
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: 16,
+            right: 16,
+            background: 'none',
+            border: 'none',
+            color: '#a7a7a7',
+            cursor: 'pointer',
+            padding: 8,
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.2s'
+          }}
+        >
+          <X size={20} />
+        </button>
+        
+        <h3 style={{ color: '#a259f7', fontSize: '1.5rem', fontWeight: 700, marginBottom: 24, textAlign: 'center' }}>
+          Customize Your Social Media Package
+        </h3>
+        
+        {/* Posts Slider */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <label style={{ color: '#e7e7e7', fontWeight: 600, fontSize: '1.1rem' }}>
+              Posts per month: {numPosts}
+            </label>
+            <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.1rem' }}>
+              ₹{(numPosts * postsPricePer).toLocaleString()}
+            </span>
+          </div>
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value={numPosts}
+            onChange={(e) => setNumPosts(parseInt(e.target.value))}
+            style={{
+              width: '100%',
+              height: 8,
+              borderRadius: 4,
+              background: 'linear-gradient(90deg, #a259f7 0%, #7f42a7 100%)',
+              outline: 'none',
+              cursor: 'pointer'
+            }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>1 post</span>
+            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>10 posts</span>
+          </div>
+          
+          <button
+            style={{
+              marginTop: 12,
+              background: isPostsInCart && postsCartItem?.quantity === numPosts ? 'rgba(162,89,247,0.15)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+              color: isPostsInCart && postsCartItem?.quantity === numPosts ? '#a259f7' : '#fff',
+              fontWeight: 700,
+              fontSize: '1rem',
+              border: 'none',
+              borderRadius: 999,
+              padding: '0.8rem 1.5rem',
+              boxShadow: isPostsInCart && postsCartItem?.quantity === numPosts ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              width: '100%',
+              transition: 'all 0.2s ease',
+            }}
+            onClick={handleAddPosts}
+          >
+            <ShoppingCart style={{ width: 18, height: 18 }} /> 
+            {isPostsInCart && postsCartItem?.quantity === numPosts ? 'Already in Cart' : `Add ${numPosts} Posts to Cart`}
+          </button>
+        </div>
+        
+        {/* Reels Slider */}
+        <div style={{ marginBottom: 24 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <label style={{ color: '#e7e7e7', fontWeight: 600, fontSize: '1.1rem' }}>
+              Reels per month: {numReels}
+            </label>
+            <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.1rem' }}>
+              ₹{(numReels * reelsPricePer).toLocaleString()}
+            </span>
+          </div>
+          <input
+            type="range"
+            min="1"
+            max="5"
+            value={numReels}
+            onChange={(e) => setNumReels(parseInt(e.target.value))}
+            style={{
+              width: '100%',
+              height: 8,
+              borderRadius: 4,
+              background: 'linear-gradient(90deg, #a259f7 0%, #7f42a7 100%)',
+              outline: 'none',
+              cursor: 'pointer'
+            }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>1 reel</span>
+            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>5 reels</span>
+          </div>
+          
+          <button
+            style={{
+              marginTop: 12,
+              background: isReelsInCart && reelsCartItem?.quantity === numReels ? 'rgba(162,89,247,0.15)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+              color: isReelsInCart && reelsCartItem?.quantity === numReels ? '#a259f7' : '#fff',
+              fontWeight: 700,
+              fontSize: '1rem',
+              border: 'none',
+              borderRadius: 999,
+              padding: '0.8rem 1.5rem',
+              boxShadow: isReelsInCart && reelsCartItem?.quantity === numReels ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              width: '100%',
+              transition: 'all 0.2s ease',
+            }}
+            onClick={handleAddReels}
+          >
+            <ShoppingCart style={{ width: 18, height: 18 }} /> 
+            {isReelsInCart && reelsCartItem?.quantity === numReels ? 'Already in Cart' : `Add ${numReels} Reels to Cart`}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const SocialMediaManagementPage = () => {
   const navigate = useNavigate();
-  const { cart, addToCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const [sliderModal, setSliderModal] = useState({ isOpen: false });
+  
+  const handleShowSlider = () => {
+    setSliderModal({ isOpen: true });
+  };
+
+  const handleCloseSlider = () => {
+    setSliderModal({ isOpen: false });
+  };
+
+  const handleAddToCart = (item) => {
+    addToCart(item);
+  };
+
   const isMonthlyInCart = cart.some(item => item.id === 'smm-monthly');
   const isYearlyInCart = cart.some(item => item.id === 'smm-yearly');
   return (
@@ -136,10 +384,10 @@ const SocialMediaManagementPage = () => {
               transition: 'background 0.2s, color 0.2s',
               outline: 'none',
             }}
-            onClick={() => addToCart({ id: 'smm-monthly', name: 'SMM Monthly Subscription', price: 0 })}
+            onClick={() => addToCart({ id: 'smm-monthly', name: 'SMM Monthly Subscription', price: 10500, description: 'Social media management with 16 posts and 2 reels per month' })}
             disabled={isMonthlyInCart}
           >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isMonthlyInCart ? 'Added' : 'Monthly Plan'}
+            <ShoppingCart style={{ width: 18, height: 18 }} /> {isMonthlyInCart ? 'Added' : '₹10,500/month'}
           </button>
           <button
             style={{
@@ -160,10 +408,10 @@ const SocialMediaManagementPage = () => {
               transition: 'background 0.2s, color 0.2s',
               outline: 'none',
             }}
-            onClick={() => addToCart({ id: 'smm-yearly', name: 'SMM Yearly Subscription', price: 0 })}
+            onClick={() => addToCart({ id: 'smm-yearly', name: 'SMM Yearly Subscription', price: 115500, description: 'Social media management with 16 posts and 2 reels per month (11 months paid, 1 month free)' })}
             disabled={isYearlyInCart}
           >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isYearlyInCart ? 'Added' : 'Yearly Plan'}
+            <ShoppingCart style={{ width: 18, height: 18 }} /> {isYearlyInCart ? 'Added' : '₹1,15,500/year (Save ₹9,500)'}
           </button>
         </div>
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
@@ -172,13 +420,20 @@ const SocialMediaManagementPage = () => {
         </blockquote>
         <button
           style={{ background: '#a259f7', color: '#fff', fontWeight: 700, fontSize: '1.1rem', padding: '1rem 2.5rem', borderRadius: 999, boxShadow: '0 2px 12px #a259f7aa', border: 'none', marginTop: 8, cursor: 'pointer', transition: 'background 0.2s, transform 0.2s', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
-          onClick={() => navigate('/contact')}
+          onClick={handleShowSlider}
           onMouseDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
           onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
         >
-          Get Started
+          Customize Package
         </button>
       </div>
+      <SliderModal
+        isOpen={sliderModal.isOpen}
+        onClose={handleCloseSlider}
+        onAddToCart={handleAddToCart}
+        cart={cart}
+        removeFromCart={removeFromCart}
+      />
     </div>
   );
 };

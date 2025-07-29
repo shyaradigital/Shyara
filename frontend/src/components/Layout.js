@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LogIn } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
@@ -6,12 +6,22 @@ import { CartContext } from '../context/CartContext';
 const Layout = ({ children }) => {
   const location = useLocation();
   const { cart } = useContext(CartContext);
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="site-bg">
       <img className="image-gradient" src={process.env.PUBLIC_URL + '/gradient.png'} alt="" />
       <div className="layer-blur"></div>
       <div className="container">
-        <header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 0, minHeight: 80 }}>
+        <header className={isSticky ? 'sticky-header' : ''} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 0, minHeight: 80 }}>
           <Link to="/home-alt" className="logo-link"><h1 className="logo">Shyara</h1></Link>
           <nav className="navbar-center" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
             <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>

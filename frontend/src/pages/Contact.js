@@ -58,57 +58,92 @@ const ContactPage = () => {
             Have a project in mind? We'd love to hear from you.
           </p>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'row', gap: 40, maxWidth: 1000, margin: '0 auto', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', alignItems: 'stretch', flexWrap: 'wrap' }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'flex-start',
+          gap: 48,
+          maxWidth: 1100,
+          margin: '0 auto',
+          background: 'none',
+          border: 'none',
+          borderRadius: 0,
+          boxShadow: 'none',
+          flexWrap: 'wrap',
+        }}>
           {/* Contact Info */}
-          <div style={{ flex: '1 1 320px', minWidth: 280, maxWidth: 400, background: 'rgba(30,30,30,0.97)', borderRadius: 20, padding: 32, boxShadow: '0 2px 16px #0006', border: '1px solid #222', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 24 }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--color-text-primary)', marginBottom: 18 }}>Contact Information</h2>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 18 }}>
+          <div style={{
+            flex: '1 1 340px',
+            minWidth: 320,
+            maxWidth: 420,
+            background: 'rgba(30,30,40,0.32)',
+            borderRadius: 20,
+            padding: 36,
+            boxShadow: '0 4px 32px #0005',
+            border: '1.5px solid rgba(162,89,247,0.18)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: 28,
+            alignItems: 'flex-start',
+            minHeight: 340,
+            backdropFilter: 'blur(18px)',
+            WebkitBackdropFilter: 'blur(18px)',
+            margin: 0,
+          }}>
+            <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--color-text-primary)', marginBottom: 10, textAlign: 'left' }}>Contact Information</h2>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18, marginBottom: 12 }}>
               <div style={{ background: 'rgba(127,66,167,0.15)', padding: 12, borderRadius: '50%' }}>
-                <Mail style={{ width: 24, height: 24, color: 'var(--color-primary)' }} />
+                <Mail style={{ width: 26, height: 26, color: 'var(--color-primary)' }} />
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 2 }}><FancyText text="Email" /></h3>
-                <a href="mailto:contact@shyara.com" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '0.97rem', fontWeight: 400 }}>contact@shyara.com</a>
+                <a href="mailto:contact@shyara.com" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 400 }}>contact@shyara.com</a>
               </div>
             </div>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 18 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18 }}>
               <div style={{ background: 'rgba(127,66,167,0.15)', padding: 12, borderRadius: '50%' }}>
-                <Phone style={{ width: 24, height: 24, color: 'var(--color-primary)' }} />
+                <Phone style={{ width: 26, height: 26, color: 'var(--color-primary)' }} />
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 2 }}><FancyText text="Phone" /></h3>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.97rem', fontWeight: 400 }}>+91 93050 44148</p>
-              </div>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
-              <div style={{ background: 'rgba(127,66,167,0.15)', padding: 12, borderRadius: '50%' }}>
-                <MapPin style={{ width: 24, height: 24, color: 'var(--color-primary)' }} />
-              </div>
-              <div>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 2 }}><FancyText text="Address" /></h3>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.97rem', fontWeight: 400 }}>123 Freelancer Lane, City, State, India</p>
+                <p style={{ color: 'var(--color-text-secondary)', fontSize: '1.05rem', fontWeight: 400 }}>+91 9584661610</p>
               </div>
             </div>
           </div>
           {/* Contact Form */}
-          <div style={{ flex: '2 1 400px', minWidth: 320, maxWidth: 600, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 16 }}>
-            <form style={{ display: 'flex', flexDirection: 'column', gap: 24 }} onSubmit={handleSubmit}>
+          <div style={{
+            flex: '2 1 440px',
+            minWidth: 340,
+            maxWidth: 600,
+            background: 'rgba(30,30,40,0.22)',
+            borderRadius: 20,
+            padding: 36,
+            boxShadow: '0 4px 32px #0003',
+            border: '1.5px solid rgba(162,89,247,0.10)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            margin: 0,
+          }}>
+            <form style={{ display: 'flex', flexDirection: 'column', gap: 28 }} onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="name" style={{ display: 'block', fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 8 }}>Full Name</label>
-                <input type="text" id="name" value={form.name} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '14px 18px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '0.97rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+                <label htmlFor="name" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Full Name</label>
+                <input type="text" id="name" value={form.name} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
               </div>
               <div>
-                <label htmlFor="email" style={{ display: 'block', fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 8 }}>Email Address</label>
-                <input type="email" id="email" value={form.email} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '14px 18px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '0.97rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+                <label htmlFor="email" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Email Address</label>
+                <input type="email" id="email" value={form.email} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
               </div>
               <div>
-                <label htmlFor="message" style={{ display: 'block', fontSize: 14, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 8 }}>Message</label>
-                <textarea id="message" rows={5} value={form.message} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '14px 18px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '0.97rem', outline: 'none', fontWeight: 400, resize: 'none' }}></textarea>
+                <label htmlFor="message" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Message</label>
+                <textarea id="message" rows={5} value={form.message} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', outline: 'none', fontWeight: 400, resize: 'none' }}></textarea>
               </div>
-              {error && <div style={{ color: '#ff4d4f', fontSize: 15 }}>{error}</div>}
-              {success && <div style={{ color: '#4caf50', fontSize: 15 }}>Message sent successfully!</div>}
+              {error && <div style={{ color: '#ff4d4f', fontSize: 16 }}>{error}</div>}
+              {success && <div style={{ color: '#4caf50', fontSize: 16 }}>Message sent successfully!</div>}
               <div>
-                <button type="submit" style={{ background: '#a259f7', color: '#fff', fontWeight: 700, fontSize: 20, padding: '16px 2.5rem', border: 'none', borderRadius: 999, cursor: 'pointer', boxShadow: '0 2px 8px #a259f7aa', transition: 'background 0.2s', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} disabled={submitting}>
+                <button type="submit" style={{ background: '#a259f7', color: '#fff', fontWeight: 700, fontSize: 17, padding: '10px 2.2rem', border: 'none', borderRadius: 999, cursor: 'pointer', boxShadow: '0 2px 8px #a259f7aa', transition: 'background 0.2s', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} disabled={submitting}>
                   {submitting ? 'Sending...' : 'Send Message'}
                 </button>
               </div>

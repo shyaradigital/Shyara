@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sparkles, CheckCircle, ShoppingCart, ArrowLeft } from 'lucide-react';
+import { Sparkles, CheckCircle, ShoppingCart, ArrowLeft, X } from 'lucide-react';
 import { CartContext } from '../../context/CartContext';
 import FancyText from '../../components/FancyText';
 
@@ -58,9 +58,162 @@ const FeatureItem = ({ children }) => {
   );
 };
 
+const SliderModal = ({ isOpen, onClose, onAddToCart, cart, removeFromCart }) => {
+  const [numPosts, setNumPosts] = useState(1);
+  const pricePerPost = 350;
+
+  const cartItem = cart.find(item => item.id === 'festive-posts');
+  const isInCart = !!cartItem;
+
+  React.useEffect(() => {
+    if (isOpen) {
+      if (numPosts === 1 && cartItem) {
+        setNumPosts(cartItem.quantity || 1);
+      }
+    }
+  }, [isOpen]);
+
+  const handleAdd = () => {
+    const newItem = {
+      id: 'festive-posts',
+      name: `Festive Posts (${numPosts} per festival)`,
+      price: numPosts * pricePerPost,
+      quantity: numPosts,
+      description: `Custom festive posts package with ${numPosts} posts per festival`,
+    };
+    if (isInCart) {
+      removeFromCart('festive-posts');
+      onAddToCart(newItem);
+    } else {
+      onAddToCart(newItem);
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(0,0,0,0.8)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 10000,
+      padding: '1rem'
+    }}>
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(30,30,40,0.95) 0%, rgba(20,20,30,0.98) 100%)',
+        borderRadius: 20,
+        padding: '2rem',
+        maxWidth: 400,
+        width: '100%',
+        border: '1px solid rgba(162,89,247,0.3)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(20px)',
+        position: 'relative'
+      }}>
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: 16,
+            right: 16,
+            background: 'none',
+            border: 'none',
+            color: '#a7a7a7',
+            cursor: 'pointer',
+            padding: 8,
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'background 0.2s'
+          }}
+        >
+          <X size={20} />
+        </button>
+        <h3 style={{ color: '#a259f7', fontSize: '1.3rem', fontWeight: 700, marginBottom: 24, textAlign: 'center' }}>
+          Customize Festive Posts
+        </h3>
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+            <label style={{ color: '#e7e7e7', fontWeight: 600, fontSize: '1.1rem' }}>
+              Posts per festival: {numPosts}
+            </label>
+            <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.1rem' }}>
+              ₹{(numPosts * pricePerPost).toLocaleString()}
+            </span>
+          </div>
+          <input
+            type="range"
+            min="1"
+            max="3"
+            value={numPosts}
+            onChange={(e) => setNumPosts(parseInt(e.target.value))}
+            style={{
+              width: '100%',
+              height: 8,
+              borderRadius: 4,
+              background: 'linear-gradient(90deg, #a259f7 0%, #7f42a7 100%)',
+              outline: 'none',
+              cursor: 'pointer'
+            }}
+          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>1 post</span>
+            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>3 posts</span>
+          </div>
+          <button
+            style={{
+              marginTop: 12,
+              background: isInCart && cartItem?.quantity === numPosts ? 'rgba(162,89,247,0.15)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+              color: isInCart && cartItem?.quantity === numPosts ? '#a259f7' : '#fff',
+              fontWeight: 700,
+              fontSize: '1rem',
+              border: 'none',
+              borderRadius: 999,
+              padding: '0.8rem 1.5rem',
+              boxShadow: isInCart && cartItem?.quantity === numPosts ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 8,
+              width: '100%',
+              transition: 'all 0.2s ease',
+            }}
+            onClick={handleAdd}
+          >
+            <ShoppingCart style={{ width: 18, height: 18 }} />
+            {isInCart && cartItem?.quantity === numPosts ? 'Already in Cart' : `Add ${numPosts} Posts to Cart`}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const FestivePostsPage = () => {
   const navigate = useNavigate();
-  const { cart, addToCart } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const [sliderModal, setSliderModal] = useState({ isOpen: false });
+
+  const handleShowSlider = () => {
+    setSliderModal({ isOpen: true });
+  };
+
+  const handleCloseSlider = () => {
+    setSliderModal({ isOpen: false });
+  };
+
+  const handleAddToCart = (item) => {
+    addToCart(item);
+  };
+
   const isInCart = cart.some(item => item.id === 'festive-posts');
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
@@ -134,12 +287,18 @@ const FestivePostsPage = () => {
               transition: 'background 0.2s, color 0.2s',
               outline: 'none',
             }}
-            onClick={() => addToCart({ id: 'festive-posts', name: 'Festive Posts Subscription', price: 1000 })}
-            disabled={isInCart}
+            onClick={handleShowSlider}
           >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isInCart ? 'Added' : '₹1,000/month'}
+            <ShoppingCart style={{ width: 18, height: 18 }} /> Customize & Add
           </button>
         </div>
+        <SliderModal
+          isOpen={sliderModal.isOpen}
+          onClose={handleCloseSlider}
+          onAddToCart={handleAddToCart}
+          cart={cart}
+          removeFromCart={removeFromCart}
+        />
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
           “Our festive posts always stand out and get shared widely. Shyara makes it effortless!”<br />
           <span style={{ fontWeight: 600, color: '#a259f7' }}>— Priya S., Boutique Owner</span>

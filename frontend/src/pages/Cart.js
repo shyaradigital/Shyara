@@ -35,7 +35,34 @@ const Cart = () => {
           <div style={{ marginTop: 32 }}>
             <h1 style={{ fontSize: '2.2rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '2rem', textAlign: 'center' }}>Your Cart</h1>
             {cart.length === 0 ? (
-              <p style={{ color: '#a7a7a7', textAlign: 'center', fontSize: '1.1rem' }}>Your cart is empty.</p>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>😔</div>
+                <p style={{ color: '#a7a7a7', fontSize: '1.1rem', marginBottom: '2rem' }}>Your cart is empty.</p>
+                <button
+                  style={{
+                    background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: '1.05rem',
+                    border: 'none',
+                    borderRadius: 999,
+                    padding: '0.9rem 2.2rem',
+                    boxShadow: '0 2px 12px #a259f7aa',
+                    cursor: 'pointer',
+                    transition: 'background 0.2s, transform 0.2s',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    margin: '0 auto',
+                  }}
+                  onClick={() => navigate('/services')}
+                  onMouseDown={e => e.currentTarget.style.transform = 'scale(0.97)'}
+                  onMouseUp={e => e.currentTarget.style.transform = 'scale(1)'}
+                >
+                  <PlusCircle style={{ width: 20, height: 20 }} /> Add Items
+                </button>
+              </div>
             ) : (
               <>
                 <ul style={{ listStyle: 'none', padding: 0, marginBottom: 32 }}>
@@ -44,27 +71,22 @@ const Cart = () => {
                     const itemTotal = (item.price || 0) * quantity;
                     
                     return (
-                      <li key={item.id} style={{
-                        background: 'rgba(40,40,50,0.85)',
-                        border: '1.5px solid rgba(127,66,167,0.10)',
-                        borderRadius: 12,
-                        padding: '1.2rem 1.5rem',
-                        marginBottom: 18,
-                        display: 'flex',
+                    <li key={item.id} style={{
+                      background: 'rgba(40,40,50,0.85)',
+                      border: '1.5px solid rgba(127,66,167,0.10)',
+                      borderRadius: 12,
+                      padding: '1.2rem 1.5rem',
+                      marginBottom: 18,
+                      display: 'flex',
                         flexDirection: 'column',
                         gap: 12,
                       }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <div style={{ flex: 1 }}>
                             <span style={{ fontWeight: 600, color: '#e7e7e7', fontSize: '1.05rem' }}>{item.name}</span>
-                            {item.description && (
-                              <p style={{ color: '#a7a7a7', fontSize: '0.9rem', margin: '4px 0 0 0' }}>
-                                {item.description}
-                              </p>
-                            )}
                           </div>
                           <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.1rem' }}>
-                            ₹{itemTotal.toLocaleString()}
+                            {itemTotal === 0 ? 'Custom' : `₹${itemTotal.toLocaleString()}`}
                           </span>
                         </div>
                         
@@ -83,7 +105,7 @@ const Cart = () => {
                                   cursor: 'pointer',
                                   transition: 'background 0.2s',
                                   display: 'flex',
-                                  alignItems: 'center',
+                      alignItems: 'center',
                                   justifyContent: 'center',
                                 }}
                                 onClick={() => handleQuantityChange(item.id, quantity, -1)}
@@ -102,9 +124,9 @@ const Cart = () => {
                               </span>
                               <button
                                 style={{
-                                  background: 'rgba(162,89,247,0.12)',
-                                  color: '#a259f7',
-                                  border: '1px solid #a259f7',
+                        background: 'rgba(162,89,247,0.12)',
+                        color: '#a259f7',
+                        border: '1px solid #a259f7',
                                   borderRadius: 6,
                                   padding: '0.3rem 0.6rem',
                                   fontWeight: 600,
@@ -119,9 +141,13 @@ const Cart = () => {
                                 <Plus size={14} />
                               </button>
                             </div>
-                            {item.price > 0 && (
+                            {item.price > 0 ? (
                               <span style={{ color: '#a7a7a7', fontSize: '0.85rem' }}>
                                 @ ₹{item.price.toLocaleString()}
+                              </span>
+                            ) : item.price === 0 && (
+                              <span style={{ color: '#a7a7a7', fontSize: '0.85rem' }}>
+                                @ Custom
                               </span>
                             )}
                           </div>
@@ -131,11 +157,11 @@ const Cart = () => {
                               background: 'rgba(255,255,255,0.12)',
                               color: '#ffffff',
                               border: '1px solid #ffffff',
-                              borderRadius: 8,
-                              padding: '0.4rem 1.1rem',
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              transition: 'background 0.2s',
+                        borderRadius: 8,
+                        padding: '0.4rem 1.1rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        transition: 'background 0.2s',
                               display: 'flex',
                               alignItems: 'center',
                               gap: 6,
@@ -146,7 +172,7 @@ const Cart = () => {
                             Remove
                           </button>
                         </div>
-                      </li>
+                    </li>
                     );
                   })}
                 </ul>
