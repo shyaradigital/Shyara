@@ -31,10 +31,3 @@ Thumbs.db
 # Misc
 coverage/
 *.tgz
-
-# Public asset cache
-frontend/public/pics/
-!frontend/public/pics/*.jpg
-!frontend/public/pics/*.jpeg
-!frontend/public/pics/*.png
-!frontend/public/pics/*.mp4 
