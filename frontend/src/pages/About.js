@@ -44,7 +44,7 @@ const AboutPage = () => {
           </div>
           <div style={{ flex: '1 1 320px', minWidth: 280, maxWidth: 400, background: 'rgba(30,30,30,0.95)', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', boxShadow: '0 2px 16px #0006', border: '1px solid #222', marginTop: 12 }}>
             <video
-              src={require('../pics/videoplayback.mp4')}
+              src={process.env.PUBLIC_URL + '/pics/videoplayback.mp4'}
               style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16 }}
               autoPlay
               muted

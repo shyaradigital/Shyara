@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FancyText from '../components/FancyText';
 import AnimatedHeading from '../components/AnimatedHeading';
 
@@ -6,7 +6,7 @@ const portfolioItems = [
   {
     title: 'Social Media for Fashion',
     category: 'Social Media',
-    img: '/pics/fashion.jpg',
+    img: process.env.PUBLIC_URL + '/pics/fashion.jpg',
     description: '3-month social media management including 48 creative posts, festive campaigns, and reel creation.',
     results: 'Increased Instagram followers by 60%, engagement up by 45%.',
     services: 'Content creation, account management, analytics reporting.',
@@ -14,7 +14,7 @@ const portfolioItems = [
   {
     title: 'Fitness Coach Website',
     category: 'Web Development',
-    img: '/pics/fit.jpg',
+    img: process.env.PUBLIC_URL + '/pics/fit.jpg',
     description: 'Responsive website with booking and payment integration.',
     results: '40% increase in online bookings within first two months.',
     services: 'Custom design, SEO optimization, CMS training.',
@@ -22,7 +22,7 @@ const portfolioItems = [
   {
     title: 'Event Management App',
     category: 'App Development',
-    img: '/pics/event.jpeg',
+    img: process.env.PUBLIC_URL + '/pics/event.jpeg',
     description: 'Cross-platform MVP app for event management.',
     results: 'Launched within 8 weeks; secured initial funding based on prototype.',
     services: 'UI/UX design, development, testing, deployment.',
@@ -30,7 +30,7 @@ const portfolioItems = [
   {
     title: 'Influencer Reels',
     category: 'Video Editing',
-    img: '/pics/influencer.png',
+    img: process.env.PUBLIC_URL + '/pics/influencer.png',
     description: 'Monthly production of 20 reels with creative captions and hashtag strategy.',
     results: 'Tripled follower count and boosted engagement on Instagram.',
     services: 'Video editing, social media posting, performance analysis.',
@@ -38,7 +38,7 @@ const portfolioItems = [
   {
     title: 'E-commerce Ad Campaign',
     category: 'Ad Campaigns',
-    img: '/pics/adcampaign.jpg',
+    img: process.env.PUBLIC_URL + '/pics/adcampaign.jpg',
     description: 'Facebook and Instagram ad campaign with custom image design and video editing.',
     results: '30% increase in sales and 25% reduction in customer acquisition cost.',
     services: 'Ad design, budget management, campaign optimization.',
@@ -46,7 +46,7 @@ const portfolioItems = [
   {
     title: 'Tech Startup Website',
     category: 'Web Development',
-    img: '/pics/startup.png',
+    img: process.env.PUBLIC_URL + '/pics/startup.png',
     description: 'Modern, responsive website for a tech startup.',
     results: 'Improved brand presence and lead generation.',
     services: 'Web design, development, SEO.',
@@ -55,6 +55,10 @@ const portfolioItems = [
 
 const PortfolioCard = ({ item }) => {
   const [hovered, setHovered] = useState(false);
+
+  // DEBUG: Log the image src
+  console.log('Portfolio image src:', item.img);
+
   return (
     <div
       tabIndex={0}
@@ -77,13 +81,13 @@ const PortfolioCard = ({ item }) => {
       onBlur={() => setHovered(false)}
     >
       <div style={{ width: '100%', height: 220, overflow: 'hidden', background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+        {/* TEMP: Remove loading/error logic for debugging */}
         <img
           src={item.img}
           alt={item.title}
           style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', filter: hovered ? 'none' : 'grayscale(1)', transition: 'all 0.5s', borderRadius: 0, display: 'block' }}
           loading="lazy"
         />
-        <div style={{ position: 'absolute', inset: 0, background: hovered ? 'rgba(0,0,0,0.10)' : 'rgba(0,0,0,0.25)', transition: 'all 0.5s' }}></div>
       </div>
       <div style={{ padding: 24, flex: 1 }}>
         <p style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1, color: 'var(--color-primary)', marginBottom: 4 }}>{item.category}</p>

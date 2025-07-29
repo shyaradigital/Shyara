@@ -13,6 +13,9 @@ const Home = () => {
   const mainContentRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [splineReady, setSplineReady] = useState(false);
+  const splineRef = useRef(null);
+  const [splineError, setSplineError] = useState(false);
 
   // Only show loading screen on first load or hard reload
   useEffect(() => {
@@ -47,6 +50,34 @@ const Home = () => {
       setRobotIn(true);
     }
   }, [fadeIn]);
+
+  // Initialize Spline viewer when container is ready
+  useEffect(() => {
+    if (fadeIn && mainContentRef.current) {
+      // Wait for the container to have proper dimensions
+      const timer = setTimeout(() => {
+        setSplineReady(true);
+      }, 500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [fadeIn]);
+
+  // Handle Spline viewer errors
+  useEffect(() => {
+    if (splineRef.current) {
+      const handleError = () => {
+        setSplineError(true);
+      };
+      
+      splineRef.current.addEventListener('error', handleError);
+      return () => {
+        if (splineRef.current) {
+          splineRef.current.removeEventListener('error', handleError);
+        }
+      };
+    }
+  }, [splineReady]);
 
   // Initialize AOS after fade-in
   useEffect(() => {
@@ -105,7 +136,49 @@ const Home = () => {
               </div>
             </div>
           </main>
-          <spline-viewer className={`cbot robot-entrance${robotIn ? ' robot-entrance-active' : ''}`} url="https://prod.spline.design/7Xyc-4Wtw5VI1PDk/scene.splinecode"></spline-viewer>
+          {splineReady && !splineError && (
+            <spline-viewer 
+              ref={splineRef}
+              className={`cbot robot-entrance${robotIn ? ' robot-entrance-active' : ''}`} 
+              url="https://prod.spline.design/7Xyc-4Wtw5VI1PDk/scene.splinecode"
+              style={{
+                width: '100%',
+                height: '100%',
+                minWidth: '1px',
+                minHeight: '1px'
+              }}
+            />
+          )}
+          {splineError && (
+            <div 
+              className={`cbot robot-entrance${robotIn ? ' robot-entrance-active' : ''}`}
+              style={{
+                position: 'absolute',
+                top: '0%',
+                right: '-20%',
+                width: '100%',
+                height: '100vh',
+                minWidth: '1px',
+                minHeight: '1px',
+                zIndex: 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'rgba(0,0,0,0.1)',
+                borderRadius: '20px'
+              }}
+            >
+              <div style={{ 
+                textAlign: 'center', 
+                color: '#666',
+                fontSize: '14px',
+                opacity: 0.7
+              }}>
+                <div style={{ fontSize: '48px', marginBottom: '8px' }}>🤖</div>
+                <div>3D Experience</div>
+              </div>
+            </div>
+          )}
         </div>
         <footer className="site-footer">
           <div className="footer-content">

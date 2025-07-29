@@ -451,6 +451,11 @@ main {
     position: absolute;
     top: 0%;
     right: -20%;
+    width: 100%;
+    height: 100vh;
+    min-width: 1px;
+    min-height: 1px;
+    z-index: 1;
 }
 
 .site-footer {
