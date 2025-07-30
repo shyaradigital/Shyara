@@ -66,16 +66,16 @@ const AppDevelopmentPage = () => {
   
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
-      {/* Sticky back button below navbar */}
+      {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
         aria-label="Back to Services"
         style={{
-          position: 'sticky',
-          top: 16,
-          left: 72,
+          position: 'fixed',
+          top: 100,
+          left: 80,
           zIndex: 1000,
-          background: 'rgba(30,30,30,0.85)',
+          background: 'rgba(30,30,30,0.95)',
           border: '2px solid var(--color-primary)',
           borderRadius: '50%',
           width: 48,
@@ -83,12 +83,10 @@ const AppDevelopmentPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 2px 12px #0006',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
           color: 'var(--color-primary)',
           cursor: 'pointer',
-          marginBottom: 24,
-          marginTop: 0,
-          transition: 'background 0.2s, border 0.2s',
+          transition: 'all 0.2s ease',
         }}
       >
         <ArrowLeft size={28} />
@@ -114,59 +112,133 @@ const AppDevelopmentPage = () => {
             </FeatureItem>
           ))}
         </ul>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 18, marginTop: 32, alignItems: 'flex-start' }}>
+        <div style={{ marginBottom: 18, marginTop: 32 }}>
           <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Choose Your App Type</div>
-          <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 16 }}>
+          <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 24 }}>
             Select one of the following app types. We'll develop exactly one app based on your choice.
           </p>
-          <button
-            style={{
-              background: isBasicInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isBasicInCart ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1.05rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.9rem 2.2rem',
-              boxShadow: isBasicInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: isBasicInCart ? 'not-allowed' : 'pointer',
-              opacity: isBasicInCart ? 0.6 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              transition: 'background 0.2s, color 0.2s',
-              outline: 'none',
-            }}
-            onClick={() => addToCart({ id: 'app-basic', name: 'App Development - Basic App', price: 30000, description: 'Simple app with core features, perfect for MVP or basic functionality' })}
-            disabled={isBasicInCart}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isBasicInCart ? 'Added' : 'Basic App ₹30,000+'}
-          </button>
-          <button
-            style={{
-              background: isEnterpriseInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isEnterpriseInCart ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1.05rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.9rem 2.2rem',
-              boxShadow: isEnterpriseInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: isEnterpriseInCart ? 'not-allowed' : 'pointer',
-              opacity: isEnterpriseInCart ? 0.6 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              transition: 'background 0.2s, color 0.2s',
-              outline: 'none',
-            }}
-            onClick={() => addToCart({ id: 'app-enterprise', name: 'App Development - Custom/Enterprise', price: 0, description: 'Complex app with advanced features, integrations, and custom requirements' })}
-            disabled={isEnterpriseInCart}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isEnterpriseInCart ? 'Added' : 'Custom App (Quote)'}
-          </button>
+          
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+            gap: 20, 
+            width: '100%' 
+          }}>
+            
+            {/* Basic App Option */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
+              border: '2px solid rgba(162,89,247,0.2)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              height: 'fit-content'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                background: 'linear-gradient(45deg, #a259f7, #7f42a7)',
+                color: 'white',
+                padding: '8px 16px',
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                borderBottomLeftRadius: 12
+              }}>
+                ₹30,000+
+              </div>
+              <div style={{ marginBottom: 12 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Basic App</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                  Simple app with core features, perfect for MVP or basic functionality
+                </p>
+              </div>
+              <button
+                style={{
+                  background: isBasicInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isBasicInCart ? '#a259f7' : '#fff',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: isBasicInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isBasicInCart ? 'not-allowed' : 'pointer',
+                  opacity: isBasicInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => addToCart({ id: 'app-basic', name: 'App Development - Basic App', price: 30000, description: 'Simple app with core features, perfect for MVP or basic functionality' })}
+                disabled={isBasicInCart}
+              >
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isBasicInCart ? 'Added to Cart' : 'Add Basic App'}
+              </button>
+            </div>
+
+            {/* Custom App Option */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
+              border: '2px solid rgba(162,89,247,0.2)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              height: 'fit-content'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                background: 'linear-gradient(45deg, #a259f7, #7f42a7)',
+                color: 'white',
+                padding: '8px 16px',
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                borderBottomLeftRadius: 12
+              }}>
+                Custom Quote
+              </div>
+              <div style={{ marginBottom: 12 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Custom App</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                  Complex app with advanced features, integrations, and custom requirements
+                </p>
+              </div>
+              <button
+                style={{
+                  background: isEnterpriseInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isEnterpriseInCart ? '#a259f7' : '#fff',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: isEnterpriseInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isEnterpriseInCart ? 'not-allowed' : 'pointer',
+                  opacity: isEnterpriseInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => addToCart({ id: 'app-enterprise', name: 'App Development - Custom/Enterprise', price: 0, description: 'Complex app with advanced features, integrations, and custom requirements' })}
+                disabled={isEnterpriseInCart}
+              >
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isEnterpriseInCart ? 'Added to Cart' : 'Get Custom Quote'}
+              </button>
+            </div>
+          </div>
         </div>
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
           "Shyara's freelance app developers brought our idea to reality ahead of schedule, with a sleek design and smooth performance."<br />

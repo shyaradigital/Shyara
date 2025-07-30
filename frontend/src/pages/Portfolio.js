@@ -12,12 +12,12 @@ const portfolioItems = [
     services: 'Content creation, account management, analytics reporting.',
   },
   {
-    title: 'Fitness Coach Website',
+    title: 'Portfolio Website',
     category: 'Web Development',
-    img: process.env.PUBLIC_URL + '/pics/fit.jpg',
-    description: 'Responsive website with booking and payment integration.',
-    results: '40% increase in online bookings within first two months.',
-    services: 'Custom design, SEO optimization, CMS training.',
+    img: process.env.PUBLIC_URL + '/pics/porto.png',
+    description: 'Responsive site with booking and payment features.',
+    results: '40% more bookings in 2 months.',
+    services: 'Design, SEO, CMS training.'
   },
   {
     title: 'Event Management App',

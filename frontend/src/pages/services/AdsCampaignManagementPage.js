@@ -218,16 +218,16 @@ const AdsCampaignManagementPage = () => {
   const isVideoInCart = cart.some(item => item.id === 'ads-video');
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
-      {/* Sticky back button below navbar */}
+      {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
         aria-label="Back to Services"
         style={{
-          position: 'sticky',
-          top: 16,
-          left: 72,
+          position: 'fixed',
+          top: 100,
+          left: 80,
           zIndex: 1000,
-          background: 'rgba(30,30,30,0.85)',
+          background: 'rgba(30,30,30,0.95)',
           border: '2px solid var(--color-primary)',
           borderRadius: '50%',
           width: 48,
@@ -235,12 +235,10 @@ const AdsCampaignManagementPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 2px 12px #0006',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
           color: 'var(--color-primary)',
           cursor: 'pointer',
-          marginBottom: 24,
-          marginTop: 0,
-          transition: 'background 0.2s, border 0.2s',
+          transition: 'all 0.2s ease',
         }}
       >
         <ArrowLeft size={28} />
@@ -267,64 +265,177 @@ const AdsCampaignManagementPage = () => {
             </FeatureItem>
           ))}
         </ul>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 18, marginTop: 32, alignItems: 'flex-start' }}>
-          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Plans</div>
-          <button
-            style={{
-              background: isAdMgmtInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isAdMgmtInCart ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1.05rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.9rem 2.2rem',
-              boxShadow: isAdMgmtInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: isAdMgmtInCart ? 'not-allowed' : 'pointer',
-              opacity: isAdMgmtInCart ? 0.6 : 1,
+        <div style={{ marginBottom: 18, marginTop: 32 }}>
+          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Choose Your Service</div>
+          <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 24 }}>
+            Select the ads campaign management service that best fits your needs.
+          </p>
+          
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(2, 1fr)', 
+            gap: 20, 
+            width: '100%' 
+          }}>
+            
+            {/* Ad Management Service */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
+              border: '2px solid rgba(162,89,247,0.2)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              height: '100%',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              transition: 'background 0.2s, color 0.2s',
-              outline: 'none',
-            }}
-            onClick={handleShowSlider}
-            disabled={isAdMgmtInCart}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isAdMgmtInCart ? 'Added' : 'Ad Management'}
-          </button>
-          <button
-            style={{
-              background: isVideoInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isVideoInCart ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1.05rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.9rem 2.2rem',
-              boxShadow: isVideoInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: isVideoInCart ? 'not-allowed' : 'pointer',
-              opacity: isVideoInCart ? 0.6 : 1,
+              flexDirection: 'column'
+            }}>
+              {/* Pricing Display */}
+              <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#a259f7', 
+                  fontSize: '1.8rem', 
+                  fontWeight: 700,
+                  textShadow: '0 2px 4px rgba(162,89,247,0.3)',
+                  marginBottom: 8
+                }}>
+                  20% of Ad Budget
+                </div>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontSize: '0.9rem', 
+                  fontWeight: 600,
+                  marginBottom: 8
+                }}>
+                  100% Advance Payment
+                </div>
+                <div style={{ 
+                  color: '#ff6b6b', 
+                  fontSize: '0.85rem', 
+                  fontWeight: 600,
+                  background: 'rgba(255,107,107,0.1)',
+                  padding: '4px 8px',
+                  borderRadius: 6,
+                  display: 'inline-block'
+                }}>
+                  Free Ad Creatives Included
+                </div>
+              </div>
+              
+              <div style={{ marginBottom: 12, flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Ad Campaign Management</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                  Complete ad campaign management with strategy, optimization, and reporting. Free ad creatives (images) included.
+                </p>
+              </div>
+              <button
+                style={{
+                  background: isAdMgmtInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isAdMgmtInCart ? '#a259f7' : '#fff',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: isAdMgmtInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isAdMgmtInCart ? 'not-allowed' : 'pointer',
+                  opacity: isAdMgmtInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => addToCart({ id: 'ads-mgmt', name: 'Ad Campaign Management (20% of Budget)', price: 0, description: 'Complete ad campaign management with strategy, optimization, and reporting. Free ad creatives included. 100% advance payment required.' })}
+                disabled={isAdMgmtInCart}
+              >
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isAdMgmtInCart ? 'Added to Cart' : 'Add Ad Management'}
+              </button>
+            </div>
+
+            {/* Ad Video Editing Service */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
+              border: '2px solid rgba(162,89,247,0.2)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              height: '100%',
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              transition: 'background 0.2s, color 0.2s',
-              outline: 'none',
-            }}
-            onClick={() => addToCart({ id: 'ads-video', name: 'Ad Video Editing', price: 2000 })}
-            disabled={isVideoInCart}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> {isVideoInCart ? 'Added' : 'Ad Video Editing'}
-          </button>
+              flexDirection: 'column'
+            }}>
+              {/* Pricing Display */}
+              <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#a259f7', 
+                  fontSize: '1.8rem', 
+                  fontWeight: 700,
+                  textShadow: '0 2px 4px rgba(162,89,247,0.3)',
+                  marginBottom: 8
+                }}>
+                  ₹2,000
+                </div>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontSize: '0.9rem', 
+                  fontWeight: 600,
+                  marginBottom: 8
+                }}>
+                  Extra for Video Editing
+                </div>
+                <div style={{ 
+                  color: '#ff6b6b', 
+                  fontSize: '0.85rem', 
+                  fontWeight: 600,
+                  background: 'rgba(255,107,107,0.1)',
+                  padding: '4px 8px',
+                  borderRadius: 6,
+                  display: 'inline-block'
+                }}>
+                  Per Video
+                </div>
+              </div>
+              
+              <div style={{ marginBottom: 12, flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Ad Video Editing</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                  Professional video editing for ads with optimization for different platforms. Additional ₹2,000 per video.
+                </p>
+              </div>
+              <button
+                style={{
+                  background: isVideoInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isVideoInCart ? '#a259f7' : '#fff',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: isVideoInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isVideoInCart ? 'not-allowed' : 'pointer',
+                  opacity: isVideoInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => addToCart({ id: 'ads-video', name: 'Ad Video Editing', price: 2000, description: 'Professional video editing for ads with optimization for different platforms. Additional ₹2,000 per video.' })}
+                disabled={isVideoInCart}
+              >
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isVideoInCart ? 'Added to Cart' : 'Add Video Editing'}
+              </button>
+            </div>
+          </div>
         </div>
-        <SliderModal
-          isOpen={sliderModal.isOpen}
-          onClose={handleCloseSlider}
-          onAddToCart={handleAddToCart}
-          cart={cart}
-          removeFromCart={removeFromCart}
-        />
+
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
           “Shyara’s ad management helped us reach new customers and grow our business!”<br />
           <span style={{ fontWeight: 600, color: '#a259f7' }}>— Rajeev M., E-commerce Owner</span>

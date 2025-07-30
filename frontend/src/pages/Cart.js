@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, PlusCircle, Minus, Plus, Trash2 } from 'lucide-react';
+import { User, PlusCircle, Minus, Plus, Trash2, ArrowLeft } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
 
 const BRAND_LOGO = (
@@ -17,6 +17,10 @@ const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
   
+  const handleGoBack = () => {
+    navigate(-1); // Go back to the previous page
+  };
+  
   const total = cart.reduce((sum, item) => {
     const itemTotal = (item.price || 0) * (item.quantity || 1);
     return sum + itemTotal;
@@ -28,12 +32,40 @@ const Cart = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh', color: '#e7e7e7', padding: '2rem 0 4rem 0', fontFamily: 'inherit', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: 'transparent' }}>
-      <div style={{ width: '100%', maxWidth: 700, margin: '0 auto', padding: '0 1rem' }}>
-        <div style={{ background: 'rgba(30,30,30,0.85)', border: '1.5px solid rgba(127,66,167,0.18)', borderRadius: 24, boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)', padding: '2.5rem 2rem', margin: '0 auto', position: 'relative', overflow: 'hidden' }}>
-          {BRAND_LOGO}
-          <div style={{ marginTop: 32 }}>
-            <h1 style={{ fontSize: '2.2rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '2rem', textAlign: 'center' }}>Your Cart</h1>
+    <div style={{ minHeight: '100vh', color: '#e7e7e7', padding: '0', fontFamily: 'inherit', background: 'transparent' }}>
+      {/* Back Button */}
+      <button
+        style={{
+          position: 'fixed',
+          top: 100,
+          left: 80,
+          background: 'rgba(30,30,30,0.95)',
+          color: '#a259f7',
+          border: '1px solid rgba(162,89,247,0.3)',
+          borderRadius: 8,
+          padding: '0.6rem 1rem',
+          fontWeight: 600,
+          fontSize: '0.9rem',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+          zIndex: 1000
+        }}
+        onClick={handleGoBack}
+        onMouseEnter={e => e.currentTarget.style.background = 'rgba(162,89,247,0.15)'}
+        onMouseLeave={e => e.currentTarget.style.background = 'rgba(30,30,30,0.95)'}
+      >
+        <ArrowLeft style={{ width: 16, height: 16 }} />
+        Back
+      </button>
+      
+            <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '0 2rem', marginTop: '-15px' }}>
+        {BRAND_LOGO}
+                <div style={{ marginTop: 16 }}>
+          <h1 style={{ fontSize: '2.8rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '2rem', textAlign: 'center' }}>Your Cart</h1>
             {cart.length === 0 ? (
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>😔</div>
@@ -65,164 +97,174 @@ const Cart = () => {
               </div>
             ) : (
               <>
-                <ul style={{ listStyle: 'none', padding: 0, marginBottom: 32 }}>
+                <ul style={{ listStyle: 'none', padding: 0, marginBottom: 40 }}>
                   {cart.map(item => {
                     const quantity = item.quantity || 1;
                     const itemTotal = (item.price || 0) * quantity;
                     
                     return (
                     <li key={item.id} style={{
-                      background: 'rgba(40,40,50,0.85)',
-                      border: '1.5px solid rgba(127,66,167,0.10)',
-                      borderRadius: 12,
-                      padding: '1.2rem 1.5rem',
-                      marginBottom: 18,
+                      background: 'rgba(40,40,50,0.3)',
+                      backdropFilter: 'blur(15px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      borderRadius: 16,
+                      padding: '2rem',
+                      marginBottom: 24,
                       display: 'flex',
                         flexDirection: 'column',
-                        gap: 12,
+                        gap: 16,
                       }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div style={{ flex: 1 }}>
-                            <span style={{ fontWeight: 600, color: '#e7e7e7', fontSize: '1.05rem' }}>{item.name}</span>
+                                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ flex: 1 }}>
+                              <span style={{ fontWeight: 700, color: '#e7e7e7', fontSize: '1.3rem' }}>{item.name}</span>
+                            </div>
+                            <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.4rem' }}>
+                              {itemTotal === 0 ? 'Custom' : `₹${itemTotal.toLocaleString()}`}
+                            </span>
                           </div>
-                          <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.1rem' }}>
-                            {itemTotal === 0 ? 'Custom' : `₹${itemTotal.toLocaleString()}`}
-                          </span>
-                        </div>
                         
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>Quantity:</span>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                              <button
-                                style={{
-                                  background: 'rgba(162,89,247,0.12)',
-                                  color: '#a259f7',
-                                  border: '1px solid #a259f7',
-                                  borderRadius: 6,
-                                  padding: '0.3rem 0.6rem',
-                                  fontWeight: 600,
-                                  cursor: 'pointer',
-                                  transition: 'background 0.2s',
-                                  display: 'flex',
-                      alignItems: 'center',
-                                  justifyContent: 'center',
-                                }}
-                                onClick={() => handleQuantityChange(item.id, quantity, -1)}
-                                disabled={quantity <= 1}
-                              >
-                                <Minus size={14} />
-                              </button>
-                              <span style={{ 
-                                fontWeight: 600, 
-                                color: '#e7e7e7', 
-                                minWidth: '2rem', 
-                                textAlign: 'center',
-                                fontSize: '1rem'
-                              }}>
-                                {quantity}
-                              </span>
-                              <button
-                                style={{
+                                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                              <span style={{ color: '#a7a7a7', fontSize: '1rem', fontWeight: 600 }}>Quantity:</span>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                <button
+                                  style={{
+                                    background: 'rgba(162,89,247,0.12)',
+                                    color: '#a259f7',
+                                    border: '1px solid #a259f7',
+                                    borderRadius: 8,
+                                    padding: '0.5rem 0.8rem',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                    transition: 'background 0.2s',
+                                    display: 'flex',
+                        alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}
+                                  onClick={() => handleQuantityChange(item.id, quantity, -1)}
+                                  disabled={quantity <= 1}
+                                >
+                                  <Minus size={16} />
+                                </button>
+                                <span style={{ 
+                                  fontWeight: 700, 
+                                  color: '#e7e7e7', 
+                                  minWidth: '3rem', 
+                                  textAlign: 'center',
+                                  fontSize: '1.2rem'
+                                }}>
+                                  {quantity}
+                                </span>
+                                <button
+                                  style={{
                         background: 'rgba(162,89,247,0.12)',
                         color: '#a259f7',
                         border: '1px solid #a259f7',
-                                  borderRadius: 6,
-                                  padding: '0.3rem 0.6rem',
-                                  fontWeight: 600,
-                                  cursor: 'pointer',
-                                  transition: 'background 0.2s',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                }}
-                                onClick={() => handleQuantityChange(item.id, quantity, 1)}
-                              >
-                                <Plus size={14} />
-                              </button>
+                                    borderRadius: 8,
+                                    padding: '0.5rem 0.8rem',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                    transition: 'background 0.2s',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}
+                                  onClick={() => handleQuantityChange(item.id, quantity, 1)}
+                                >
+                                  <Plus size={16} />
+                                </button>
+                              </div>
+                              {item.price > 0 ? (
+                                <span style={{ color: '#a7a7a7', fontSize: '1rem', fontWeight: 600 }}>
+                                  @ ₹{item.price.toLocaleString()}
+                                </span>
+                              ) : item.price === 0 && (
+                                <span style={{ color: '#a7a7a7', fontSize: '1rem', fontWeight: 600 }}>
+                                  @ Custom
+                                </span>
+                              )}
                             </div>
-                            {item.price > 0 ? (
-                              <span style={{ color: '#a7a7a7', fontSize: '0.85rem' }}>
-                                @ ₹{item.price.toLocaleString()}
-                              </span>
-                            ) : item.price === 0 && (
-                              <span style={{ color: '#a7a7a7', fontSize: '0.85rem' }}>
-                                @ Custom
-                              </span>
-                            )}
-                          </div>
-                          
-                          <button 
-                            style={{
-                              background: 'rgba(255,255,255,0.12)',
-                              color: '#ffffff',
-                              border: '1px solid #ffffff',
-                        borderRadius: 8,
-                        padding: '0.4rem 1.1rem',
+                            
+                            <button 
+                              style={{
+                                background: 'rgba(255,255,255,0.12)',
+                                color: '#ffffff',
+                                border: '1px solid #ffffff',
+                        borderRadius: 10,
+                        padding: '0.6rem 1.3rem',
                         fontWeight: 600,
                         cursor: 'pointer',
                         transition: 'background 0.2s',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: 6,
-                            }} 
-                            onClick={() => removeFromCart(item.id)}
-                          >
-                            <Trash2 size={14} />
-                            Remove
-                          </button>
-                        </div>
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 8,
+                                fontSize: '1rem'
+                              }} 
+                              onClick={() => removeFromCart(item.id)}
+                            >
+                              <Trash2 size={16} />
+                              Remove
+                            </button>
+                          </div>
                     </li>
                     );
                   })}
                 </ul>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 24 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
                   <button
                     style={{
                       background: 'rgba(162,89,247,0.10)',
                       color: '#a259f7',
                       border: '1px solid #a259f7',
-                      borderRadius: 999,
-                      padding: '0.7rem 1.7rem',
+                      borderRadius: 12,
+                      padding: '1rem 2rem',
                       fontWeight: 600,
-                      fontSize: '1.05rem',
+                      fontSize: '1.1rem',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 8,
+                      gap: 10,
                       boxShadow: '0 2px 12px #0002',
                       cursor: 'pointer',
                       transition: 'background 0.2s',
                     }}
                     onClick={() => navigate('/services/personalized')}
                   >
-                    <PlusCircle style={{ width: 20, height: 20 }} /> Add More Items
+                    <PlusCircle style={{ width: 22, height: 22 }} /> Add More Items
                   </button>
-                </div>
-                <div style={{ textAlign: 'right', fontSize: '1.2rem', fontWeight: 700, color: '#a259f7', marginBottom: 24 }}>
-                  Total: ₹{total.toLocaleString()}
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#a7a7a7', marginBottom: '0.5rem' }}>Total Amount</div>
+                    <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#a259f7' }}>₹{total.toLocaleString()}</div>
+                  </div>
                 </div>
                 <div style={{ textAlign: 'center' }}>
                   <button 
                     style={{
-                      background: 'rgba(162,89,247,0.12)',
-                      color: '#a259f7',
+                      background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                      color: '#fff',
                       fontWeight: 700,
-                      fontSize: '1.08rem',
-                      padding: '0.9rem 2.5rem',
-                      borderRadius: 999,
-                      boxShadow: '0 2px 12px #0004',
-                      border: '2px solid #a259f7',
+                      fontSize: '1.3rem',
+                      padding: '1.2rem 3rem',
+                      borderRadius: 12,
+                      boxShadow: '0 4px 20px rgba(162,89,247,0.4)',
+                      border: 'none',
                       marginTop: 8,
                       cursor: 'pointer',
-                      transition: 'background 0.2s',
+                      transition: 'all 0.2s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      margin: '0 auto'
                     }}
                     onClick={() => navigate('/contact')}
-                  >Checkout</button>
+                    onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+                  >
+                    Proceed to Checkout
+                  </button>
                 </div>
               </>
             )}
           </div>
-        </div>
       </div>
     </div>
   );

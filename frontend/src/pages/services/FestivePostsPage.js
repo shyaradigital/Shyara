@@ -217,16 +217,16 @@ const FestivePostsPage = () => {
   const isInCart = cart.some(item => item.id === 'festive-posts');
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
-      {/* Sticky back button below navbar */}
+      {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
         aria-label="Back to Services"
         style={{
-          position: 'sticky',
-          top: 16,
-          left: 72,
+          position: 'fixed',
+          top: 100,
+          left: 80,
           zIndex: 1000,
-          background: 'rgba(30,30,30,0.85)',
+          background: 'rgba(30,30,30,0.95)',
           border: '2px solid var(--color-primary)',
           borderRadius: '50%',
           width: 48,
@@ -234,12 +234,10 @@ const FestivePostsPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 2px 12px #0006',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
           color: 'var(--color-primary)',
           cursor: 'pointer',
-          marginBottom: 24,
-          marginTop: 0,
-          transition: 'background 0.2s, border 0.2s',
+          transition: 'all 0.2s ease',
         }}
       >
         <ArrowLeft size={28} />
@@ -266,39 +264,78 @@ const FestivePostsPage = () => {
             </FeatureItem>
           ))}
         </ul>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, marginBottom: 18, marginTop: 32, alignItems: 'flex-start' }}>
-          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Subscription</div>
-          <button
-            style={{
-              background: isInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isInCart ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1.05rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.9rem 2.2rem',
-              boxShadow: isInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: isInCart ? 'not-allowed' : 'pointer',
-              opacity: isInCart ? 0.6 : 1,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              transition: 'background 0.2s, color 0.2s',
-              outline: 'none',
-            }}
-            onClick={handleShowSlider}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> Customize & Add
-          </button>
+        <div style={{ marginBottom: 18, marginTop: 32 }}>
+          <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Choose Your Package</div>
+          <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 24 }}>
+            Select the festive posts package that best fits your needs.
+          </p>
+          
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'center',
+            width: '100%' 
+          }}>
+            
+            {/* Festive Posts Package */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
+              border: '2px solid rgba(162,89,247,0.2)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              maxWidth: 400,
+              position: 'relative',
+              overflow: 'hidden',
+              height: 'fit-content'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                background: 'linear-gradient(45deg, #a259f7, #7f42a7)',
+                color: 'white',
+                padding: '8px 16px',
+                fontSize: '0.9rem',
+                fontWeight: 700,
+                borderBottomLeftRadius: 12
+              }}>
+                ₹350/post
+              </div>
+              <div style={{ marginBottom: 12 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Festive Posts Package</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                  5 custom festive post designs for major occasions and celebrations
+                </p>
+              </div>
+              <button
+                style={{
+                  background: isInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isInCart ? '#a259f7' : '#fff',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: isInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isInCart ? 'not-allowed' : 'pointer',
+                  opacity: isInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => addToCart({ id: 'festive-posts', name: 'Festive Posts Package', price: 1750, description: '5 custom festive post designs for major occasions and celebrations' })}
+                disabled={isInCart}
+              >
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isInCart ? 'Added to Cart' : 'Add Festive Package'}
+              </button>
+            </div>
+          </div>
         </div>
-        <SliderModal
-          isOpen={sliderModal.isOpen}
-          onClose={handleCloseSlider}
-          onAddToCart={handleAddToCart}
-          cart={cart}
-          removeFromCart={removeFromCart}
-        />
+
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
           “Our festive posts always stand out and get shared widely. Shyara makes it effortless!”<br />
           <span style={{ fontWeight: 600, color: '#a259f7' }}>— Priya S., Boutique Owner</span>

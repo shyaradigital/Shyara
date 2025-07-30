@@ -62,7 +62,7 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
   const [numPosts, setNumPosts] = useState(2);
   const [numReels, setNumReels] = useState(1);
   const postsPricePer = 400;
-  const reelsPricePer = 1500;
+  const reelsPricePer = 700;
 
   // Check if items are in cart
   const postsCartItem = cart.find(item => item.id === 'custom-posts');
@@ -86,40 +86,29 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
     }
   }, [isOpen]); // Only depend on isOpen, not cart items
 
-  const handleAddPosts = () => {
+  const handleAddPackage = () => {
+    const totalPrice = (numPosts * postsPricePer) + (numReels * reelsPricePer);
     const newItem = {
-      id: 'custom-posts',
-      name: `Social Media Posts (${numPosts} posts)`,
-      price: numPosts * postsPricePer,
-      quantity: numPosts,
-      description: `Custom social media posts package with ${numPosts} posts per month`
+      id: 'social-media-package',
+      name: `Social Media Management Package`,
+      price: totalPrice,
+      quantity: 1,
+      description: `Custom social media package with ${numPosts} posts (₹${postsPricePer} each) and ${numReels} reels (₹${reelsPricePer} each) per month`,
+      details: {
+        posts: numPosts,
+        reels: numReels,
+        postsPrice: postsPricePer,
+        reelsPrice: reelsPricePer
+      }
     };
     
-    if (isPostsInCart) {
-      // Update existing item
-      updateCartItem('custom-posts', newItem);
-    } else {
-      // Add new item
-      onAddToCart(newItem);
-    }
-  };
-
-  const handleAddReels = () => {
-    const newItem = {
-      id: 'custom-reels',
-      name: `Social Media Reels (${numReels} reels)`,
-      price: numReels * reelsPricePer,
-      quantity: numReels,
-      description: `Custom social media reels package with ${numReels} reels per month`
-    };
+    // Remove any existing individual items
+    removeFromCart('custom-posts');
+    removeFromCart('custom-reels');
+    removeFromCart('social-media-package');
     
-    if (isReelsInCart) {
-      // Update existing item
-      updateCartItem('custom-reels', newItem);
-    } else {
-      // Add new item
-      onAddToCart(newItem);
-    }
+    // Add the package
+    onAddToCart(newItem);
   };
 
   if (!isOpen) return null;
@@ -171,10 +160,10 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
         </button>
 
         <h3 style={{ fontWeight: 700, fontSize: '1.4rem', color: '#a259f7', marginBottom: 16, textAlign: 'center' }}>
-          Customize Your Package
+          Customize Your Social Media Management Package
         </h3>
         <p style={{ color: '#bdbdbd', fontSize: '1rem', marginBottom: 24, textAlign: 'center' }}>
-          Select the number of posts and reels you want for this month.
+          Select the number of posts and reels for your custom package.
         </p>
 
         {/* Posts Slider */}
@@ -185,8 +174,8 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
           </div>
           <input
             type="range"
-            min={2}
-            max={12}
+            min={1}
+            max={60}
             value={numPosts}
             onChange={e => setNumPosts(Number(e.target.value))}
             style={{ width: '100%', accentColor: '#a259f7', height: 6, marginBottom: 8 }}
@@ -197,30 +186,7 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
               ₹{numPosts * postsPricePer}
             </span>
           </div>
-          <button
-            style={{
-              marginTop: 12,
-              background: isPostsInCart && postsCartItem?.quantity === numPosts ? 'rgba(162,89,247,0.15)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isPostsInCart && postsCartItem?.quantity === numPosts ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.8rem 1.5rem',
-              boxShadow: isPostsInCart && postsCartItem?.quantity === numPosts ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              width: '100%',
-              transition: 'all 0.2s ease',
-            }}
-            onClick={handleAddPosts}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> 
-            {isPostsInCart && postsCartItem?.quantity === numPosts ? 'Already in Cart' : `Add ${numPosts} Posts to Cart`}
-          </button>
+
         </div>
 
         {/* Reels Slider */}
@@ -232,7 +198,7 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
           <input
             type="range"
             min={1}
-            max={4}
+            max={30}
             value={numReels}
             onChange={e => setNumReels(Number(e.target.value))}
             style={{ width: '100%', accentColor: '#a259f7', height: 6, marginBottom: 8 }}
@@ -243,37 +209,56 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
               ₹{numReels * reelsPricePer}
             </span>
           </div>
-          <button
-            style={{
-              marginTop: 12,
-              background: isReelsInCart && reelsCartItem?.quantity === numReels ? 'rgba(162,89,247,0.15)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isReelsInCart && reelsCartItem?.quantity === numReels ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.8rem 1.5rem',
-              boxShadow: isReelsInCart && reelsCartItem?.quantity === numReels ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              width: '100%',
-              transition: 'all 0.2s ease',
-            }}
-            onClick={handleAddReels}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} /> 
-            {isReelsInCart && reelsCartItem?.quantity === numReels ? 'Already in Cart' : `Add ${numReels} Reels to Cart`}
-          </button>
+
         </div>
+
+        {/* Package Total */}
+        <div style={{ 
+          background: 'rgba(162,89,247,0.1)', 
+          border: '1px solid rgba(162,89,247,0.3)', 
+          borderRadius: 12, 
+          padding: 16, 
+          marginBottom: 24,
+          textAlign: 'center'
+        }}>
+          <div style={{ color: '#a259f7', fontSize: '1.2rem', fontWeight: 700, marginBottom: 8 }}>
+            Package Total: ₹{(numPosts * postsPricePer) + (numReels * reelsPricePer)}
+          </div>
+          <div style={{ color: '#bdbdbd', fontSize: '0.9rem' }}>
+            {numPosts} posts + {numReels} reels per month
+          </div>
+        </div>
+
+        {/* Add Package Button */}
+        <button
+          style={{
+            background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: '1rem',
+            border: 'none',
+            borderRadius: 999,
+            padding: '1rem 2rem',
+            boxShadow: '0 2px 12px #a259f7aa',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            width: '100%',
+            transition: 'all 0.2s ease',
+          }}
+          onClick={handleAddPackage}
+        >
+          <ShoppingCart style={{ width: 18, height: 18 }} /> 
+          Add Social Media Package to Cart
+        </button>
       </div>
     </div>
   );
 };
 
-const ServiceCard = ({ service, onAddToCart, isInCart, currentQuantity, onUpdateQuantity, onShowSlider }) => {
+const ServiceCard = ({ service, onAddToCart, isInCart, currentQuantity, onUpdateQuantity, onShowSlider, isDisabled = false }) => {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -298,10 +283,10 @@ const ServiceCard = ({ service, onAddToCart, isInCart, currentQuantity, onUpdate
   return (
     <div
       style={{
-        background: 'rgba(30,30,30,0.92)',
-        border: '1.5px solid rgba(127,66,167,0.18)',
+        background: isDisabled ? 'rgba(30,30,30,0.5)' : 'rgba(30,30,30,0.92)',
+        border: isDisabled ? '1.5px solid rgba(127,66,167,0.08)' : '1.5px solid rgba(127,66,167,0.18)',
         borderRadius: 22,
-        boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
+        boxShadow: isDisabled ? '0 4px 16px 0 rgba(80,80,120,0.08)' : '0 8px 32px 0 rgba(80,80,120,0.18)',
         padding: '2rem',
         display: 'flex',
         flexDirection: 'column',
@@ -310,14 +295,43 @@ const ServiceCard = ({ service, onAddToCart, isInCart, currentQuantity, onUpdate
         position: 'relative',
         overflow: 'hidden',
         width: '100%',
-        transition: hovered ? 'transform 0.38s cubic-bezier(.22,1.5,.36,1)' : 'transform 0.32s cubic-bezier(.4,2,.6,1)',
-        transform: hovered ? 'scale(1.02)' : 'none',
-        cursor: 'pointer',
+        transition: hovered && !isDisabled ? 'transform 0.38s cubic-bezier(.22,1.5,.36,1)' : 'transform 0.32s cubic-bezier(.4,2,.6,1)',
+        transform: hovered && !isDisabled ? 'scale(1.02)' : 'none',
+        cursor: isDisabled ? 'not-allowed' : 'pointer',
+        opacity: isDisabled ? 0.6 : 1,
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={() => !service.hasSlider && navigate(service.route)}
+      onMouseEnter={() => !isDisabled && setHovered(true)}
+      onMouseLeave={() => !isDisabled && setHovered(false)}
+      onClick={() => !isDisabled && !service.hasSlider && navigate(service.route)}
     >
+      {isDisabled && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10,
+          borderRadius: 22,
+        }}>
+          <div style={{
+            background: 'rgba(162,89,247,0.9)',
+            color: 'white',
+            padding: '12px 16px',
+            borderRadius: 8,
+            fontSize: '0.9rem',
+            fontWeight: 600,
+            textAlign: 'center',
+            maxWidth: '80%',
+          }}>
+            Included in Social Media Management Package
+          </div>
+        </div>
+      )}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
         <div style={{ color: '#a259f7' }}>{service.icon}</div>
         <h3 style={{ fontWeight: 700, fontSize: '1.2rem', color: '#a259f7', margin: 0 }}>
@@ -564,6 +578,11 @@ const PersonalizedServicesPage = () => {
   ];
 
   const handleAddServiceToCart = (service) => {
+    // Prevent adding Festive Posts if Social Media Management is in cart
+    if (service.id === 'festive-posts' && isSocialMediaInCart) {
+      return;
+    }
+    
     addToCart({
       id: service.id,
       name: service.title,
@@ -590,6 +609,9 @@ const PersonalizedServicesPage = () => {
     return cart.some(item => item.id === serviceId);
   };
 
+  // Check if Social Media Management package is in cart
+  const isSocialMediaInCart = cart.some(item => item.id === 'social-media-package');
+
   const handleShowSlider = (service) => {
     setSliderModal({ isOpen: true, service });
   };
@@ -600,16 +622,16 @@ const PersonalizedServicesPage = () => {
 
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
-      {/* Sticky back button below navbar */}
+      {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
         aria-label="Back to Services"
         style={{
-          position: 'sticky',
-          top: 16,
-          left: 16,
+          position: 'fixed',
+          top: 100,
+          left: 80,
           zIndex: 1000,
-          background: 'rgba(30,30,30,0.85)',
+          background: 'rgba(30,30,30,0.95)',
           border: '2px solid var(--color-primary)',
           borderRadius: '50%',
           width: 48,
@@ -617,12 +639,10 @@ const PersonalizedServicesPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 2px 12px #0006',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
           color: 'var(--color-primary)',
           cursor: 'pointer',
-          marginBottom: 24,
-          marginTop: 0,
-          transition: 'background 0.2s, border 0.2s',
+          transition: 'all 0.2s ease',
         }}
       >
         <ArrowLeft size={28} />
@@ -696,6 +716,7 @@ const PersonalizedServicesPage = () => {
                 currentQuantity={getServiceQuantity(service.id)}
                 onUpdateQuantity={handleUpdateQuantity}
                 onShowSlider={handleShowSlider}
+                isDisabled={service.id === 'festive-posts' && isSocialMediaInCart}
               />
             ))}
           </div>
