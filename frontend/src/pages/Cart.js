@@ -62,7 +62,7 @@ const Cart = () => {
         Back
       </button>
       
-            <div style={{ width: '100%', maxWidth: 1200, margin: '0 auto', padding: '0 2rem', marginTop: '-15px' }}>
+            <div style={{ width: '100%', maxWidth: 1200, margin: '-5rem auto 0', padding: '0 2rem' }}>
         {BRAND_LOGO}
                 <div style={{ marginTop: 16 }}>
           <h1 style={{ fontSize: '2.8rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '2rem', textAlign: 'center' }}>Your Cart</h1>
@@ -227,7 +227,7 @@ const Cart = () => {
                       cursor: 'pointer',
                       transition: 'background 0.2s',
                     }}
-                    onClick={() => navigate('/services/personalized')}
+                    onClick={() => navigate('/services')}
                   >
                     <PlusCircle style={{ width: 22, height: 22 }} /> Add More Items
                   </button>

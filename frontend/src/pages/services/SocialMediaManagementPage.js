@@ -98,7 +98,7 @@ const SocialMediaManagementPage = () => {
       >
         <ArrowLeft size={28} />
       </button>
-      <div style={{ maxWidth: 900, width: '100%', margin: '2.5rem auto', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
+      <div style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
           <Users style={{ width: 38, height: 38, color: '#a259f7' }} />
           <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#a259f7', margin: 0 }}><FancyText text="Social Media Management" /></h1>
@@ -204,7 +204,10 @@ const SocialMediaManagementPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content'
+              height: '280px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
             }}>
               {/* Discount Badge */}
               <div style={{
@@ -219,6 +222,21 @@ const SocialMediaManagementPage = () => {
                 borderBottomRightRadius: 12
               }}>
                 30% OFF
+              </div>
+
+              {/* Savings Badge */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                background: 'linear-gradient(45deg, #4CAF50, #45a049)',
+                color: 'white',
+                padding: '6px 12px',
+                fontSize: '0.8rem',
+                fontWeight: 700,
+                borderBottomLeftRadius: 12
+              }}>
+                SAVE ₹4,500
               </div>
               
               {/* Pricing Display */}
@@ -263,10 +281,10 @@ const SocialMediaManagementPage = () => {
                 </div>
               </div>
               
-              <div style={{ marginBottom: 12 }}>
+              <div style={{ marginBottom: 12, flex: 1 }}>
                 <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Monthly Plan</h3>
                 <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  16 posts + 2 reels per month with full account management
+                  20 Image posts + 4 reels with full account management
                 </p>
               </div>
               <button
@@ -305,7 +323,10 @@ const SocialMediaManagementPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content'
+              height: '280px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
             }}>
               {/* Discount Badge */}
               <div style={{
@@ -334,7 +355,7 @@ const SocialMediaManagementPage = () => {
                 fontWeight: 700,
                 borderBottomLeftRadius: 12
               }}>
-                Save ₹9,000
+                SAVE ₹63,000
               </div>
               
               {/* Pricing Display */}
@@ -379,10 +400,10 @@ const SocialMediaManagementPage = () => {
                 </div>
               </div>
               
-              <div style={{ marginBottom: 12 }}>
+              <div style={{ marginBottom: 12, flex: 1 }}>
                 <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Yearly Plan</h3>
                 <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  11 months paid, 1 month free. Best value for long-term growth.
+                  240 Image Posts and 48 Reels
                 </p>
               </div>
               <button

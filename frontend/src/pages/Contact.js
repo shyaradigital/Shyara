@@ -51,7 +51,7 @@ const ContactPage = () => {
 
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', position: 'relative', background: 'none', fontFamily: 'inherit', padding: 0 }}>
-      <div style={{ maxWidth: 900, width: '100%', margin: '2.5rem auto', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
+      <div style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
         <div style={{ textAlign: 'center', maxWidth: 900, margin: '0 auto' }}>
           <AnimatedHeading text="Get in Touch" />
           <p style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '3rem', maxWidth: 900, marginLeft: 'auto', marginRight: 'auto' }}>

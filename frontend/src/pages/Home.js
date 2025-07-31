@@ -132,7 +132,7 @@ const Home = () => {
                 <div className="tag-box">
                   <a href="/portfolio" className="tag">View our work &gt;</a>
                 </div>
-                <a href="/contact" className="btn-sign-in-main">Get Started &gt;</a>
+                <a href="/services" className="btn-sign-in-main">Get Started &gt;</a>
               </div>
             </div>
           </main>
@@ -179,24 +179,60 @@ const Home = () => {
               </div>
             </div>
           )}
+          {/* LinkedIn Connect Button Overlapping Robot */}
+          <a 
+            href="https://www.linkedin.com/company/shyaradigital/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{
+              position: 'absolute',
+              top: '81%',
+              right: '22%',
+              transform: 'translateY(-50%)',
+              background: 'linear-gradient(135deg, #0077b5, #005885)',
+              color: 'white',
+              padding: '19px 45px',
+              borderRadius: '25px',
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: '14px',
+              boxShadow: '0 4px 15px rgba(0, 119, 181, 0.3)',
+              transition: 'all 0.3s ease',
+              zIndex: 10,
+              border: '2px solid rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              opacity: 0
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-50%) scale(1.05)';
+              e.target.style.boxShadow = '0 6px 20px rgba(0, 119, 181, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(-50%) scale(1)';
+              e.target.style.boxShadow = '0 4px 15px rgba(0, 119, 181, 0.3)';
+            }}
+          >
+            Connect on LinkedIn
+          </a>
         </div>
         <footer className="site-footer">
           <div className="footer-content">
             <span>© Shyara Agency 2025. All rights reserved.</span>
-            <div className="footer-socials">
-              <button type="button" className="footer-icon" aria-label="Instagram" target="_blank" rel="noopener">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
-              </button>
-              <button type="button" className="footer-icon" aria-label="LinkedIn" target="_blank" rel="noopener">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect><line x1="16" y1="8" x2="16" y2="16"></line><line x1="8" y1="8" x2="8" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-              </button>
-              <button type="button" className="footer-icon" aria-label="WhatsApp" target="_blank" rel="noopener">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.67 20.13A10 10 0 1 0 3.87 21.67l2.2-.61a1 1 0 0 1 1.11.27l1.65 1.65a1 1 0 0 0 1.41 0l2.2-2.2a1 1 0 0 1 1.11-.27l2.2.61a10 10 0 0 0 5.92-1.54z"></path><path d="M8.5 13.5a6 6 0 0 1 7-7"></path></svg>
-              </button>
-              <button type="button" className="footer-icon" aria-label="Email" target="_blank" rel="noopener">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><polyline points="22,6 12,13 2,6"></polyline></svg>
-              </button>
-            </div>
+                         <div className="footer-socials">
+                               <a href="https://www.instagram.com/shyaradigital?igsh=YXBsNXlkbDUzZnpn" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="Instagram">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
+                </a>
+                <a href="https://www.linkedin.com/company/shyaradigital/" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="LinkedIn">
+                  <img src={process.env.PUBLIC_URL + '/pics/linkedin.png'} alt="LinkedIn" style={{ width: '26px', height: '26px', filter: 'brightness(0) invert(0.8)' }} />
+                </a>
+                               <a href="https://wa.me/919584661610" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="WhatsApp">
+                  <img src={process.env.PUBLIC_URL + '/pics/whatsapp.png'} alt="WhatsApp" style={{ width: '22px', height: '22px', filter: 'brightness(0) invert(0.8)' }} />
+                </a>
+               <a href="mailto:hello@shyaraagency.com" className="footer-icon" aria-label="Email">
+                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><polyline points="22,6 12,13 2,6"></polyline></svg>
+               </a>
+             </div>
           </div>
         </footer>
       </div>

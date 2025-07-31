@@ -25,7 +25,7 @@ const AboutPage = () => {
 
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: 0, fontFamily: 'inherit', position: 'relative', background: 'none' }}>
-      <div style={{ maxWidth: 900, width: '100%', margin: '2.5rem auto', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
+      <div style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
         <div style={{ textAlign: 'center', maxWidth: 900, margin: '0 auto' }}>
           <AnimatedHeading text="About Shyara" />
           <p style={{ fontSize: '2rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '2.5rem', marginTop: '-1rem', letterSpacing: 0.5 }}>
@@ -33,7 +33,7 @@ const AboutPage = () => {
           </p>
         </div>
         <div style={{ display: 'flex', flexDirection: 'row', gap: 40, maxWidth: 1000, margin: '0 auto', marginBottom: 64, alignItems: 'stretch', flexWrap: 'wrap', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none' }}>
-          <div style={{ flex: '1 1 320px', minWidth: 280, maxWidth: 500, background: 'rgba(30,30,30,0.95)', borderRadius: 24, padding: 32, boxShadow: '0 2px 16px #0006', border: '1px solid #222', display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 'auto', overflow: 'hidden' }}>
+          <div style={{ flex: '1 1 320px', minWidth: 280, maxWidth: 500, background: 'rgba(30,30,30,0.55)', borderRadius: 24, padding: 32, boxShadow: '0 2px 16px #0006', border: '1px solid rgba(127,66,167,0.18)', display: 'flex', flexDirection: 'column', justifyContent: 'center', height: 'auto', overflow: 'hidden', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
             <h2 style={{ fontSize: '1.7rem', fontWeight: 700, color: 'var(--color-primary)', marginBottom: 18, letterSpacing: '-0.01em' }}><FancyText text="Our Story" /></h2>
             <p style={{ color: 'var(--color-text-secondary)', marginBottom: 12, fontSize: '0.97rem', fontWeight: 400, lineHeight: 1.6 }}>
               Shyara is more than just a digital service provider. What started as a two-person initiative has evolved into a hub of designers, marketers, developers, and strategists.
