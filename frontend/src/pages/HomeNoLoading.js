@@ -91,9 +91,9 @@ const HomeNoLoading = () => {
             </p>
             <div className="buttons">
               <div className="tag-box">
-                <a href="/portfolio" className="tag">View our work &gt;</a>
+                <Link to="/portfolio" className="tag">View our work &gt;</Link>
               </div>
-                             <a href="/services" className="btn-sign-in-main">Get Started &gt;</a>
+                             <Link to="/services" className="btn-sign-in-main">Get Started &gt;</Link>
             </div>
           </div>
         </main>
