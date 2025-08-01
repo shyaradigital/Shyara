@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import FancyText from '../components/FancyText';
 import AnimatedHeading from '../components/AnimatedHeading';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 
 const ContactPage = () => {
   // --- Begin new implementation based on attached file, but keep inline styles ---
@@ -51,14 +51,14 @@ const ContactPage = () => {
 
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', position: 'relative', background: 'none', fontFamily: 'inherit', padding: 0 }}>
-      <div style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
+      <div className="contact-container" style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
         <div style={{ textAlign: 'center', maxWidth: 900, margin: '0 auto' }}>
           <AnimatedHeading text="Get in Touch" />
           <p style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: '3rem', maxWidth: 900, marginLeft: 'auto', marginRight: 'auto' }}>
             Have a project in mind? We'd love to hear from you.
           </p>
         </div>
-        <div style={{
+        <div className="contact-content" style={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center',
@@ -73,7 +73,7 @@ const ContactPage = () => {
           flexWrap: 'wrap',
         }}>
           {/* Contact Info */}
-          <div style={{
+          <div className="contact-info" style={{
             flex: '1 1 340px',
             minWidth: 320,
             maxWidth: 420,
@@ -113,7 +113,7 @@ const ContactPage = () => {
             </div>
           </div>
           {/* Contact Form */}
-          <div style={{
+          <div className="contact-form" style={{
             flex: '2 1 440px',
             minWidth: 340,
             maxWidth: 600,
@@ -150,8 +150,8 @@ const ContactPage = () => {
             </form>
             {/* Cart Alert Modal */}
             {showCartAlert && (
-              <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ background: 'rgba(40,40,40,0.98)', borderRadius: 20, boxShadow: '0 4px 32px #000a', padding: 32, maxWidth: 400, width: '100%', border: '1px solid #222', animation: 'fade-in 0.3s' }}>
+              <div className="modal-overlay" style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="modal-content" style={{ background: 'rgba(40,40,40,0.98)', borderRadius: 20, boxShadow: '0 4px 32px #000a', padding: 32, maxWidth: 400, width: '100%', border: '1px solid #222', animation: 'fade-in 0.3s' }}>
                   <h2 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#e7e7e7', marginBottom: 16, textAlign: 'center' }}>Double checked the items in your cart?</h2>
                   <ul style={{ marginBottom: 24, maxHeight: 180, overflowY: 'auto', borderTop: '1px solid #222', borderBottom: '1px solid #222', padding: 0, listStyle: 'none' }}>
                     {cart.map(item => (

@@ -65,7 +65,7 @@ const AppDevelopmentPage = () => {
   const isEnterpriseInCart = cart.some(item => item.id === 'app-enterprise');
   
   return (
-    <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
+    <div className="service-page-container" style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}

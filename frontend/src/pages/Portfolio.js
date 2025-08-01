@@ -329,6 +329,7 @@ const ServiceCard = ({ service, onOpenModal }) => {
 
   return (
     <div
+      className="portfolio-item"
       tabIndex={0}
       style={{
         background: hovered ? 'rgba(30,30,30,0.85)' : 'rgba(30,30,30,0.65)',
@@ -393,7 +394,7 @@ const Portfolio = () => {
           Explore our work across all services. Click on any service to view sample projects and designs.
         </p>
         
-        <div style={{ 
+        <div className="portfolio-grid" style={{ 
           display: 'grid', 
           gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
           gap: 32, 

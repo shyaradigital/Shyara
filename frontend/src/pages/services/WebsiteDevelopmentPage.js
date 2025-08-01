@@ -66,7 +66,7 @@ const WebsiteDevelopmentPage = () => {
   const isCustomInCart = cart.some(item => item.id === 'web-custom');
   
   return (
-    <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
+    <div className="service-page-container" style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
@@ -92,12 +92,12 @@ const WebsiteDevelopmentPage = () => {
       >
         <ArrowLeft size={28} />
       </button>
-      <div style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
+      <div className="service-page-content" style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
           <Globe style={{ width: 38, height: 38, color: '#a259f7' }} />
-          <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#a259f7', margin: 0 }}><FancyText text="Web Development" /></h1>
+          <h1 className="service-page-title" style={{ fontSize: '2.2rem', fontWeight: 800, color: '#a259f7', margin: 0 }}><FancyText text="Web Development" /></h1>
         </div>
-        <p style={{ color: '#bdbdbd', fontSize: '1.08rem', marginBottom: 24, fontWeight: 400, lineHeight: 1.6 }}>
+        <p className="service-page-description" style={{ color: '#bdbdbd', fontSize: '1.08rem', marginBottom: 24, fontWeight: 400, lineHeight: 1.6 }}>
           Fast, responsive, and SEO-friendly websites for portfolios, businesses, and e-commerce. Custom designs with complete development support.
         </p>
         {/* Paid Features Section */}
@@ -106,7 +106,7 @@ const WebsiteDevelopmentPage = () => {
             <CheckCircle style={{ color: '#a259f7', width: 20, height: 20 }} />
             What's Included in Your Website
           </h3>
-          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <ul className="service-features-list" style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[
               'Custom Website Design & Development',
               'Responsive & Mobile-Friendly Design',
@@ -187,7 +187,7 @@ const WebsiteDevelopmentPage = () => {
             Select one of the following website types. We'll develop exactly one website based on your choice.
           </p>
           
-          <div style={{ 
+          <div className="service-pricing-cards" style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
             gap: 20, 
@@ -195,7 +195,7 @@ const WebsiteDevelopmentPage = () => {
           }}>
             
             {/* Basic Site Option */}
-            <div style={{
+            <div className="service-pricing-card" style={{
               background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
               border: '2px solid rgba(162,89,247,0.2)',
               borderRadius: 16,
@@ -252,7 +252,7 @@ const WebsiteDevelopmentPage = () => {
           </div>
 
                       {/* E-commerce Option */}
-            <div style={{
+            <div className="service-pricing-card" style={{
               background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
               border: '2px solid rgba(162,89,247,0.2)',
               borderRadius: 16,
@@ -309,7 +309,7 @@ const WebsiteDevelopmentPage = () => {
           </div>
 
                       {/* Custom Option */}
-            <div style={{
+            <div className="service-pricing-card" style={{
               background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
               border: '2px solid rgba(162,89,247,0.2)',
               borderRadius: 16,

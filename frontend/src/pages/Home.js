@@ -3,7 +3,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { LogIn } from 'lucide-react';
+import { LogIn, Sparkles, Target, Users, Award } from 'lucide-react';
 
 const Home = () => {
   const [fadeIn, setFadeIn] = React.useState(false);
@@ -16,6 +16,18 @@ const Home = () => {
   const [splineReady, setSplineReady] = useState(false);
   const splineRef = useRef(null);
   const [splineError, setSplineError] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Only show loading screen on first load or hard reload
   useEffect(() => {
@@ -44,16 +56,16 @@ const Home = () => {
     }
   }, [loadingDone]);
 
-  // Trigger robot entrance at the same time as main content
+  // Trigger robot entrance at the same time as main content (only for desktop)
   useEffect(() => {
-    if (fadeIn) {
+    if (fadeIn && !isMobile) {
       setRobotIn(true);
     }
-  }, [fadeIn]);
+  }, [fadeIn, isMobile]);
 
-  // Initialize Spline viewer when container is ready
+  // Initialize Spline viewer when container is ready (only for desktop)
   useEffect(() => {
-    if (fadeIn && mainContentRef.current) {
+    if (fadeIn && mainContentRef.current && !isMobile) {
       // Wait for the container to have proper dimensions
       const timer = setTimeout(() => {
         setSplineReady(true);
@@ -61,7 +73,7 @@ const Home = () => {
       
       return () => clearTimeout(timer);
     }
-  }, [fadeIn]);
+  }, [fadeIn, isMobile]);
 
   // Handle Spline viewer errors
   useEffect(() => {
@@ -136,7 +148,9 @@ const Home = () => {
               </div>
             </div>
           </main>
-          {splineReady && !splineError && (
+          
+          {/* Desktop 3D Robot */}
+          {!isMobile && splineReady && !splineError && (
             <spline-viewer 
               ref={splineRef}
               className={`cbot robot-entrance${robotIn ? ' robot-entrance-active' : ''}`} 
@@ -149,7 +163,7 @@ const Home = () => {
               }}
             />
           )}
-          {splineError && (
+          {!isMobile && splineError && (
             <div 
               className={`cbot robot-entrance${robotIn ? ' robot-entrance-active' : ''}`}
               style={{
@@ -179,42 +193,127 @@ const Home = () => {
               </div>
             </div>
           )}
-          {/* LinkedIn Connect Button Overlapping Robot */}
-          <a 
-            href="https://www.linkedin.com/company/shyaradigital/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            style={{
+
+          {/* Mobile Alternative Content */}
+          {isMobile && (
+            <div className="mobile-home-features" style={{
               position: 'absolute',
-              top: '81%',
-              right: '22%',
-              transform: 'translateY(-50%)',
-              background: 'linear-gradient(135deg, #0077b5, #005885)',
-              color: 'white',
-              padding: '19px 45px',
-              borderRadius: '25px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              fontSize: '14px',
-              boxShadow: '0 4px 15px rgba(0, 119, 181, 0.3)',
-              transition: 'all 0.3s ease',
-              zIndex: 10,
-              border: '2px solid rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              opacity: 0
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-50%) scale(1.05)';
-              e.target.style.boxShadow = '0 6px 20px rgba(0, 119, 181, 0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(-50%) scale(1)';
-              e.target.style.boxShadow = '0 4px 15px rgba(0, 119, 181, 0.3)';
-            }}
-          >
-            Connect on LinkedIn
-          </a>
+              top: '60%',
+              right: '5%',
+              width: '90%',
+              maxWidth: '400px',
+              zIndex: 2,
+              opacity: fadeIn ? 1 : 0,
+              transform: fadeIn ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.8s ease, transform 0.8s ease',
+              animationDelay: '0.3s'
+            }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: '1rem',
+                background: 'rgba(30, 30, 40, 0.8)',
+                backdropFilter: 'blur(15px)',
+                borderRadius: '20px',
+                padding: '1.5rem',
+                border: '1px solid rgba(127, 66, 167, 0.2)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  background: 'rgba(127, 66, 167, 0.1)',
+                  borderRadius: '15px',
+                  border: '1px solid rgba(127, 66, 167, 0.2)'
+                }}>
+                  <Sparkles style={{ width: 24, height: 24, color: '#7f42a7', marginBottom: '0.5rem' }} />
+                  <span style={{ fontSize: '0.8rem', fontWeight: '600', color: '#fff' }}>Creative Design</span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  background: 'rgba(127, 66, 167, 0.1)',
+                  borderRadius: '15px',
+                  border: '1px solid rgba(127, 66, 167, 0.2)'
+                }}>
+                  <Target style={{ width: 24, height: 24, color: '#7f42a7', marginBottom: '0.5rem' }} />
+                  <span style={{ fontSize: '0.8rem', fontWeight: '600', color: '#fff' }}>Strategic Growth</span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  background: 'rgba(127, 66, 167, 0.1)',
+                  borderRadius: '15px',
+                  border: '1px solid rgba(127, 66, 167, 0.2)'
+                }}>
+                  <Users style={{ width: 24, height: 24, color: '#7f42a7', marginBottom: '0.5rem' }} />
+                  <span style={{ fontSize: '0.8rem', fontWeight: '600', color: '#fff' }}>Client Focus</span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  background: 'rgba(127, 66, 167, 0.1)',
+                  borderRadius: '15px',
+                  border: '1px solid rgba(127, 66, 167, 0.2)'
+                }}>
+                  <Award style={{ width: 24, height: 24, color: '#7f42a7', marginBottom: '0.5rem' }} />
+                  <span style={{ fontSize: '0.8rem', fontWeight: '600', color: '#fff' }}>Quality Results</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* LinkedIn Connect Button Overlapping Robot (Desktop only) */}
+          {!isMobile && (
+            <a 
+              href="https://www.linkedin.com/company/shyaradigital/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="linkedin-connect"
+              style={{
+                position: 'absolute',
+                top: '81%',
+                right: '22%',
+                transform: 'translateY(-50%)',
+                background: 'linear-gradient(135deg, #0077b5, #005885)',
+                color: 'white',
+                padding: '19px 45px',
+                borderRadius: '25px',
+                textDecoration: 'none',
+                fontWeight: '600',
+                fontSize: '14px',
+                boxShadow: '0 4px 15px rgba(0, 119, 181, 0.3)',
+                transition: 'all 0.3s ease',
+                zIndex: 10,
+                border: '2px solid rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+                opacity: 0
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-50%) scale(1.05)';
+                e.target.style.boxShadow = '0 6px 20px rgba(0, 119, 181, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(-50%) scale(1)';
+                e.target.style.boxShadow = '0 4px 15px rgba(0, 119, 181, 0.3)';
+              }}
+            >
+              Connect on LinkedIn
+            </a>
+          )}
         </div>
         <footer className="site-footer">
           <div className="footer-content">

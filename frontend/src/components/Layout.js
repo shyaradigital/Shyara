@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
       <div className="layer-blur"></div>
       <div className="container">
         <header className={isSticky ? 'sticky-header' : ''} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 0, minHeight: 80 }}>
-          <Link to="/home-alt" className="logo-link"><h1 className="logo">Shyara</h1></Link>
+          <Link to="/" className="logo-link"><h1 className="logo">Shyara</h1></Link>
           <nav className="navbar-center" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
             <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
             <Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link>

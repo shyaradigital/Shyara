@@ -217,7 +217,7 @@ const AdsCampaignManagementPage = () => {
   const isAdMgmtInCart = cart.some(item => item.id === 'ads-mgmt');
   const isVideoInCart = cart.some(item => item.id === 'ads-video');
   return (
-    <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
+    <div className="service-page-container" style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}

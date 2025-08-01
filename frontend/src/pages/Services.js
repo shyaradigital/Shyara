@@ -54,6 +54,7 @@ const ServiceCard = ({ service }) => {
   const navigate = useNavigate();
   return (
     <div
+      className="service-card"
       tabIndex={0}
       role="button"
       aria-label={service.title}
@@ -125,7 +126,7 @@ const ServicesPage = () => {
             Smart, scalable, and freelancer-powered digital solutions for every brand. Choose what you need.
           </p>
         </div>
-        <div style={{
+        <div className="services-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 48,

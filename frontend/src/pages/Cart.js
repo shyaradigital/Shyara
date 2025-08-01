@@ -35,6 +35,7 @@ const Cart = () => {
     <div style={{ minHeight: '100vh', color: '#e7e7e7', padding: '0', fontFamily: 'inherit', background: 'transparent' }}>
       {/* Back Button */}
       <button
+        className="cart-back-button"
         style={{
           position: 'fixed',
           top: 100,
@@ -62,7 +63,7 @@ const Cart = () => {
         Back
       </button>
       
-            <div style={{ width: '100%', maxWidth: 1200, margin: '-5rem auto 0', padding: '0 2rem' }}>
+            <div className="cart-container" style={{ width: '100%', maxWidth: 1200, margin: '-5rem auto 0', padding: '0 2rem' }}>
         {BRAND_LOGO}
                 <div style={{ marginTop: 16 }}>
           <h1 style={{ fontSize: '2.8rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '2rem', textAlign: 'center' }}>Your Cart</h1>
@@ -103,7 +104,7 @@ const Cart = () => {
                     const itemTotal = (item.price || 0) * quantity;
                     
                     return (
-                    <li key={item.id} style={{
+                    <li key={item.id} className="cart-item" style={{
                       background: 'rgba(40,40,50,0.3)',
                       backdropFilter: 'blur(15px)',
                       border: '1px solid rgba(255,255,255,0.2)',
@@ -114,7 +115,7 @@ const Cart = () => {
                         flexDirection: 'column',
                         gap: 16,
                       }}>
-                                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                  <div className="cart-item-details" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div style={{ flex: 1 }}>
                               <span style={{ fontWeight: 700, color: '#e7e7e7', fontSize: '1.3rem' }}>{item.name}</span>
                             </div>
@@ -123,7 +124,7 @@ const Cart = () => {
                             </span>
                           </div>
                         
-                                                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                  <div className="cart-item-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                               <span style={{ color: '#a7a7a7', fontSize: '1rem', fontWeight: 600 }}>Quantity:</span>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

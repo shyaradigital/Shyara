@@ -410,7 +410,7 @@ main {
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.6s ease;
 }
 
 .btn-get-started:hover{
@@ -756,3 +756,1055 @@ nav a {
   transform: translateY(0) scale(1);
   transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s, transform 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s;
 } 
+
+/* --- Mobile Optimizations --- */
+@media (max-width: 768px) {
+  /* Header and Navigation Mobile Optimizations */
+  header, .sticky-header {
+    padding: 0.5rem 1rem !important;
+    min-height: 60px !important;
+  }
+
+  .logo {
+    font-size: 1.6rem !important;
+    letter-spacing: 0.15em !important;
+  }
+
+  .navbar-center {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    transform: none !important;
+    background: rgba(20, 20, 30, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    border-top: 1px solid rgba(127, 66, 167, 0.2) !important;
+    padding: 0.8rem 1rem !important;
+    gap: 1.5rem !important;
+    z-index: 1000 !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .navbar-center a {
+    font-size: 0.85rem !important;
+    letter-spacing: 0.05rem !important;
+    padding: 0.5rem 0.8rem !important;
+    border-radius: 8px !important;
+    transition: background 0.2s ease !important;
+  }
+
+  .navbar-center a:hover {
+    background: rgba(127, 66, 167, 0.1) !important;
+  }
+
+  .btn-signin {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.8rem !important;
+    margin-left: 0 !important;
+    position: absolute !important;
+    top: 1rem !important;
+    right: 1rem !important;
+    z-index: 1001 !important;
+  }
+
+  /* Cart button positioning for mobile */
+  header a[aria-label="Cart"] {
+    position: absolute !important;
+    top: 1.5rem !important; /* Moved a little below */
+    right: 9rem !important; /* Moved a little to the right */
+    z-index: 1001 !important;
+    font-size: 1.2rem !important;
+  }
+
+  /* Main Content Mobile Adjustments */
+  .main-content, .home-entrance {
+    padding-top: 6px !important;
+    padding-bottom: 9px !important; /* Space for bottom nav */
+  }
+
+  .site-main {
+    padding-top: 70px !important;
+    padding-bottom: 120px !important; /* Space for fixed footer */
+  }
+
+  /* Home Page Mobile Optimizations */
+  .content {
+    margin-left: 5% !important;
+    margin-right: 5% !important;
+    max-width: 90% !important;
+    margin-top: -4rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .content h1 {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+    margin: 0.5rem 0 1rem 0 !important;
+  }
+
+  .description {
+    font-size: 1rem !important;
+    max-width: 100% !important;
+  }
+
+  .buttons {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+    margin-top: 1rem !important;
+  }
+
+  .tag-box {
+    width: 100% !important;
+    height: 3rem !important;
+    animation: animationGradient 3.5s linear infinite !important; /* Slightly slower animation for mobile */
+  }
+
+  .btn-sign-in-main {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0.8rem 1.2rem !important;
+  }
+
+  /* Robot/3D Element Mobile Adjustments */
+  .cbot {
+    display: none !important;
+  }
+
+  /* Mobile Home Features */
+  .mobile-home-features {
+    animation: fadeInUp 0.8s ease 0.5s both !important;
+    margin-top: 2rem !important;
+    padding: 0 1rem !important;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Contact Page Mobile Optimizations */
+  .contact-container {
+    padding: 0 1rem !important;
+    margin-top: -3rem !important;
+    text-align: center !important;
+  }
+
+  .contact-content {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    align-items: center !important;
+  }
+
+  .contact-info, .contact-form {
+    flex: none !important;
+    min-width: auto !important;
+    max-width: 100% !important;
+    padding: 2rem 1.5rem !important;
+    text-align: center !important;
+  }
+
+  .contact-info {
+    text-align: center !important;
+  }
+
+  .contact-info {
+    order: 2 !important;
+    background: rgba(30,30,40,0.4) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(127,66,167,0.2) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .contact-info:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 40px rgba(127,66,167,0.2) !important;
+    border-color: rgba(127,66,167,0.4) !important;
+  }
+
+  .contact-form {
+    order: 1 !important;
+    background: rgba(30,30,40,0.3) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(127,66,167,0.15) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .contact-form:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 40px rgba(127,66,167,0.15) !important;
+    border-color: rgba(127,66,167,0.3) !important;
+  }
+
+  /* Professional form styling for mobile */
+  .contact-form input,
+  .contact-form textarea {
+    background: rgba(20,20,30,0.8) !important;
+    border: 1px solid rgba(127,66,167,0.3) !important;
+    border-radius: 12px !important;
+    padding: 16px 20px !important;
+    font-size: 16px !important;
+    color: #e0d7f7 !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    border-color: rgba(127,66,167,0.6) !important;
+    box-shadow: 0 0 0 3px rgba(127,66,167,0.1) !important;
+    background: rgba(20,20,30,0.9) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .contact-form label {
+    font-weight: 600 !important;
+    color: #e0d7f7 !important;
+    margin-bottom: 8px !important;
+    font-size: 14px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .contact-form button[type="submit"] {
+    background: linear-gradient(135deg, #7f42a7 0%, #6600c5 100%) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 16px 32px !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    color: white !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 16px rgba(127,66,167,0.3) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    margin-top: 1rem !important;
+  }
+
+  .contact-form button[type="submit"]:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(127,66,167,0.4) !important;
+    background: linear-gradient(135deg, #8f52b7 0%, #7700d5 100%) !important;
+  }
+
+  .contact-form button[type="submit"]:active {
+    transform: translateY(0) !important;
+  }
+
+  /* Professional contact info styling */
+  .contact-info h2 {
+    font-size: 1.8rem !important;
+    font-weight: 700 !important;
+    color: #e0d7f7 !important;
+    margin-bottom: 1.5rem !important;
+    text-align: center !important;
+  }
+
+  .contact-info h3 {
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: #e0d7f7 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .contact-info a,
+  .contact-info p {
+    color: #b8a9d7 !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+  }
+
+  .contact-info a:hover {
+    color: #7f42a7 !important;
+  }
+
+  /* Contact info icons styling */
+  .contact-info > div > div:first-child {
+    background: rgba(127,66,167,0.2) !important;
+    border: 1px solid rgba(127,66,167,0.3) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .contact-info > div:hover > div:first-child {
+    background: rgba(127,66,167,0.3) !important;
+    border-color: rgba(127,66,167,0.5) !important;
+    transform: scale(1.05) !important;
+  }
+
+  /* Success and error messages */
+  .contact-form div[style*="color: #4caf50"],
+  .contact-form div[style*="color: #ff4d4f"] {
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    margin: 1rem 0 !important;
+    text-align: center !important;
+    backdrop-filter: blur(10px) !important;
+  }
+
+  .contact-form div[style*="color: #4caf50"] {
+    background: rgba(76,175,80,0.1) !important;
+    border: 1px solid rgba(76,175,80,0.3) !important;
+  }
+
+  .contact-form div[style*="color: #ff4d4f"] {
+    background: rgba(255,77,79,0.1) !important;
+    border: 1px solid rgba(255,77,79,0.3) !important;
+  }
+
+  /* Professional contact page header styling */
+  .contact-container > div:first-child {
+    margin-bottom: 3rem !important;
+  }
+
+  .contact-container > div:first-child h1 {
+    font-size: 2.5rem !important;
+    font-weight: 700 !important;
+    color: #e0d7f7 !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  }
+
+  .contact-container > div:first-child p {
+    font-size: 1.2rem !important;
+    font-weight: 400 !important;
+    color: #b8a9d7 !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Enhanced spacing and layout */
+  .contact-container {
+    padding: 2rem 1rem 4rem 1rem !important;
+    margin-top: 0 !important;
+  }
+
+  .contact-content {
+    gap: 3rem !important;
+    max-width: 600px !important;
+    margin: 0 auto !important;
+  }
+
+  .contact-info, .contact-form {
+    padding: 2.5rem 2rem !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Professional animations */
+  .contact-info,
+  .contact-form {
+    animation: fadeInUp 0.8s ease both !important;
+  }
+
+  .contact-info {
+    animation-delay: 0.2s !important;
+  }
+
+  .contact-form {
+    animation-delay: 0.4s !important;
+  }
+
+  /* Enhanced form field spacing */
+  .contact-form > form > div {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .contact-form > form > div:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Professional icon styling */
+  .contact-info svg {
+    filter: drop-shadow(0 2px 4px rgba(127,66,167,0.3)) !important;
+  }
+
+      /* Form Elements Mobile Optimization */
+    input, textarea {
+      font-size: 16px !important; /* Prevents zoom on iOS */
+      padding: 14px 16px !important;
+    }
+
+    /* Prevent zoom on input focus for iOS */
+    input[type="text"], 
+    input[type="email"], 
+    input[type="password"], 
+    input[type="tel"], 
+    input[type="url"], 
+    input[type="search"], 
+    textarea {
+      font-size: 16px !important;
+      transform: none !important;
+    }
+
+    /* Mobile-specific touch improvements */
+    button, a, [role="button"] {
+      -webkit-tap-highlight-color: rgba(127, 66, 167, 0.3) !important;
+      touch-action: manipulation !important;
+    }
+
+    /* Mobile-specific scroll improvements */
+    .modal-overlay {
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* Mobile-specific image optimization */
+    img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
+    /* Mobile-specific video optimization */
+    video {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
+  /* Modal Mobile Optimizations */
+  .modal-overlay {
+    padding: 1rem !important;
+    backdrop-filter: blur(8px) !important;
+  }
+
+  .modal-content {
+    max-width: 90% !important;
+    padding: 2rem 1.5rem !important;
+    background: rgba(30,30,40,0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(127,66,167,0.2) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4) !important;
+  }
+
+  .modal-content h2 {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    color: #e0d7f7 !important;
+    margin-bottom: 1.5rem !important;
+    text-align: center !important;
+  }
+
+  .modal-content ul {
+    background: rgba(20,20,30,0.5) !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    margin: 1.5rem 0 !important;
+  }
+
+  .modal-content li {
+    padding: 12px 0 !important;
+    border-bottom: 1px solid rgba(127,66,167,0.1) !important;
+  }
+
+  .modal-content li:last-child {
+    border-bottom: none !important;
+  }
+
+  .modal-content button {
+    border-radius: 8px !important;
+    padding: 12px 20px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .modal-content button:first-of-type {
+    background: linear-gradient(135deg, #7f42a7 0%, #6600c5 100%) !important;
+    box-shadow: 0 4px 16px rgba(127,66,167,0.3) !important;
+  }
+
+  .modal-content button:first-of-type:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(127,66,167,0.4) !important;
+  }
+
+  .modal-content button:last-of-type {
+    background: rgba(20,20,30,0.8) !important;
+    border: 1px solid rgba(127,66,167,0.3) !important;
+    color: #e0d7f7 !important;
+  }
+
+  .modal-content button:last-of-type:hover {
+    background: rgba(30,30,40,0.9) !important;
+    border-color: rgba(127,66,167,0.5) !important;
+  }
+
+  /* Footer Mobile Adjustments */
+  .site-footer {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: rgba(20, 20, 20, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin-bottom: 0 !important;
+  }
+
+  .footer-content {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    text-align: center !important;
+    padding: 1rem !important;
+  }
+
+  /* General Mobile Typography */
+  h1 {
+    font-size: 2.2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: 1.8rem !important;
+    line-height: 1.3 !important;
+  }
+
+  h3 {
+    font-size: 1.4rem !important;
+    line-height: 1.4 !important;
+  }
+
+  p {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Touch-friendly button sizes */
+  button, .btn-signin, .btn-sign-in-main {
+    min-height: 44px !important; /* iOS recommended touch target */
+  }
+
+  /* Prevent horizontal scroll */
+  body, html {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+
+  /* Make homepage unscrollable on mobile */
+  .home-entrance {
+    height: 100vh !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  /* Add dark purple gradient to homepage */
+  .home-entrance::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, #000000 0%, #0a0a0a 15%, #1a0a2a 35%, #2a0a4a 55%, #3a0a6a 75%, #4a0a8a 100%) !important;
+    z-index: -2 !important;
+    opacity: 0.95 !important;
+  }
+
+  /* Ensure content is visible above gradient */
+  .home-entrance .container {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Logo background mobile adjustment */
+  .logo-bg-text {
+    font-size: 4rem !important;
+    letter-spacing: 0.5rem !important;
+  }
+
+  /* Layer blur mobile adjustment */
+  .layer-blur {
+    width: 20rem !important;
+    top: 15% !important;
+  }
+}
+
+/* Small Mobile Devices (iPhone SE, etc.) */
+@media (max-width: 480px) {
+  .content h1 {
+    font-size: 2rem !important;
+  }
+
+  .description {
+    font-size: 0.95rem !important;
+  }
+
+  .navbar-center {
+    gap: 1rem !important;
+  }
+
+  .navbar-center a {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.6rem !important;
+  }
+
+  .contact-info, .contact-form {
+    padding: 1.5rem 1rem !important;
+  }
+
+  .logo {
+    font-size: 1.4rem !important;
+  }
+
+  .btn-signin {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .logo-bg-text {
+    font-size: 3rem !important;
+    letter-spacing: 0.3rem !important;
+  }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+  .main-content, .home-entrance {
+    padding-top: 60px !important;
+    padding-bottom: 70px !important;
+  }
+
+  .site-main {
+    padding-top: 60px !important;
+    padding-bottom: 120px !important; /* Space for fixed footer */
+  }
+
+  .content h1 {
+    font-size: 2rem !important;
+  }
+
+  .cbot {
+    display: none !important;
+  }
+}
+
+/* High DPI Mobile Devices */
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
+  .logo, .loading-text {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+  }
+}
+
+/* Mobile-specific animations and transitions */
+@media (max-width: 768px) {
+  /* Reduce motion for mobile performance */
+  * {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.2s !important;
+  }
+
+  /* Optimize AOS animations for mobile */
+  [data-aos] {
+    animation-duration: 0.6s !important;
+  }
+
+  /* Smooth scrolling for mobile */
+  html {
+    scroll-behavior: smooth !important;
+  }
+}
+
+  /* Mobile-specific focus states for accessibility */
+  @media (max-width: 768px) {
+    button:focus, input:focus, textarea:focus, a:focus {
+      outline: 2px solid #7f42a7 !important;
+      outline-offset: 2px !important;
+    }
+
+    /* Larger touch targets for better accessibility */
+    nav a, .btn-signin, .btn-sign-in-main {
+      min-height: 44px !important;
+      min-width: 44px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* Services Page Mobile Optimizations */
+    .services-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+      padding: 0 0.5rem !important;
+    }
+
+         .service-card {
+       min-width: auto !important;
+       max-width: 100% !important;
+       min-height: auto !important;
+       padding: 1.5rem !important;
+       background: rgba(20, 20, 30, 0.3) !important;
+       backdrop-filter: blur(10px) !important;
+       border: 1px solid rgba(127, 66, 167, 0.2) !important;
+       border-radius: 1rem !important;
+       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+       transition: all 0.3s ease !important;
+       cursor: pointer !important;
+     }
+
+     .service-card:hover {
+       background: rgba(20, 20, 30, 0.5) !important;
+       border-color: rgba(127, 66, 167, 0.4) !important;
+       box-shadow: 0 8px 30px rgba(127, 66, 167, 0.2) !important;
+       transform: translateY(-2px) !important;
+     }
+
+    
+
+    .service-card:active {
+      transform: scale(0.98) !important;
+    }
+
+    /* Portfolio Page Mobile Optimizations */
+    .portfolio-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2rem !important;
+      padding: 0 1rem !important;
+    }
+
+    .portfolio-item {
+      min-height: 250px !important;
+    }
+
+    /* About Page Mobile Optimizations */
+    .about-content {
+      flex-direction: column !important;
+      gap: 2rem !important;
+      padding: 0 1rem !important;
+    }
+
+    .about-text, .about-image {
+      flex: none !important;
+      max-width: 100% !important;
+    }
+
+    .about-cards-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+      padding: 0 0.5rem !important;
+    }
+
+    /* Cart Page Mobile Optimizations */
+    .cart-container {
+      padding: 0 1rem !important;
+    }
+
+    .cart-item {
+      flex-direction: column !important;
+      gap: 1rem !important;
+      padding: 1rem !important;
+    }
+
+    .cart-item-details {
+      width: 100% !important;
+    }
+
+    .cart-item-actions {
+      flex-direction: column !important;
+      gap: 1rem !important;
+      align-items: stretch !important;
+      width: 100% !important;
+    }
+
+    .cart-item-actions > div:first-child {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      flex-wrap: wrap !important;
+      gap: 0.5rem !important;
+    }
+
+    .cart-item-actions button {
+      width: 100% !important;
+      justify-content: center !important;
+      padding: 0.8rem !important;
+    }
+
+    /* Cart back button mobile optimization */
+    .cart-back-button {
+      position: fixed !important;
+      top: 80px !important;
+      left: 20px !important;
+      padding: 0.5rem 0.8rem !important;
+      font-size: 0.85rem !important;
+      z-index: 1000 !important;
+    }
+
+    /* Cart page mobile optimizations */
+    .cart-container h1 {
+      font-size: 2rem !important;
+      margin-bottom: 1.5rem !important;
+    }
+
+    .cart-container .cart-item {
+      padding: 1.5rem !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .cart-container .cart-item-details {
+      flex-direction: column !important;
+      gap: 0.5rem !important;
+      align-items: flex-start !important;
+    }
+
+    .cart-container .cart-item-details span:last-child {
+      align-self: flex-end !important;
+    }
+
+    /* Cart total and buttons mobile optimization */
+    .cart-container > div:last-child > div:first-child {
+      flex-direction: column !important;
+      gap: 1.5rem !important;
+      align-items: stretch !important;
+    }
+
+    .cart-container > div:last-child > div:first-child > div:last-child {
+      text-align: center !important;
+    }
+
+    .cart-container > div:last-child > div:first-child button {
+      width: 100% !important;
+      justify-content: center !important;
+    }
+
+    .cart-container > div:last-child > div:last-child button {
+      width: 100% !important;
+      padding: 1rem 2rem !important;
+      font-size: 1.1rem !important;
+    }
+
+    /* Service Pages Mobile Optimizations */
+    /* Hide back buttons on mobile since users can swipe back */
+    button[aria-label="Back to Services"] {
+      display: none !important;
+    }
+
+    /* Service page content mobile optimizations */
+    .service-page-container {
+      padding: 0 1rem !important;
+      margin-top: -3rem !important;
+    }
+
+    .service-page-content {
+      max-width: 100% !important;
+      padding: 0 0.5rem !important;
+    }
+
+    .service-page-title {
+      font-size: 1.8rem !important;
+      margin-bottom: 1rem !important;
+    }
+
+    .service-page-description {
+      font-size: 1rem !important;
+      line-height: 1.5 !important;
+      margin-bottom: 1.5rem !important;
+    }
+
+    .service-features-list {
+      gap: 0.8rem !important;
+    }
+
+    .service-features-list li {
+      padding: 0.6rem 0.8rem !important;
+      font-size: 0.9rem !important;
+    }
+
+    .service-pricing-cards {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem !important;
+      padding: 0 0.5rem !important;
+    }
+
+    .service-pricing-card {
+      padding: 1.5rem !important;
+      min-height: auto !important;
+    }
+
+    .service-pricing-card h3 {
+      font-size: 1.3rem !important;
+    }
+
+    .service-pricing-card .price {
+      font-size: 1.8rem !important;
+    }
+
+    .service-pricing-card .features {
+      gap: 0.6rem !important;
+    }
+
+    .service-pricing-card .features li {
+      font-size: 0.85rem !important;
+      padding: 0.4rem 0.6rem !important;
+    }
+
+    /* Login Page Mobile Optimizations */
+    .login-container {
+      margin-top: -10rem !important;
+      padding: 2rem 1rem !important;
+    }
+
+    .login-card {
+      padding: 2rem 1.5rem !important;
+    }
+
+    /* Loading Screen Mobile Optimizations */
+    .loading-text {
+      font-size: 3rem !important;
+      letter-spacing: 0.5rem !important;
+    }
+
+    /* LinkedIn Connect Button Mobile Adjustment */
+    .linkedin-connect {
+      position: relative !important;
+      top: auto !important;
+      right: auto !important;
+      transform: none !important;
+      margin: 2rem auto !important;
+      display: block !important;
+      width: fit-content !important;
+    }
+
+    /* General Mobile Spacing and Layout */
+    .page-container {
+      padding: 0 1rem !important;
+      margin-top: -3rem !important;
+    }
+
+    .section-container {
+      padding: 2rem 1rem !important;
+    }
+
+    /* Mobile-specific button and link optimizations */
+    .mobile-touch-target {
+      min-height: 44px !important;
+      min-width: 44px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    /* Mobile-specific text sizing */
+    .mobile-text-large {
+      font-size: 1.8rem !important;
+      line-height: 1.3 !important;
+    }
+
+    .mobile-text-medium {
+      font-size: 1.2rem !important;
+      line-height: 1.4 !important;
+    }
+
+    .mobile-text-small {
+      font-size: 0.9rem !important;
+      line-height: 1.5 !important;
+    }
+
+    /* Mobile-specific spacing */
+    .mobile-spacing-large {
+      margin: 2rem 0 !important;
+    }
+
+    .mobile-spacing-medium {
+      margin: 1.5rem 0 !important;
+    }
+
+    .mobile-spacing-small {
+      margin: 1rem 0 !important;
+    }
+
+    /* Mobile-specific performance optimizations */
+    * {
+      -webkit-font-smoothing: antialiased !important;
+      -moz-osx-font-smoothing: grayscale !important;
+    }
+
+    /* Mobile-specific selection color */
+    ::selection {
+      background: rgba(127, 66, 167, 0.3) !important;
+      color: #fff !important;
+    }
+
+    /* Mobile-specific scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 6px !important;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(30, 30, 30, 0.5) !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(127, 66, 167, 0.5) !important;
+      border-radius: 3px !important;
+    }
+
+    /* Mobile-specific loading optimizations */
+    .loading-screen {
+      will-change: transform, opacity !important;
+    }
+
+      /* Mobile-specific backdrop filter fallback */
+  @supports not (backdrop-filter: blur(12px)) {
+    .navbar-center, .modal-content, .contact-info, .contact-form {
+      background: rgba(20, 20, 30, 0.98) !important;
+    }
+  }
+
+  /* Background gradient for specific pages on mobile (excluding homepage) */
+  .site-main:not(.home-entrance)::before,
+  .contact-container::before,
+  .services-grid::before,
+  .portfolio-grid::before,
+  .about-content::before,
+  .cart-container::before,
+  .login-container::before,
+  .service-page-container::before {
+    content: '' !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(135deg, #000000 0%, #0a0a0a 15%, #1a0a2a 35%, #2a0a4a 55%, #3a0a6a 75%, #4a0a8a 100%) !important;
+    z-index: -9999 !important;
+    opacity: 0.95 !important;
+    pointer-events: none !important;
+  }
+
+  /* Ensure all content is above the background gradient */
+  body > * {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Ensure header stays above gradient */
+  header, .sticky-header {
+    position: relative !important;
+    z-index: 1000 !important;
+  }
+
+  /* Ensure footer stays above gradient */
+  .site-footer {
+    position: relative !important;
+    z-index: 1000 !important;
+  }
+}  
