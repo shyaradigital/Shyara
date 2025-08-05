@@ -201,6 +201,18 @@ const AdsCampaignManagementPage = () => {
   const navigate = useNavigate();
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
   const [sliderModal, setSliderModal] = useState({ isOpen: false });
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  React.useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleShowSlider = () => {
     setSliderModal({ isOpen: true });
@@ -273,7 +285,7 @@ const AdsCampaignManagementPage = () => {
           
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(2, 1fr)', 
+            gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', 
             gap: 20, 
             width: '100%' 
           }}>

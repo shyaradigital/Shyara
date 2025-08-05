@@ -7,14 +7,54 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const { cart } = useContext(CartContext);
   const [isSticky, setIsSticky] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
+  // Detect mobile device
   useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 10);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Desktop scroll handling (unchanged)
+  useEffect(() => {
+    if (!isMobile) {
+      const handleScroll = () => {
+        setIsSticky(window.scrollY > 10);
+      };
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+  }, [isMobile]);
+
+  // Mobile scroll handling
+  useEffect(() => {
+    if (isMobile) {
+      const handleMobileScroll = () => {
+        const currentScrollY = window.scrollY;
+        
+        // Always show navbar when at the top
+        if (currentScrollY <= 10) {
+          setShowMobileNav(true);
+        } else {
+          // Show navbar when scrolling up, hide when scrolling down
+          const isScrollingUp = currentScrollY < lastScrollY;
+          setShowMobileNav(isScrollingUp);
+        }
+        
+        setLastScrollY(currentScrollY);
+      };
+
+      window.addEventListener('scroll', handleMobileScroll);
+      return () => window.removeEventListener('scroll', handleMobileScroll);
+    }
+  }, [isMobile, lastScrollY]);
 
   return (
     <div className="site-bg">
@@ -23,7 +63,7 @@ const Layout = ({ children }) => {
       <div className="container">
         <header className={isSticky ? 'sticky-header' : ''} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 0, minHeight: 80 }}>
           <Link to="/" className="logo-link"><h1 className="logo">Shyara</h1></Link>
-          <nav className="navbar-center" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+          <nav className={`navbar-center ${isMobile && !showMobileNav ? 'mobile-nav-hidden' : ''}`} style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
             <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
             <Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link>
             <Link to="/portfolio" className={location.pathname === '/portfolio' ? 'active' : ''}>Portfolio</Link>

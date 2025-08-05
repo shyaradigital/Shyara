@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User, PlusCircle, Minus, Plus, Trash2, ArrowLeft } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
@@ -16,6 +16,18 @@ const BRAND_LOGO = (
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page
@@ -218,19 +230,19 @@ const Cart = () => {
                       color: '#a259f7',
                       border: '1px solid #a259f7',
                       borderRadius: 12,
-                      padding: '1rem 2rem',
+                      padding: isMobile ? '0.7rem 1.5rem' : '1rem 2rem',
                       fontWeight: 600,
-                      fontSize: '1.1rem',
+                      fontSize: isMobile ? '0.9rem' : '1.1rem',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 10,
+                      gap: isMobile ? 6 : 10,
                       boxShadow: '0 2px 12px #0002',
                       cursor: 'pointer',
                       transition: 'background 0.2s',
                     }}
                     onClick={() => navigate('/services')}
                   >
-                    <PlusCircle style={{ width: 22, height: 22 }} /> Add More Items
+                    <PlusCircle style={{ width: isMobile ? 18 : 22, height: isMobile ? 18 : 22 }} /> Add More Items
                   </button>
                   <div style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#a7a7a7', marginBottom: '0.5rem' }}>Total Amount</div>
@@ -243,8 +255,8 @@ const Cart = () => {
                       background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
                       color: '#fff',
                       fontWeight: 700,
-                      fontSize: '1.3rem',
-                      padding: '1.2rem 3rem',
+                      fontSize: isMobile ? '1.1rem' : '1.3rem',
+                      padding: isMobile ? '1rem 2rem' : '1.2rem 3rem',
                       borderRadius: 12,
                       boxShadow: '0 4px 20px rgba(162,89,247,0.4)',
                       border: 'none',
@@ -253,8 +265,11 @@ const Cart = () => {
                       transition: 'all 0.2s ease',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 10,
-                      margin: '0 auto'
+                      justifyContent: 'center',
+                      gap: isMobile ? 6 : 10,
+                      margin: '0 auto',
+                      width: isMobile ? '100%' : 'auto',
+                      textAlign: 'center'
                     }}
                     onClick={() => navigate('/contact')}
                     onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}

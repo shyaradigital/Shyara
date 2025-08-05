@@ -784,6 +784,11 @@ nav a {
     gap: 1.5rem !important;
     z-index: 1000 !important;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.3s ease-in-out !important;
+  }
+
+  .navbar-center.mobile-nav-hidden {
+    transform: translateY(100%) !important;
   }
 
   .navbar-center a {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './style.css';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -19,6 +19,62 @@ import PersonalizedServicesPage from './pages/services/PersonalizedServicesPage'
 import Cart from './pages/Cart';
 import AddItemsPage from './pages/AddItemsPage';
 import { CartProvider } from './context/CartContext';
+
+// 404 Component
+const NotFound = () => {
+  return (
+    <Layout>
+      <div style={{ 
+        minHeight: '100vh', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        textAlign: 'center',
+        padding: '2rem'
+      }}>
+        <h1 style={{ fontSize: '4rem', color: '#a259f7', marginBottom: '1rem' }}>404</h1>
+        <h2 style={{ fontSize: '2rem', color: '#e7e7e7', marginBottom: '1rem' }}>Page Not Found</h2>
+        <p style={{ color: '#a7a7a7', fontSize: '1.1rem', marginBottom: '2rem' }}>
+          The page you're looking for doesn't exist.
+        </p>
+        <button
+          onClick={() => window.history.back()}
+          style={{
+            background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: '1.1rem',
+            border: 'none',
+            borderRadius: 12,
+            padding: '1rem 2rem',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease',
+            marginRight: '1rem'
+          }}
+        >
+          Go Back
+        </button>
+        <button
+          onClick={() => window.location.href = '/'}
+          style={{
+            background: 'rgba(162,89,247,0.10)',
+            color: '#a259f7',
+            border: '1px solid #a259f7',
+            fontWeight: 700,
+            fontSize: '1.1rem',
+            borderRadius: 12,
+            padding: '1rem 2rem',
+            cursor: 'pointer',
+            transition: 'all 0.2s ease'
+          }}
+        >
+          Go Home
+        </button>
+      </div>
+    </Layout>
+  );
+};
 
 function App() {
   return (
@@ -41,7 +97,7 @@ function App() {
           <Route path="/services/personalized" element={<Layout><PersonalizedServicesPage /></Layout>} />
           <Route path="/cart" element={<Layout><Cart /></Layout>} />
           <Route path="/add-items" element={<Layout><AddItemsPage /></Layout>} />
-          {/* Optionally, add a 404 route here */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </CartProvider>
     </Router>
