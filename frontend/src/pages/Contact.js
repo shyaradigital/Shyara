@@ -99,7 +99,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 2 }}><FancyText text="Email" /></h3>
-                <a href="mailto:contact@shyara.com" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 400 }}>contact@shyara.com</a>
+                <a href="mailto:support@shyara.co.in" style={{ color: 'var(--color-text-secondary)', textDecoration: 'none', fontSize: '1.05rem', fontWeight: 400 }}>support@shyara.co.in</a>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 18 }}>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogIn } from 'lucide-react';
+import { LogIn, Users, Zap, TrendingUp } from 'lucide-react';
 
 const HomeNoLoading = () => {
   const [fadeIn, setFadeIn] = React.useState(false);
@@ -53,6 +53,23 @@ const HomeNoLoading = () => {
       AOS.refresh();
     }
   }, [fadeIn]);
+
+  // Handle sticky header on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const header = document.querySelector('header');
+      if (header) {
+        if (window.scrollY > 10) {
+          header.classList.add('sticky-header');
+        } else {
+          header.classList.remove('sticky-header');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div
@@ -176,8 +193,283 @@ const HomeNoLoading = () => {
         >
           Connect on LinkedIn
         </a>
-      </div>
-      <footer className="site-footer">
+              </div>
+
+        {/* Additional Scrollable Sections */}
+        
+        {/* Section 1 - Brand Value Proposition */}
+        <section className="scroll-section value-proposition">
+          <div className="container">
+            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
+              <h2 className="section-headline">Your Brand Deserves More Than Just "Online Presence"</h2>
+              <p className="section-description">
+                The digital space is crowded and fast-moving—generic templates won't help you stand out.
+              </p>
+              <div className="value-points">
+                <div className="value-point" data-aos="fade-up" data-aos-delay="200">
+                  <div className="check-icon">✅</div>
+                  <span>Creative content that captures attention</span>
+                </div>
+                <div className="value-point" data-aos="fade-up" data-aos-delay="400">
+                  <div className="check-icon">✅</div>
+                  <span>Campaigns that convert followers into customers</span>
+                </div>
+                <div className="value-point" data-aos="fade-up" data-aos-delay="600">
+                  <div className="check-icon">✅</div>
+                  <span>Web & app solutions that grow with your business</span>
+                </div>
+              </div>
+              <div className="value-promise" data-aos="fade-up" data-aos-delay="800">
+                <strong>Shyara gives you the expertise of an agency with the flexibility of a freelance team, delivering real results without inflated costs.</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2 - Services */}
+        <section className="scroll-section services-section">
+          <div className="container">
+            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
+              <h2 className="section-headline">Your Brand, Supercharged – All Under One Roof</h2>
+              <div className="services-grid">
+                <div className="service-card" data-aos="fade-up" data-aos-delay="200">
+                  <div className="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                      <line x1="8" y1="21" x2="16" y2="21"/>
+                      <line x1="12" y1="17" x2="12" y2="21"/>
+                    </svg>
+                  </div>
+                  <h3>Social Media Management</h3>
+                  <p>From posts to reels, we handle it all.</p>
+                </div>
+                <div className="service-card" data-aos="fade-up" data-aos-delay="300">
+                  <div className="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                      <path d="M2 17l10 5 10-5"/>
+                      <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                  </div>
+                  <h3>Festive Post Designs</h3>
+                  <p>Ready-to-share festival creatives for instant visibility.</p>
+                </div>
+                <div className="service-card" data-aos="fade-up" data-aos-delay="400">
+                  <div className="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                      <line x1="12" y1="9" x2="12" y2="13"/>
+                      <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                  </div>
+                  <h3>Ads Campaign Management</h3>
+                  <p>High-ROI campaigns with free creatives, for your targeted Audience.</p>
+                </div>
+                <div className="service-card" data-aos="fade-up" data-aos-delay="500">
+                  <div className="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M2 12h20"/>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                  </div>
+                  <h3>Web Development</h3>
+                  <p>Fast, responsive, SEO-ready sites.</p>
+                </div>
+                <div className="service-card" data-aos="fade-up" data-aos-delay="600">
+                  <div className="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                      <line x1="12" y1="18" x2="12.01" y2="18"/>
+                    </svg>
+                  </div>
+                  <h3>App Development</h3>
+                  <p>Custom Android & iOS apps.</p>
+                </div>
+                <div className="service-card" data-aos="fade-up" data-aos-delay="700">
+                  <div className="service-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="23 7 16 12 23 17 23 7"/>
+                      <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                    </svg>
+                  </div>
+                  <h3>Video & Reels Editing</h3>
+                  <p>Professional edits for viral content.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3 - Why Choose Shyara */}
+        <section className="scroll-section why-shyara">
+          <div className="container">
+            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
+              <h2 className="section-headline">The Shyara Advantage</h2>
+              <div className="advantages-grid">
+                <div className="advantage-card" data-aos="fade-up" data-aos-delay="200">
+                  <div className="advantage-icon">
+                    <Users size={40} />
+                  </div>
+                  <h3>Freelancer-Driven</h3>
+                  <p>Agile, creative, and handpicked experts.</p>
+                </div>
+                <div className="advantage-card" data-aos="fade-up" data-aos-delay="400">
+                  <div className="advantage-icon">
+                    <Zap size={40} />
+                  </div>
+                  <h3>Modular & Scalable</h3>
+                  <p>Pay only for what you need.</p>
+                </div>
+                <div className="advantage-card" data-aos="fade-up" data-aos-delay="600">
+                  <div className="advantage-icon">
+                    <TrendingUp size={40} />
+                  </div>
+                  <h3>Results-Obsessed</h3>
+                  <p>Focused on sales, engagement, and measurable growth.</p>
+                </div>
+              </div>
+              <div className="stats-display" data-aos="fade-up" data-aos-delay="800">
+                <div className="stat-item">
+                  <span className="stat-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                  </span>
+                  <span className="stat-text">100+ Brands Served</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                    </svg>
+                  </span>
+                  <span className="stat-text">Avg. 35% Engagement Boost</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  </span>
+                  <span className="stat-text">4.9/5 Client Rating</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4 - Client Testimonials */}
+        <section className="scroll-section testimonials">
+          <div className="container">
+            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
+              <h2 className="section-headline">What Our Clients Say</h2>
+              <div className="testimonials-grid">
+                <div className="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                  <div className="testimonial-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  </div>
+                  <p>"Shyara's ads turned our slow season into our busiest quarter yet!"</p>
+                  <div className="testimonial-author">— Priya S., Startup Founder</div>
+                </div>
+                <div className="testimonial-card" data-aos="fade-up" data-aos-delay="400">
+                  <div className="testimonial-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  </div>
+                  <p>"Their festive posts made our brand instantly recognizable in local markets."</p>
+                  <div className="testimonial-author">— Rahul M., Business Owner</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5 - Limited Time Offer */}
+        <section className="scroll-section limited-offer">
+          <div className="container">
+            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
+              <h2 className="section-headline">Your Brand Could Be the Next Success Story</h2>
+              <p className="offer-description">
+                Get a Free Brand Growth Plan—your personalized roadmap to more reach, sales, and visibility.
+              </p>
+              <p className="offer-timing">📅 Offer available for a limited time.</p>
+              <div className="offer-cta">
+                <Link to="/contact" className="btn-secondary">
+                  🚀 Claim My Free Brand Growth Plan →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6 - Contact */}
+        <section className="scroll-section contact-section">
+          <div className="container">
+            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
+              <h2 className="section-headline">Have Questions? Let's Talk.</h2>
+              <div className="contact-info">
+                <div className="contact-item" data-aos="fade-up" data-aos-delay="200">
+                  <div className="contact-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                  </div>
+                  <span>hello@shyara.in</span>
+                </div>
+                <div className="contact-item" data-aos="fade-up" data-aos-delay="400">
+                  <div className="contact-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </div>
+                  <span>+91-XXXXXXXXXX</span>
+                </div>
+                <div className="contact-item" data-aos="fade-up" data-aos-delay="600">
+                  <div className="contact-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </div>
+                  <span>India (Serving clients worldwide)</span>
+                </div>
+              </div>
+              <form className="contact-form" data-aos="fade-up" data-aos-delay="800">
+                <div className="form-group">
+                  <input type="text" placeholder="Name" required />
+                </div>
+                <div className="form-group">
+                  <input type="email" placeholder="Email" required />
+                </div>
+                <div className="form-group">
+                  <textarea placeholder="Message" rows="4" required></textarea>
+                </div>
+                <button type="submit" className="btn-secondary">
+                  🔵 Send Message & Get a Reply Within 24 Hours
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 7 - Final Trust Close */}
+        <section className="scroll-section trust-close">
+          <div className="container">
+            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
+              <h2 className="section-headline">Not Just a Service – A Growth Partner</h2>
+              <p className="closing-message">
+                At Shyara, we don't just deliver work; we invest in your success. Whether you're a startup, creator, or growing business, we're here to scale your digital presence—fast.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <footer className="site-footer">
         <div className="footer-content">
           <span>© Shyara Agency 2025. All rights reserved.</span>
           <div className="footer-socials">
@@ -190,9 +482,9 @@ const HomeNoLoading = () => {
             <a href="https://wa.me/919584661610" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="WhatsApp">
               <img src={process.env.PUBLIC_URL + '/pics/whatsapp.png'} alt="WhatsApp" style={{ width: '22px', height: '22px', filter: 'brightness(0) invert(0.8)' }} />
             </a>
-            <a href="mailto:hello@shyaraagency.com" className="footer-icon" aria-label="Email">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><polyline points="22,6 12,13 2,6"></polyline></svg>
-            </a>
+                           <a href="mailto:support@shyara.co.in" className="footer-icon" aria-label="Email">
+                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><polyline points="22,6 12,13 2,6"></polyline></svg>
+               </a>
           </div>
         </div>
       </footer>

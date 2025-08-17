@@ -146,10 +146,14 @@
     flex-direction: column;
     min-height: 100vh;
     padding-top: 90px;
+    position: relative;
+    z-index: 1; /* Ensure main content is above robot */
 }
 
 .container {
     flex: 1 0 auto;
+    position: relative;
+    z-index: 1; /* Ensure container content is above robot */
 }
 
 body {
@@ -213,7 +217,7 @@ header {
     display: flex;
     align-items: center;
     padding: 1rem 5rem;
-    z-index: 999;
+    z-index: 2147483647;
     position: fixed;
     top: 0;
     left: 0;
@@ -227,11 +231,13 @@ header {
 }
 
 .sticky-header {
-    background: rgba(20,20,20,0.55);
-    box-shadow: 0 4px 24px 0 rgba(30,30,40,0.18);
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
     min-height: 62px;
     padding: 0.5rem 3rem;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(127, 66, 167, 0.1);
+    z-index: 2147483647;
 }
 
 .sticky-header .logo {
@@ -255,13 +261,15 @@ header {
 
 .logo {
     text-align: left;
-    z-index: 1;
+    z-index: 2147483647;
     font-family: 'Davigo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 2.2rem;
     letter-spacing: 0.2em;
     font-weight: 400;
     line-height: 1.1;
     padding-top: 0.3rem;
+    color: #ffffff;
+    cursor: pointer;
 }
 
 .navbar-center {
@@ -272,7 +280,7 @@ header {
     justify-content: center;
     align-items: center;
     gap: 3rem;
-    z-index: 0;
+    z-index: 2147483647;
 }
 
 header h1{
@@ -294,7 +302,10 @@ nav a{
     letter-spacing: 0.1rem;
     transition: color 0.2s ease;
     text-decoration: none;
-    color: inherit;
+    color: #ffffff;
+    cursor: pointer;
+    position: relative;
+    z-index: 2147483647;
 }
 
 nav a:hover{
@@ -313,7 +324,7 @@ nav a:hover{
   letter-spacing: 0.04em;
   transition: background 0.16s, color 0.16s, border 0.16s;
     cursor: pointer;
-    z-index: 1;
+    z-index: 2147483647;
   display: flex;
   align-items: center;
   gap: 0.7em;
@@ -455,7 +466,7 @@ main {
     height: 100vh;
     min-width: 1px;
     min-height: 1px;
-    z-index: 1;
+    z-index: 0; /* Position behind main content */
 }
 
 .site-footer {
@@ -748,13 +759,13 @@ nav a {
 
 .robot-entrance {
   opacity: 0;
-  transform: translateY(60px) scale(0.98);
+  transform: translateY(40px) scale(0.95);
   transition: none;
 }
 .robot-entrance.robot-entrance-active {
-  opacity: 1;
+  opacity: 0.8; /* Slightly transparent to be more subtle behind content */
   transform: translateY(0) scale(1);
-  transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s, transform 0.9s cubic-bezier(0.4,0,0.2,1) 0.2s;
+  transition: opacity 1.2s cubic-bezier(0.4,0,0.2,1), transform 1.2s cubic-bezier(0.4,0,0.2,1);
 } 
 
 /* --- Mobile Optimizations --- */
@@ -782,7 +793,7 @@ nav a {
     border-top: 1px solid rgba(127, 66, 167, 0.2) !important;
     padding: 0.8rem 1rem !important;
     gap: 1.5rem !important;
-    z-index: 1000 !important;
+    z-index: 2147483647 !important;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
     transition: transform 0.3s ease-in-out !important;
   }
@@ -1795,21 +1806,644 @@ nav a {
     pointer-events: none !important;
   }
 
-  /* Ensure all content is above the background gradient */
-  body > * {
+  /* Ensure all content is above the background gradient, but not header */
+  body > *:not(header):not(.sticky-header) {
     position: relative !important;
     z-index: 1 !important;
   }
 
-  /* Ensure header stays above gradient */
+  /* Ensure header stays above gradient and all content */
   header, .sticky-header {
-    position: relative !important;
-    z-index: 1000 !important;
+    position: fixed !important;
+    z-index: 2147483647 !important;
   }
 
   /* Ensure footer stays above gradient */
   .site-footer {
     position: relative !important;
     z-index: 1000 !important;
+  }
+}
+
+/* Ensure Layout header stays above all content */
+.site-bg header {
+  z-index: 2147483647 !important;
+}
+
+.site-bg header.sticky-header {
+  z-index: 2147483647 !important;
+}
+
+.site-bg header .navbar-center {
+  z-index: 2147483647 !important;
+}
+
+.site-bg header .logo {
+  z-index: 2147483647 !important;
+}
+
+.site-bg header .btn-signin {
+  z-index: 2147483647 !important;
+}
+
+/* New Scrollable Sections Styles */
+.scroll-section {
+  padding: 8rem 0;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(20, 20, 30, 0.6) 100%);
+  border-top: 1px solid rgba(127, 66, 167, 0.15);
+}
+
+.scroll-section:nth-child(even) {
+  background: linear-gradient(180deg, rgba(20, 20, 30, 0.6) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.section-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  text-align: center;
+}
+
+.section-headline {
+  font-family: 'Salena', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.section-description {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.1rem;
+  color: #d1d5db;
+  margin-bottom: 3.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* Value Proposition Section */
+.value-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 3.5rem;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.value-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.5rem 1.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-point:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(127, 66, 167, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.check-icon {
+  font-size: 1.3rem;
+  color: #10b981;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.value-point span {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  color: #f3f4f6;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.value-promise {
+  background: linear-gradient(135deg, rgba(127, 66, 167, 0.08), rgba(187, 106, 255, 0.05));
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(127, 66, 167, 0.2);
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.value-promise strong {
+  font-family: 'Salena', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+/* Services Section */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.8rem;
+  margin-top: 3.5rem;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  padding: 2.2rem 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(127, 66, 167, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(127, 66, 167, 0.25);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+.service-icon {
+  margin-bottom: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #7f42a7;
+  opacity: 0.9;
+}
+
+.service-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.service-card h3 {
+  font-family: 'Salena', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.service-card p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #d1d5db;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.service-card:hover::before {
+  left: 100%;
+}
+
+/* Advantages Section */
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.2rem;
+  margin: 4rem 0;
+}
+
+.advantage-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 18px;
+  padding: 3rem 2.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  position: relative;
+}
+
+.advantage-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7f42a7, #bb6aff);
+  transition: width 0.4s ease;
+}
+
+.advantage-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(127, 66, 167, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.advantage-card:hover::after {
+  width: 60%;
+}
+
+.advantage-icon {
+  color: #7f42a7;
+  margin-bottom: 1.8rem;
+  opacity: 0.9;
+}
+
+.advantage-card h3 {
+  font-family: 'Salena', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.4rem;
+  color: #ffffff;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.advantage-card p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #d1d5db;
+  line-height: 1.7;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.stats-display {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin-top: 4rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 1.2rem 1.8rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(127, 66, 167, 0.25);
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  font-size: 1.4rem;
+  opacity: 0.9;
+}
+
+.stat-text {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #f9fafb;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+/* Testimonials Section */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 2.5rem;
+  margin-top: 3.5rem;
+}
+
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 18px;
+  padding: 3rem 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '"';
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  font-size: 4rem;
+  color: rgba(127, 66, 167, 0.2);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(127, 66, 167, 0.25);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.testimonial-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1.8rem;
+  opacity: 0.8;
+}
+
+.testimonial-card p {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.1rem;
+  color: #f3f4f6;
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+  font-style: normal;
+  font-weight: 400;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-author {
+  font-family: 'Salena', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #7f42a7;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+/* Limited Offer Section */
+.offer-description {
+  font-size: 1.3rem;
+  color: #e7e7e7;
+  margin-bottom: 1rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.offer-timing {
+  color: #7f42a7;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.offer-cta {
+  margin-top: 2rem;
+}
+
+/* Contact Section */
+.contact-info {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 3.5rem 0;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 1.3rem 1.8rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(127, 66, 167, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.contact-icon {
+  font-size: 1.4rem;
+  color: #7f42a7;
+  opacity: 0.9;
+}
+
+.contact-item span {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #f3f4f6;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.contact-form {
+  max-width: 550px;
+  margin: 3.5rem auto 0;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 1.8rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: rgba(127, 66, 167, 0.4);
+  box-shadow: 0 0 0 3px rgba(127, 66, 167, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+/* Trust Close Section */
+.closing-message {
+  font-size: 1.3rem;
+  color: #bdbdbd;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Button Styles */
+.btn-primary,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.1rem 2.2rem;
+  background: linear-gradient(135deg, #7f42a7, #bb6aff);
+  color: white;
+  text-decoration: none;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  font-family: 'Salena', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before,
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before,
+.btn-secondary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(127, 66, 167, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #bb6aff, #7f42a7);
+}
+
+/* Mobile Responsiveness for New Sections */
+@media (max-width: 768px) {
+  .scroll-section {
+    padding: 5rem 0;
+  }
+
+  .section-content {
+    padding: 0 1.5rem;
+  }
+
+  .section-headline {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .section-description {
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    margin-top: 3rem;
+  }
+
+  .advantages-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 3rem 0;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .stats-display {
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 1.2rem;
+    margin: 3rem 0;
+  }
+
+  .contact-form {
+    padding: 0 1rem;
+    margin-top: 3rem;
+  }
+
+  .value-points {
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .value-point {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .value-point span {
+    font-size: 0.95rem;
+  }
+
+  .service-card,
+  .advantage-card,
+  .testimonial-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .value-promise {
+    padding: 2rem 1.5rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 1rem 1.8rem;
+    font-size: 0.9rem;
   }
 }  

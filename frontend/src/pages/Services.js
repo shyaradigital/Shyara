@@ -9,14 +9,14 @@ const services = [
     icon: <Share2 className="w-8 h-8 text-primary" />,
     title: 'Social Media Management',
     desc: 'Consistent, creative, and keyword-rich content for all major platforms. We handle everything from posts and reels to community engagement.',
-    price: 'Starting at ₹10,500/month',
+    price: 'Starting at ₹5,000/month',
     route: '/services/social-media-management',
   },
   {
     icon: <Sparkles className="w-8 h-8 text-primary" />,
     title: 'Festive Post Designs',
     desc: 'Ready-to-share branded festival creatives to boost reach on special occasions. Includes your logo and contact info for brand recognition.',
-    price: '₹1,000/month',
+    price: '₹5,000/year',
     route: '/services/festive-posts',
   },
   {
@@ -44,7 +44,7 @@ const services = [
     icon: <Film className="w-8 h-8 text-primary" />,
     title: 'Video & Reels Editing',
     desc: 'Grow your brand with high-performing reels and video content. You provide the raw footage, and we handle the rest.',
-    price: 'Starting at ₹25,000/month',
+    price: 'Starting at ₹15,000/month',
     route: '/services/video-editing-reels',
   },
 ];

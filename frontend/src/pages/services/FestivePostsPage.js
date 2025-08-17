@@ -58,163 +58,16 @@ const FeatureItem = ({ children }) => {
   );
 };
 
-const SliderModal = ({ isOpen, onClose, onAddToCart, cart, removeFromCart }) => {
-  const [numPosts, setNumPosts] = useState(1);
-  const pricePerPost = 350;
-
-  const cartItem = cart.find(item => item.id === 'festive-posts');
-  const isInCart = !!cartItem;
-
-  React.useEffect(() => {
-    if (isOpen) {
-      if (numPosts === 1 && cartItem) {
-        setNumPosts(cartItem.quantity || 1);
-      }
-    }
-  }, [isOpen]);
-
-  const handleAdd = () => {
-    const newItem = {
-      id: 'festive-posts',
-      name: `Festive Posts (${numPosts} per festival)`,
-      price: numPosts * pricePerPost,
-      quantity: numPosts,
-      description: `Custom festive posts package with ${numPosts} posts per festival`,
-    };
-    if (isInCart) {
-      removeFromCart('festive-posts');
-      onAddToCart(newItem);
-    } else {
-      onAddToCart(newItem);
-    }
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: 'rgba(0,0,0,0.8)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 10000,
-      padding: '1rem'
-    }}>
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(30,30,40,0.95) 0%, rgba(20,20,30,0.98) 100%)',
-        borderRadius: 20,
-        padding: '2rem',
-        maxWidth: 400,
-        width: '100%',
-        border: '1px solid rgba(162,89,247,0.3)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
-        backdropFilter: 'blur(20px)',
-        position: 'relative'
-      }}>
-        <button
-          onClick={onClose}
-          style={{
-            position: 'absolute',
-            top: 16,
-            right: 16,
-            background: 'none',
-            border: 'none',
-            color: '#a7a7a7',
-            cursor: 'pointer',
-            padding: 8,
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'background 0.2s'
-          }}
-        >
-          <X size={20} />
-        </button>
-        <h3 style={{ color: '#a259f7', fontSize: '1.3rem', fontWeight: 700, marginBottom: 24, textAlign: 'center' }}>
-          Customize Festive Posts
-        </h3>
-        <div style={{ marginBottom: 32 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <label style={{ color: '#e7e7e7', fontWeight: 600, fontSize: '1.1rem' }}>
-              Posts per festival: {numPosts}
-            </label>
-            <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.1rem' }}>
-              ₹{(numPosts * pricePerPost).toLocaleString()}
-            </span>
-          </div>
-          <input
-            type="range"
-            min="1"
-            max="3"
-            value={numPosts}
-            onChange={(e) => setNumPosts(parseInt(e.target.value))}
-            style={{
-              width: '100%',
-              height: 8,
-              borderRadius: 4,
-              background: 'linear-gradient(90deg, #a259f7 0%, #7f42a7 100%)',
-              outline: 'none',
-              cursor: 'pointer'
-            }}
-          />
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
-            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>1 post</span>
-            <span style={{ color: '#a7a7a7', fontSize: '0.9rem' }}>3 posts</span>
-          </div>
-          <button
-            style={{
-              marginTop: 12,
-              background: isInCart && cartItem?.quantity === numPosts ? 'rgba(162,89,247,0.15)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: isInCart && cartItem?.quantity === numPosts ? '#a259f7' : '#fff',
-              fontWeight: 700,
-              fontSize: '1rem',
-              border: 'none',
-              borderRadius: 999,
-              padding: '0.8rem 1.5rem',
-              boxShadow: isInCart && cartItem?.quantity === numPosts ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              width: '100%',
-              transition: 'all 0.2s ease',
-            }}
-            onClick={handleAdd}
-          >
-            <ShoppingCart style={{ width: 18, height: 18 }} />
-            {isInCart && cartItem?.quantity === numPosts ? 'Already in Cart' : `Add ${numPosts} Posts to Cart`}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const FestivePostsPage = () => {
   const navigate = useNavigate();
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
-  const [sliderModal, setSliderModal] = useState({ isOpen: false });
-
-  const handleShowSlider = () => {
-    setSliderModal({ isOpen: true });
-  };
-
-  const handleCloseSlider = () => {
-    setSliderModal({ isOpen: false });
-  };
 
   const handleAddToCart = (item) => {
     addToCart(item);
   };
 
-  const isInCart = cart.some(item => item.id === 'festive-posts');
+  const isYearlyInCart = cart.some(item => item.id === 'festive-yearly');
+  
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       {/* Fixed back button below navbar */}
@@ -264,6 +117,7 @@ const FestivePostsPage = () => {
             </FeatureItem>
           ))}
         </ul>
+        
         <div style={{ marginBottom: 18, marginTop: 32 }}>
           <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Choose Your Package</div>
           <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 24 }}>
@@ -271,54 +125,79 @@ const FestivePostsPage = () => {
           </p>
           
           <div style={{ 
-            display: 'flex', 
-            justifyContent: 'center',
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+            gap: 20, 
             width: '100%' 
           }}>
             
-            {/* Festive Posts Package */}
+            {/* Yearly Package */}
             <div style={{
-              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
-              border: '2px solid rgba(162,89,247,0.2)',
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.08) 0%, rgba(30,30,40,0.15) 100%)',
+              border: '2px solid rgba(162,89,247,0.3)',
               borderRadius: 16,
               padding: 20,
               width: '100%',
-              maxWidth: 400,
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content'
+              height: 'fit-content',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
             }}>
+              {/* Best Value Badge */}
               <div style={{
                 position: 'absolute',
                 top: 0,
                 right: 0,
-                background: 'linear-gradient(45deg, #a259f7, #7f42a7)',
+                background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
                 color: 'white',
                 padding: '8px 16px',
                 fontSize: '0.9rem',
-                fontWeight: 700,
+                fontWeight: '700',
                 borderBottomLeftRadius: 12
               }}>
-                ₹350/post
+                BEST VALUE
               </div>
-              <div style={{ marginBottom: 12 }}>
-                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Festive Posts Package</h3>
+              
+              {/* Pricing Display */}
+              <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#a259f7', 
+                  fontSize: '1.8rem', 
+                  fontWeight: '700',
+                  textShadow: '0 2px 4px rgba(162,89,247,0.3)'
+                }}>
+                  ₹5,000
+                </div>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontSize: '0.9rem', 
+                  fontWeight: '600',
+                  marginTop: 4
+                }}>
+                  Only / Year
+                </div>
+              </div>
+              
+              <div style={{ marginBottom: 12, flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 8px 0' }}>Yearly Package</h3>
                 <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  5 custom festive post designs for major occasions and celebrations
+                  All festive posts (contact for more details)
                 </p>
               </div>
               <button
                 style={{
-                  background: isInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-                  color: isInCart ? '#a259f7' : '#fff',
-                  fontWeight: 700,
+                  background: isYearlyInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isYearlyInCart ? '#a259f7' : '#fff',
+                  fontWeight: '700',
                   fontSize: '1rem',
                   border: 'none',
                   borderRadius: 8,
                   padding: '0.8rem 1.5rem',
-                  boxShadow: isInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-                  cursor: isInCart ? 'not-allowed' : 'pointer',
-                  opacity: isInCart ? 0.6 : 1,
+                  boxShadow: isYearlyInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isYearlyInCart ? 'not-allowed' : 'pointer',
+                  opacity: isYearlyInCart ? 0.6 : 1,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -327,17 +206,82 @@ const FestivePostsPage = () => {
                   outline: 'none',
                   width: '100%'
                 }}
-                onClick={() => addToCart({ id: 'festive-posts', name: 'Festive Posts Package', price: 1750, description: '5 custom festive post designs for major occasions and celebrations' })}
-                disabled={isInCart}
+                onClick={() => addToCart({ id: 'festive-yearly', name: 'Festive Posts Yearly Package', price: 5000, description: 'All festive posts for the year (contact for more details)' })}
+                disabled={isYearlyInCart}
               >
-                <ShoppingCart style={{ width: 18, height: 18 }} /> {isInCart ? 'Added to Cart' : 'Add Festive Package'}
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isYearlyInCart ? 'Added to Cart' : 'Add Yearly Package'}
+              </button>
+            </div>
+
+            {/* Per Post Package */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
+              border: '2px solid rgba(162,89,247,0.2)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              height: 'fit-content',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            }}>
+              {/* Pricing Display */}
+              <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#a259f7', 
+                  fontSize: '1.8rem', 
+                  fontWeight: '700',
+                  textShadow: '0 2px 4px rgba(162,89,247,0.3)'
+                }}>
+                  ₹250
+                </div>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontSize: '0.9rem', 
+                  fontWeight: '600',
+                  marginTop: 4
+                }}>
+                  Per Post
+                </div>
+              </div>
+              
+              <div style={{ marginBottom: 12, flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 8px 0' }}>Per Post</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                  Individual festive post designs as needed
+                </p>
+              </div>
+              <button
+                style={{
+                  background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: '#fff',
+                  fontWeight: '700',
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: '0 2px 12px #a259f7aa',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => navigate('/contact')}
+              >
+                Contact for Quote
               </button>
             </div>
           </div>
         </div>
 
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
-          “Our festive posts always stand out and get shared widely. Shyara makes it effortless!”<br />
+          "Our festive posts always stand out and get shared widely. Shyara makes it effortless!"<br />
           <span style={{ fontWeight: 600, color: '#a259f7' }}>— Priya S., Boutique Owner</span>
         </blockquote>
       </div>

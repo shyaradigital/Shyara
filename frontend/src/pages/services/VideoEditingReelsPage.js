@@ -292,8 +292,9 @@ const VideoEditingReelsPage = () => {
     addToCart(item);
   };
 
-  const isMonthlyInCart = cart.some(item => item.id === 'video-monthly');
-  const isYearlyInCart = cart.some(item => item.id === 'video-yearly');
+  const isBasicInCart = cart.some(item => item.id === 'video-basic');
+  const isProfessionalInCart = cart.some(item => item.id === 'video-professional');
+  
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       {/* Fixed back button below navbar */}
@@ -337,7 +338,7 @@ const VideoEditingReelsPage = () => {
           </h3>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[
-              '20 Reels per Month: fresh, high-quality content',
+              'High-quality video editing and optimization',
               'Raw Footage Provided by You: we edit into compelling stories',
               'Creative Captions with trending hashtags',
               'Consistent Branding for your visuals',
@@ -407,6 +408,7 @@ const VideoEditingReelsPage = () => {
             ))}
           </ul>
         </div>
+        
         <div style={{ marginBottom: 18, marginTop: 32 }}>
           <div style={{ fontWeight: 700, color: '#a259f7', fontSize: '1.15rem', marginBottom: 8 }}>Choose Your Plan</div>
           <p style={{ color: '#a7a7a7', fontSize: '0.95rem', marginBottom: 24 }}>
@@ -420,7 +422,7 @@ const VideoEditingReelsPage = () => {
             width: '100%' 
           }}>
             
-            {/* Monthly Plan */}
+            {/* Basic Plan */}
             <div style={{
               background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
               border: '2px solid rgba(162,89,247,0.2)',
@@ -429,14 +431,100 @@ const VideoEditingReelsPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content'
+              height: 'fit-content',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
             }}>
               {/* Pricing Display */}
               <div style={{ marginBottom: 16, textAlign: 'center' }}>
                 <div style={{ 
                   color: '#a259f7', 
                   fontSize: '1.8rem', 
-                  fontWeight: 700,
+                  fontWeight: '700',
+                  textShadow: '0 2px 4px rgba(162,89,247,0.3)',
+                  marginBottom: 8
+                }}>
+                  ₹15,000
+                </div>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontSize: '0.9rem', 
+                  fontWeight: '600',
+                  marginBottom: 8
+                }}>
+                  Only / Month
+                </div>
+              </div>
+              
+              <div style={{ marginBottom: 12, flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 8px 0' }}>Basic</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                  25 reels video editing (Raw video provided by client)
+                </p>
+              </div>
+              <button
+                style={{
+                  background: isBasicInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isBasicInCart ? '#a259f7' : '#fff',
+                  fontWeight: '700',
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: isBasicInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isBasicInCart ? 'not-allowed' : 'pointer',
+                  opacity: isBasicInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => addToCart({ id: 'video-basic', name: 'Video Editing & Reels - Basic', price: 15000, description: '25 reels video editing (raw video provided by client)' })}
+                disabled={isBasicInCart}
+              >
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isBasicInCart ? 'Added to Cart' : 'Add Basic Plan'}
+              </button>
+            </div>
+
+            {/* Professional Plan */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.08) 0%, rgba(30,30,40,0.15) 100%)',
+              border: '2px solid rgba(162,89,247,0.3)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              height: 'fit-content',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            }}>
+              {/* Popular Badge */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
+                color: 'white',
+                padding: '8px 16px',
+                fontSize: '0.9rem',
+                fontWeight: '700',
+                borderBottomLeftRadius: 12
+              }}>
+                POPULAR
+              </div>
+              
+              {/* Pricing Display */}
+              <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#a259f7', 
+                  fontSize: '1.8rem', 
+                  fontWeight: '700',
                   textShadow: '0 2px 4px rgba(162,89,247,0.3)',
                   marginBottom: 8
                 }}>
@@ -445,31 +533,31 @@ const VideoEditingReelsPage = () => {
                 <div style={{ 
                   color: '#4CAF50', 
                   fontSize: '0.9rem', 
-                  fontWeight: 600,
+                  fontWeight: '600',
                   marginBottom: 8
                 }}>
                   Only / Month
                 </div>
               </div>
               
-              <div style={{ marginBottom: 12 }}>
-                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Monthly Plan</h3>
+              <div style={{ marginBottom: 12, flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 8px 0' }}>Professional</h3>
                 <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  20 reels per month with full editing and optimization
+                  30 reels video editing (Raw video provided by client)
                 </p>
               </div>
               <button
                 style={{
-                  background: isMonthlyInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-                  color: isMonthlyInCart ? '#a259f7' : '#fff',
-                  fontWeight: 700,
+                  background: isProfessionalInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isProfessionalInCart ? '#a259f7' : '#fff',
+                  fontWeight: '700',
                   fontSize: '1rem',
                   border: 'none',
                   borderRadius: 8,
                   padding: '0.8rem 1.5rem',
-                  boxShadow: isMonthlyInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-                  cursor: isMonthlyInCart ? 'not-allowed' : 'pointer',
-                  opacity: isMonthlyInCart ? 0.6 : 1,
+                  boxShadow: isProfessionalInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isProfessionalInCart ? 'not-allowed' : 'pointer',
+                  opacity: isProfessionalInCart ? 0.6 : 1,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -478,98 +566,20 @@ const VideoEditingReelsPage = () => {
                   outline: 'none',
                   width: '100%'
                 }}
-                onClick={() => addToCart({ id: 'video-monthly', name: 'Video Editing & Reels - Monthly', price: 25000, description: '20 reels per month with full editing and optimization' })}
-                disabled={isMonthlyInCart}
+                onClick={() => addToCart({ id: 'video-professional', name: 'Video Editing & Reels - Professional', price: 25000, description: '30 reels video editing (raw video provided by client)' })}
+                disabled={isProfessionalInCart}
               >
-                <ShoppingCart style={{ width: 18, height: 18 }} /> {isMonthlyInCart ? 'Added to Cart' : 'Add Monthly Plan'}
-              </button>
-            </div>
-
-            {/* Yearly Plan */}
-            <div style={{
-              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
-              border: '2px solid rgba(162,89,247,0.2)',
-              borderRadius: 16,
-              padding: 20,
-              width: '100%',
-              position: 'relative',
-              overflow: 'hidden',
-              height: 'fit-content'
-            }}>
-              {/* Discount Badge */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
-                color: 'white',
-                padding: '6px 12px',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                borderBottomRightRadius: 12
-              }}>
-                5% OFF
-              </div>
-              
-              {/* Pricing Display */}
-              <div style={{ marginBottom: 16, textAlign: 'center' }}>
-                <div style={{ 
-                  color: '#a259f7', 
-                  fontSize: '1.8rem', 
-                  fontWeight: 700,
-                  textShadow: '0 2px 4px rgba(162,89,247,0.3)',
-                  marginBottom: 8
-                }}>
-                  ₹2,85,000
-                </div>
-                <div style={{ 
-                  color: '#4CAF50', 
-                  fontSize: '0.9rem', 
-                  fontWeight: 600,
-                  marginBottom: 8
-                }}>
-                  Only / Year
-                </div>
-              </div>
-              
-              <div style={{ marginBottom: 12 }}>
-                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Yearly Plan</h3>
-                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  11 months paid, 1 month free. Best value for long-term content creation.
-                </p>
-              </div>
-              <button
-                style={{
-                  background: isYearlyInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-                  color: isYearlyInCart ? '#a259f7' : '#fff',
-                  fontWeight: 700,
-                  fontSize: '1rem',
-                  border: 'none',
-                  borderRadius: 8,
-                  padding: '0.8rem 1.5rem',
-                  boxShadow: isYearlyInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-                  cursor: isYearlyInCart ? 'not-allowed' : 'pointer',
-                  opacity: isYearlyInCart ? 0.6 : 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 8,
-                  transition: 'all 0.2s ease',
-                  outline: 'none',
-                  width: '100%'
-                }}
-                onClick={() => addToCart({ id: 'video-yearly', name: 'Video Editing & Reels - Yearly', price: 285000, description: 'Video editing and reels yearly plan (11 months paid, 1 month free)' })}
-                disabled={isYearlyInCart}
-              >
-                <ShoppingCart style={{ width: 18, height: 18 }} /> {isYearlyInCart ? 'Added to Cart' : 'Add Yearly Plan'}
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isProfessionalInCart ? 'Added to Cart' : 'Add Professional Plan'}
               </button>
             </div>
           </div>
         </div>
+        
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
-          “Since partnering with Shyara for reels and social media management, our follower count has grown 3x and our engagement skyrocketed!”<br />
+          "Since partnering with Shyara for reels and social media management, our follower count has grown 3x and our engagement skyrocketed!"<br />
           <span style={{ fontWeight: 600, color: '#a259f7' }}>— Neha Sharma, Lifestyle Influencer</span>
         </blockquote>
+        
         <button
           style={{ background: '#a259f7', color: '#fff', fontWeight: 700, fontSize: '1.1rem', padding: '1rem 2.5rem', borderRadius: 999, boxShadow: '0 2px 12px #a259f7aa', border: 'none', marginTop: 8, cursor: 'pointer', transition: 'background 0.2s, transform 0.2s', display: 'block', marginLeft: 'auto', marginRight: 'auto' }}
           onClick={() => navigate('/contact')}
