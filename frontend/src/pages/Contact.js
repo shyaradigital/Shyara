@@ -127,7 +127,7 @@ const ContactPage = () => {
             justifyContent: 'center',
             margin: 0,
           }}>
-            <form style={{ display: 'flex', flexDirection: 'column', gap: 28 }} onSubmit={handleSubmit}>
+            <form style={{ display: 'flex', flexDirection: 'column', gap: 28, height: '100%' }} onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Full Name</label>
                 <input type="text" id="name" value={form.name} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
@@ -142,7 +142,7 @@ const ContactPage = () => {
               </div>
               {error && <div style={{ color: '#ff4d4f', fontSize: 16 }}>{error}</div>}
               {success && <div style={{ color: '#4caf50', fontSize: 16 }}>Message sent successfully!</div>}
-              <div>
+              <div style={{ marginTop: 'auto', textAlign: 'center' }}>
                 <button type="submit" style={{ background: '#a259f7', color: '#fff', fontWeight: 700, fontSize: 17, padding: '10px 2.2rem', border: 'none', borderRadius: 999, cursor: 'pointer', boxShadow: '0 2px 8px #a259f7aa', transition: 'background 0.2s', display: 'block', marginLeft: 'auto', marginRight: 'auto' }} disabled={submitting}>
                   {submitting ? 'Sending...' : 'Send Message'}
                 </button>

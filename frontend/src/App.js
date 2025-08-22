@@ -81,7 +81,7 @@ function App() {
     <Router>
       <CartProvider>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/home-alt" element={<HomeNoLoading />} />
           <Route path="/client-login" element={<Layout><ClientLoginPage /></Layout>} />
           <Route path="/about" element={<Layout><About /></Layout>} />

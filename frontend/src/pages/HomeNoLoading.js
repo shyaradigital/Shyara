@@ -8,6 +8,7 @@ const HomeNoLoading = () => {
   const [fadeIn, setFadeIn] = React.useState(false);
   const [splineReady, setSplineReady] = useState(false);
   const [splineError, setSplineError] = useState(false);
+  const [showScrollArrow, setShowScrollArrow] = useState(true);
   const mainContentRef = useRef(null);
   const splineRef = useRef(null);
 
@@ -71,16 +72,46 @@ const HomeNoLoading = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle scroll arrow visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setShowScrollArrow(false);
+      } else {
+        setShowScrollArrow(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div
-      id="main-content"
-      className={`main-content${fadeIn ? ' fade-in' : ''}`}
-      ref={mainContentRef}
-      style={{
-        opacity: fadeIn ? 1 : 0,
-        transition: 'opacity 0.7s cubic-bezier(0.4,0,0.2,1)'
-      }}
-    >
+    <>
+      <style>
+        {`
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+              transform: translateX(-50%) translateY(0);
+            }
+            40% {
+              transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+              transform: translateX(-50%) translateY(-5px);
+            }
+          }
+        `}
+      </style>
+      <div
+        id="main-content"
+        className={`main-content${fadeIn ? ' fade-in' : ''}`}
+        ref={mainContentRef}
+        style={{
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 0.7s cubic-bezier(0.4,0,0.2,1)'
+        }}
+      >
       <img className="image-gradient" src={process.env.PUBLIC_URL + '/gradient.png'} alt="" />
       <div className="layer-blur"></div>
       <div className="container">
@@ -114,6 +145,74 @@ const HomeNoLoading = () => {
             </div>
           </div>
         </main>
+        
+        {/* Scroll Down Arrow - Only visible at top */}
+        {showScrollArrow && (
+          <div 
+            className="scroll-arrow"
+            style={{
+              position: 'absolute',
+              bottom: '10rem',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 5,
+              animation: 'bounce 2s infinite',
+              cursor: 'pointer',
+              opacity: fadeIn ? 1 : 0,
+              transition: 'opacity 0.8s ease'
+            }}
+            onClick={() => {
+              window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+              });
+            }}
+          >
+            <svg 
+              width="32" 
+              height="32" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+              style={{
+                color: 'rgba(255, 255, 255, 0.8)',
+                filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
+              }}
+            >
+              <path d="M7 13l5 5 5-5"/>
+              <path d="M7 6l5 5 5-5"/>
+            </svg>
+          </div>
+        )}
+        
+        {/* Subtitle text below the arrow */}
+        <div 
+          style={{
+            position: 'absolute',
+            bottom: '6rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 5,
+            textAlign: 'center',
+            opacity: fadeIn ? 1 : 0,
+            transition: 'opacity 0.8s ease'
+          }}
+        >
+          <p style={{
+            color: 'rgba(255, 255, 255, 0.7)',
+            fontSize: '1.5rem',
+            fontWeight: '400',
+            margin: 0,
+            letterSpacing: '0.5px',
+            textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+          }}>
+            Discover how we transform brands through creative digital solutions
+          </p>
+        </div>
+        
         {splineReady && !splineError && (
           <spline-viewer 
             ref={splineRef}
@@ -162,37 +261,28 @@ const HomeNoLoading = () => {
           href="https://www.linkedin.com/company/shyaradigital/" 
           target="_blank" 
           rel="noopener noreferrer"
-          style={{
-            position: 'absolute',
-            top: '81%',
-            right: '22%',
-            transform: 'translateY(-50%)',
-            background: 'linear-gradient(135deg, #0077b5, #005885)',
-            color: 'white',
-            padding: '19px 45px',
-            borderRadius: '25px',
-            textDecoration: 'none',
-            fontWeight: '600',
-            fontSize: '14px',
-            boxShadow: '0 4px 15px rgba(0, 119, 181, 0.3)',
-            transition: 'all 0.3s ease',
-            zIndex: 10,
-            border: '2px solid rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-            opacity: 0
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-50%) scale(1.05)';
-            e.target.style.boxShadow = '0 6px 20px rgba(0, 119, 181, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(-50%) scale(1)';
-            e.target.style.boxShadow = '0 4px 15px rgba(0, 119, 181, 0.3)';
-          }}
-        >
-          Connect on LinkedIn
-        </a>
+                     style={{
+             position: 'absolute',
+             top: '81%',
+             right: '22%',
+             transform: 'translateY(-50%)',
+             background: 'transparent',
+             color: 'transparent',
+             padding: '26px 100px',
+             borderRadius: '25px',
+             textDecoration: 'none',
+             fontWeight: '600',
+             fontSize: '14px',
+             boxShadow: 'none',
+             zIndex: 10,
+             border: 'none',
+             backdropFilter: 'none',
+             WebkitBackdropFilter: 'none',
+             opacity: 1
+           }}
+          
+                 >
+         </a>
               </div>
 
         {/* Additional Scrollable Sections */}
@@ -488,7 +578,8 @@ const HomeNoLoading = () => {
           </div>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }
 
