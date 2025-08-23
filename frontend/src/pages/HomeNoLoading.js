@@ -501,48 +501,64 @@ const HomeNoLoading = () => {
           <div className="container">
             <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
               <h2 className="section-headline">Have Questions? Let's Talk.</h2>
-              <div className="contact-info">
-                <div className="contact-item" data-aos="fade-up" data-aos-delay="200">
-                  <div className="contact-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
-                      <polyline points="22,6 12,13 2,6"/>
+              
+              <div style={{ textAlign: 'center' }}>
+                <Link to="/contact" 
+                  data-aos="zoom-in" 
+                  data-aos-delay="300" 
+                  data-aos-duration="1000"
+                  data-aos-easing="ease-out-back"
+                  style={{
+                    background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                    color: '#fff',
+                    fontWeight: '700',
+                    fontSize: '1.1rem',
+                    border: 'none',
+                    borderRadius: 16,
+                    padding: '1.5rem 3rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    boxShadow: '0 8px 24px rgba(162,89,247,0.3)',
+                    transform: 'scale(1)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    textDecoration: 'none',
+                    maxWidth: 'fit-content'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 12px 32px rgba(162,89,247,0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(162,89,247,0.3)';
+                  }}>
+                  <span style={{
+                    background: 'rgba(255,255,255,0.2)',
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                      <path d="M9.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                      <path d="M14.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                      <path d="M19.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                      <path d="M4.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
+                      <path d="M9.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
+                      <path d="M14.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
+                      <path d="M19.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
                     </svg>
-                  </div>
-                  <span>hello@shyara.in</span>
-                </div>
-                <div className="contact-item" data-aos="fade-up" data-aos-delay="400">
-                  <div className="contact-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
-                  </div>
-                  <span>+91-XXXXXXXXXX</span>
-                </div>
-                <div className="contact-item" data-aos="fade-up" data-aos-delay="600">
-                  <div className="contact-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
-                    </svg>
-                  </div>
-                  <span>India (Serving clients worldwide)</span>
-                </div>
+                  </span>
+                  Send Message & Get a Reply Within 24 Hours
+                </Link>
               </div>
-              <form className="contact-form" data-aos="fade-up" data-aos-delay="800">
-                <div className="form-group">
-                  <input type="text" placeholder="Name" required />
-                </div>
-                <div className="form-group">
-                  <input type="email" placeholder="Email" required />
-                </div>
-                <div className="form-group">
-                  <textarea placeholder="Message" rows="4" required></textarea>
-                </div>
-                <button type="submit" className="btn-secondary">
-                  🔵 Send Message & Get a Reply Within 24 Hours
-                </button>
-              </form>
             </div>
           </div>
         </section>

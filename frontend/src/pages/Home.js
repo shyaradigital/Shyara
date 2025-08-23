@@ -20,6 +20,7 @@ const Home = () => {
   const [splineError, setSplineError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showScrollArrow, setShowScrollArrow] = useState(true);
+  const [robotFadeIn, setRobotFadeIn] = useState(false);
 
   // Check if device is mobile
   useEffect(() => {
@@ -72,6 +73,10 @@ const Home = () => {
     if (loadingDone && mainContentRef.current && !isMobile) {
       // Load robot immediately without delay
       setSplineReady(true);
+      // Start robot fade-in animation immediately after loading
+      setTimeout(() => {
+        setRobotFadeIn(true);
+      }, 100); // Small delay to ensure smooth transition
     }
   }, [loadingDone, isMobile]);
 
@@ -280,7 +285,7 @@ const Home = () => {
            {!isMobile && splineReady && !splineError && (
              <spline-viewer 
                ref={splineRef}
-               className={`cbot robot-entrance${robotIn ? ' robot-entrance-active' : ''}`} 
+               className="cbot robot-quick-fade" 
                url="https://prod.spline.design/7Xyc-4Wtw5VI1PDk/scene.splinecode"
                style={{
                  width: '100%',
@@ -288,13 +293,16 @@ const Home = () => {
                  minWidth: '1px',
                  minHeight: '1px',
                  zIndex: 0, // Ensure it's behind the main content
-                 marginTop: '-15rem' // Move robot up with the hero content
+                 marginTop: '-15rem', // Move robot up with the hero content
+                 opacity: robotFadeIn ? 1 : 0,
+                 transform: robotFadeIn ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
+                 transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
                }}
              />
            )}
            {!isMobile && splineError && (
              <div 
-               className={`cbot robot-entrance${robotIn ? ' robot-entrance-active' : ''}`}
+               className="cbot robot-quick-fade"
                style={{
                  position: 'absolute',
                  top: '0%',
@@ -309,7 +317,10 @@ const Home = () => {
                  justifyContent: 'center',
                  background: 'rgba(0,0,0,0.1)',
                  borderRadius: '20px',
-                 marginTop: '-15rem' // Move robot up with the hero content
+                 marginTop: '-15rem', // Move robot up with the hero content
+                 opacity: robotFadeIn ? 1 : 0,
+                 transform: robotFadeIn ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
+                 transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
                }}
              >
               <div style={{ 
@@ -406,35 +417,35 @@ const Home = () => {
           )}
 
                      {/* LinkedIn Connect Button Overlapping Robot (Desktop only) */}
-           {!isMobile && (
-             <a 
-               href="https://www.linkedin.com/company/shyaradigital/" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               className="linkedin-connect"
-               style={{
-                 position: 'absolute',
-                 top: '50%',
-                 right: '22%',
-                 transform: 'translateY(-50%)',
-                 background: 'transparent',
-                 color: 'transparent',
-                 padding: '26px 100px',
-                 borderRadius: '25px',
-                 textDecoration: 'none',
-                 fontWeight: '600',
-                 fontSize: '14px',
-                 boxShadow: 'none',
-                 zIndex: 10,
-                 border: 'none',
-                 backdropFilter: 'none',
-                 WebkitBackdropFilter: 'none',
-                 opacity: fadeIn ? 1 : 0
-               }}
+          {!isMobile && (
+            <a 
+              href="https://www.linkedin.com/company/shyaradigital/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="linkedin-connect"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '22%',
+                transform: 'translateY(-50%)',
+                background: 'transparent',
+                color: 'transparent',
+                padding: '26px 100px',
+                borderRadius: '25px',
+                textDecoration: 'none',
+                fontWeight: '600',
+                fontSize: '14px',
+                boxShadow: 'none',
+                zIndex: 10,
+                border: 'none',
+                backdropFilter: 'none',
+                WebkitBackdropFilter: 'none',
+                opacity: fadeIn ? 1 : 0
+              }}
 
-                            >
-               </a>
-           )}
+                          >
+              </a>
+          )}
         </div>
 
         {/* Additional Scrollable Sections with Enhanced Animations */}
@@ -992,9 +1003,9 @@ const Home = () => {
           
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-            gap: '2rem',
-            maxWidth: 800,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+            gap: '1.5rem',
+            maxWidth: 700,
             margin: '0 auto'
           }}>
             <div className="stat-item" 
@@ -1004,8 +1015,8 @@ const Home = () => {
               data-aos-easing="ease-out-back"
               style={{
                 background: 'rgba(30,30,30,0.55)',
-                borderRadius: 20,
-                padding: '1.5rem',
+                borderRadius: 16,
+                padding: '1rem',
                 border: '1.5px solid rgba(127,66,167,0.18)',
                 boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
                 backdropFilter: 'blur(12px)',
@@ -1016,20 +1027,20 @@ const Home = () => {
               <span className="stat-icon" style={{
                 background: 'rgba(162,89,247,0.15)',
                 color: 'var(--color-primary)',
-                width: '48px',
-                height: '48px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                margin: '0 auto 1rem'
+                margin: '0 auto 0.75rem'
               }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                 </svg>
               </span>
               <span className="stat-text" style={{
-                fontSize: '1.1rem',
+                fontSize: '0.95rem',
                 fontWeight: '600',
                 color: 'var(--color-text-primary)'
               }}>100+ Brands Served</span>
@@ -1042,8 +1053,8 @@ const Home = () => {
               data-aos-easing="ease-out-back"
               style={{
                 background: 'rgba(30,30,30,0.55)',
-                borderRadius: 20,
-                padding: '1.5rem',
+                borderRadius: 16,
+                padding: '1rem',
                 border: '1.5px solid rgba(127,66,167,0.18)',
                 boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
                 backdropFilter: 'blur(12px)',
@@ -1054,20 +1065,20 @@ const Home = () => {
               <span className="stat-icon" style={{
                 background: 'rgba(162,89,247,0.15)',
                 color: 'var(--color-primary)',
-                width: '48px',
-                height: '48px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                margin: '0 auto 1rem'
+                margin: '0 auto 0.75rem'
               }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
                 </svg>
               </span>
               <span className="stat-text" style={{
-                fontSize: '1.1rem',
+                fontSize: '0.95rem',
                 fontWeight: '600',
                 color: 'var(--color-text-primary)'
               }}>Avg. 35% Engagement Boost</span>
@@ -1080,8 +1091,8 @@ const Home = () => {
               data-aos-easing="ease-out-back"
               style={{
                 background: 'rgba(30,30,30,0.55)',
-                borderRadius: 20,
-                padding: '1.5rem',
+                borderRadius: 16,
+                padding: '1rem',
                 border: '1.5px solid rgba(127,66,167,0.18)',
                 boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
                 backdropFilter: 'blur(12px)',
@@ -1092,20 +1103,20 @@ const Home = () => {
               <span className="stat-icon" style={{
                 background: 'rgba(162,89,247,0.15)',
                 color: 'var(--color-primary)',
-                width: '48px',
-                height: '48px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                margin: '0 auto 1rem'
+                margin: '0 auto 0.75rem'
               }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                 </svg>
               </span>
               <span className="stat-text" style={{
-                fontSize: '1.1rem',
+                fontSize: '0.95rem',
                 fontWeight: '600',
                 color: 'var(--color-text-primary)'
               }}>4.9/5 Client Rating</span>
@@ -1355,230 +1366,40 @@ const Home = () => {
             <FancyText text="Have Questions? Let's Talk." />
           </h2>
           
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', 
-            gap: '2rem',
-            maxWidth: 800,
-            margin: '0 auto 3rem'
-          }}>
-            <div className="contact-item" 
-              data-aos="flip-up" 
+          <div style={{ textAlign: 'center' }}>
+            <Link to="/contact" 
+              data-aos="zoom-in" 
               data-aos-delay="300" 
               data-aos-duration="1000"
               data-aos-easing="ease-out-back"
               style={{
-                background: 'rgba(30,30,30,0.55)',
-                borderRadius: 20,
-                padding: '1.5rem',
-                border: '1.5px solid rgba(127,66,167,0.18)',
-                boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                display: 'flex',
+                background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                color: '#fff',
+                fontWeight: '700',
+                fontSize: '1.1rem',
+                border: 'none',
+                borderRadius: 16,
+                padding: '1.5rem 3rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 8px 24px rgba(162,89,247,0.3)',
+                transform: 'scale(1)',
+                position: 'relative',
+                overflow: 'hidden',
+                display: 'inline-flex',
                 alignItems: 'center',
-                gap: '1rem'
+                gap: '0.75rem',
+                textDecoration: 'none',
+                maxWidth: 'fit-content'
               }}
-            >
-              <div className="contact-icon" style={{
-                background: 'rgba(162,89,247,0.15)',
-                color: 'var(--color-primary)',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </div>
-              <span style={{
-                color: 'var(--color-text-primary)',
-                fontSize: '1rem',
-                fontWeight: '500'
-              }}>hello@shyara.in</span>
-            </div>
-            
-            <div className="contact-item" 
-              data-aos="flip-up" 
-              data-aos-delay="500" 
-              data-aos-duration="1000"
-              data-aos-easing="ease-out-back"
-              style={{
-                background: 'rgba(30,30,30,0.55)',
-                borderRadius: 20,
-                padding: '1.5rem',
-                border: '1.5px solid rgba(127,66,167,0.18)',
-                boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem'
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 12px 32px rgba(162,89,247,0.4)';
               }}
-            >
-              <div className="contact-icon" style={{
-                background: 'rgba(162,89,247,0.15)',
-                color: 'var(--color-primary)',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1) translateY(0)';
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(162,89,247,0.3)';
               }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-              </div>
-              <span style={{
-                color: 'var(--color-text-primary)',
-                fontSize: '1rem',
-                fontWeight: '500'
-              }}>+91-XXXXXXXXXX</span>
-            </div>
-            
-            <div className="contact-item" 
-              data-aos="flip-up" 
-              data-aos-delay="700" 
-              data-aos-duration="1000"
-              data-aos-easing="ease-out-back"
-              style={{
-                background: 'rgba(30,30,30,0.55)',
-                borderRadius: 20,
-                padding: '1.5rem',
-                border: '1.5px solid rgba(127,66,167,0.18)',
-                boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1rem'
-              }}
-            >
-              <div className="contact-icon" style={{
-                background: 'rgba(162,89,247,0.15)',
-                color: 'var(--color-primary)',
-                width: '48px',
-                height: '48px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexShrink: 0
-              }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-              </div>
-              <span style={{
-                color: 'var(--color-text-primary)',
-                fontSize: '1rem',
-                fontWeight: '500'
-              }}>India (Serving clients worldwide)</span>
-            </div>
-          </div>
-          
-          <form className="contact-form" 
-            data-aos="zoom-in" 
-            data-aos-delay="900" 
-            data-aos-duration="1000"
-            data-aos-easing="ease-out-back"
-            style={{
-              background: 'rgba(30,30,30,0.55)',
-              borderRadius: 24,
-              padding: '2rem',
-              border: '1.5px solid rgba(127,66,167,0.18)',
-              boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              maxWidth: 600,
-              margin: '0 auto'
-            }}
-          >
-            <div style={{ marginBottom: '1.5rem' }}>
-              <input 
-                type="text" 
-                placeholder="Name" 
-                required 
-                style={{
-                  width: '100%',
-                  padding: '1rem',
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(127,66,167,0.2)',
-                  borderRadius: 12,
-                  color: 'var(--color-text-primary)',
-                  fontSize: '1rem'
-                }}
-              />
-            </div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <input 
-                type="email" 
-                placeholder="Email" 
-                required 
-                style={{
-                  width: '100%',
-                  padding: '1rem',
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(127,66,167,0.2)',
-                  borderRadius: 12,
-                  color: 'var(--color-text-primary)',
-                  fontSize: '1rem'
-                }}
-              />
-            </div>
-            <div style={{ marginBottom: '2rem' }}>
-              <textarea 
-                placeholder="Message" 
-                rows="4" 
-                required 
-                style={{
-                  width: '100%',
-                  padding: '1rem',
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid rgba(127,66,167,0.2)',
-                  borderRadius: 12,
-                  color: 'var(--color-text-primary)',
-                  fontSize: '1rem',
-                  resize: 'vertical'
-                }}
-              />
-            </div>
-            <button type="submit" style={{
-              background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: '#fff',
-              fontWeight: '700',
-              fontSize: '1.1rem',
-              border: 'none',
-              borderRadius: 16,
-              padding: '1rem 2.5rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 8px 24px rgba(162,89,247,0.3)',
-              transform: 'scale(1)',
-              position: 'relative',
-              overflow: 'hidden',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              width: '100%',
-              justifyContent: 'center'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.02)';
-              e.currentTarget.style.boxShadow = '0 12px 32px rgba(162,89,247,0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(162,89,247,0.3)';
-            }}>
               <span style={{
                 background: 'rgba(255,255,255,0.2)',
                 width: '32px',
@@ -1589,14 +1410,19 @@ const Home = () => {
                 justifyContent: 'center'
               }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                  <polyline points="17,8 12,3 7,8"/>
-                  <line x1="12" y1="3" x2="12" y2="15"/>
+                  <path d="M4.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                  <path d="M9.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                  <path d="M14.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                  <path d="M19.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
+                  <path d="M4.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
+                  <path d="M9.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
+                  <path d="M14.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
+                  <path d="M19.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
                 </svg>
               </span>
               Send Message & Get a Reply Within 24 Hours
-            </button>
-          </form>
+            </Link>
+          </div>
         </div>
 
         {/* Section 7 - Final Trust Close */}
@@ -1636,25 +1462,7 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <footer className="site-footer">
-          <div className="footer-content">
-            <span>© Shyara Agency 2025. All rights reserved.</span>
-                         <div className="footer-socials">
-                               <a href="https://www.instagram.com/shyaradigital?igsh=YXBsNXlkbDUzZnpn" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="Instagram">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
-                </a>
-                <a href="https://www.linkedin.com/company/shyaradigital/" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="LinkedIn">
-                  <img src={process.env.PUBLIC_URL + '/pics/linkedin.png'} alt="LinkedIn" style={{ width: '26px', height: '26px', filter: 'brightness(0) invert(0.8)' }} />
-                </a>
-                               <a href="https://wa.me/919584661610" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="WhatsApp">
-                  <img src={process.env.PUBLIC_URL + '/pics/whatsapp.png'} alt="WhatsApp" style={{ width: '22px', height: '22px', filter: 'brightness(0) invert(0.8)' }} />
-                </a>
-               <a href="mailto:support@shyara.co.in" className="footer-icon" aria-label="Email">
-                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"></rect><polyline points="22,6 12,13 2,6"></polyline></svg>
-               </a>
-             </div>
-          </div>
-        </footer>
+
       </div>
     </>
   );
