@@ -271,7 +271,7 @@ const Cart = () => {
                       width: isMobile ? '100%' : 'auto',
                       textAlign: 'center'
                     }}
-                    onClick={() => navigate('/contact')}
+                    onClick={() => navigate('/checkout')}
                     onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
                     onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
                   >

@@ -18,6 +18,7 @@ import VideoEditingReelsPage from './pages/services/VideoEditingReelsPage';
 import PersonalizedServicesPage from './pages/services/PersonalizedServicesPage';
 import Cart from './pages/Cart';
 import AddItemsPage from './pages/AddItemsPage';
+import Checkout from './pages/Checkout';
 import { CartProvider } from './context/CartContext';
 
 // 404 Component
@@ -97,6 +98,7 @@ function App() {
           <Route path="/services/personalized" element={<Layout><PersonalizedServicesPage /></Layout>} />
           <Route path="/cart" element={<Layout><Cart /></Layout>} />
           <Route path="/add-items" element={<Layout><AddItemsPage /></Layout>} />
+          <Route path="/checkout" element={<Layout><Checkout /></Layout>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </CartProvider>
