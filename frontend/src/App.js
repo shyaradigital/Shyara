@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './style.css';
-import Home from './pages/Home';
-import About from './pages/About';
+import ResponsiveHome from './components/ResponsiveHome';
+import ResponsiveAbout from './components/ResponsiveAbout';
 import Services from './pages/Services';
 import Portfolio from './pages/Portfolio';
 import Contact from './pages/Contact';
@@ -82,10 +82,10 @@ function App() {
     <Router>
       <CartProvider>
         <Routes>
-          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/" element={<Layout><ResponsiveHome /></Layout>} />
           <Route path="/home-alt" element={<HomeNoLoading />} />
           <Route path="/client-login" element={<Layout><ClientLoginPage /></Layout>} />
-          <Route path="/about" element={<Layout><About /></Layout>} />
+          <Route path="/about" element={<Layout><ResponsiveAbout /></Layout>} />
           <Route path="/services" element={<Layout><Services /></Layout>} />
           <Route path="/portfolio" element={<Layout><Portfolio /></Layout>} />
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
