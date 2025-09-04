@@ -113,7 +113,7 @@ const SocialMediaManagementPage = () => {
           </h3>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[
-              'Account Handling: Instagram, Facebook, LinkedIn, Twitter, Google My Business',
+              'Account Handling: Instagram, Facebook, LinkedIn, Twitter, Google My Business, YouTube and more...',
               'High-impact captions with trending hashtags',
               'Monthly content calendar',
               'Community engagement and response management',

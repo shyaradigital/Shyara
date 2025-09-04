@@ -63,12 +63,14 @@ const Layout = ({ children }) => {
       <div className="container">
         <header className={isSticky ? 'sticky-header' : ''} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 0, minHeight: 80 }}>
           <Link to="/" className="logo-link"><h1 className="logo">Shyara</h1></Link>
-          <nav className={`navbar-center ${isMobile && !showMobileNav ? 'mobile-nav-hidden' : ''}`} style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
-            <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
-            <Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link>
-            <Link to="/portfolio" className={location.pathname === '/portfolio' ? 'active' : ''}>Portfolio</Link>
-            <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact Us</Link>
-          </nav>
+          {!isMobile && (
+            <nav className="navbar-center" style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+              <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
+              <Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link>
+              <Link to="/portfolio" className={location.pathname === '/portfolio' ? 'active' : ''}>Portfolio</Link>
+              <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact Us</Link>
+            </nav>
+          )}
           <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
             {/* Hide cart button on home page */}
             {location.pathname !== '/' && (
@@ -102,6 +104,17 @@ const Layout = ({ children }) => {
           </div>
         </header>
         <main className="site-main">{children}</main>
+        
+        {/* NEW MOBILE NAVBAR - Only visible on mobile */}
+        {isMobile && (
+          <nav className={`mobile-navbar ${!showMobileNav ? 'hidden' : ''}`}>
+            <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link>
+            <Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link>
+            <Link to="/portfolio" className={location.pathname === '/portfolio' ? 'active' : ''}>Portfolio</Link>
+            <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>Contact</Link>
+          </nav>
+        )}
+        
         <footer className="site-footer">
           <div className="footer-content">
             <span>© Shyara Agency 2025. All rights reserved.</span>

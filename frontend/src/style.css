@@ -809,39 +809,32 @@ nav a {
 } 
 
 /* --- Mobile Optimizations --- */
+/* Updated: Mobile navbar positioning fix */
 @media (max-width: 768px) {
   /* Header and Navigation Mobile Optimizations */
   header, .sticky-header {
     padding: 0.5rem 1rem !important;
     min-height: 60px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
   }
 
   .logo {
     font-size: 1.6rem !important;
     letter-spacing: 0.15em !important;
+    z-index: 1000 !important;
   }
 
+  /* Hide desktop navbar on mobile */
   .navbar-center {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    top: auto !important;
-    transform: none !important;
-    background: rgba(20, 20, 30, 0.95) !important;
-    backdrop-filter: blur(12px) !important;
-    border-top: 1px solid rgba(127, 66, 167, 0.2) !important;
-    padding: 0.8rem 1rem !important;
-    gap: 1.5rem !important;
-    z-index: 2147483647 !important;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
-    transition: transform 0.3s ease-in-out !important;
+    display: none !important;
   }
 
   /* Ensure header always receives clicks */
   header, .sticky-header {
     position: fixed;
-    z-index: 99999; /* even higher than overlays */
+    z-index: 1000 !important; /* lower than navbar */
     pointer-events: auto;
   }
 
@@ -850,30 +843,79 @@ nav a {
     pointer-events: none; /* allows clicks to pass through */
   }
 
-  .navbar-center.mobile-nav-hidden {
+  /* NEW MOBILE NAVBAR - COMPLETELY REDESIGNED */
+  .mobile-navbar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    height: 70px !important;
+    background: rgba(20, 20, 30, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    border-top: 1px solid rgba(127, 66, 167, 0.2) !important;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3) !important;
+    z-index: 2147483647 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+    margin: 0 !important;
+    transition: transform 0.3s ease-in-out !important;
+  }
+
+  .mobile-navbar.hidden {
     transform: translateY(100%) !important;
   }
 
-  .navbar-center a {
+  .mobile-navbar a {
+    color: #ffffff !important;
+    text-decoration: none !important;
     font-size: 0.85rem !important;
-    letter-spacing: 0.05rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.02rem !important;
     padding: 0.5rem 0.8rem !important;
-    border-radius: 8px !important;
-    transition: background 0.2s ease !important;
+    border-radius: 0 !important;
+    transition: color 0.2s ease !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    white-space: nowrap !important;
+    background: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
   }
 
-  .navbar-center a:hover {
-    background: rgba(127, 66, 167, 0.1) !important;
+  .mobile-navbar a:hover {
+    background: none !important;
+    color: #a259f7 !important;
+  }
+
+  .mobile-navbar a:active {
+    background: none !important;
+    color: #a259f7 !important;
+  }
+
+  .mobile-navbar a.active {
+    background: none !important;
+    color: #a259f7 !important;
   }
 
   .btn-signin {
     padding: 0.5rem 1rem !important;
     font-size: 0.8rem !important;
-    margin-left: 0 !important;
-    position: absolute !important;
-    top: 1rem !important;
-    right: 1rem !important;
-    z-index: 1001 !important;
+    margin-left: auto !important;
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 1 !important;
   }
 
   /* Cart button positioning for mobile */
@@ -888,7 +930,7 @@ nav a {
   /* Main Content Mobile Adjustments */
   .main-content, .home-entrance {
     padding-top: 6px !important;
-    padding-bottom: 9px !important; /* Space for bottom nav */
+    padding-bottom: 80px !important; /* Space for bottom nav */
     min-height: 100vh !important;
     display: flex !important;
     flex-direction: column !important;
@@ -897,7 +939,7 @@ nav a {
 
   .site-main {
     padding-top: 70px !important;
-    padding-bottom: 120px !important; /* Space for fixed footer */
+    padding-bottom: 90px !important; /* Space for new mobile navbar */
   }
 
   /* Home Page Mobile Optimizations */
@@ -1549,8 +1591,63 @@ nav a {
   /* Mobile-specific focus states for accessibility */
   @media (max-width: 768px) {
     button:focus, input:focus, textarea:focus, a:focus {
-      outline: 2px solid #7f42a7 !important;
-      outline-offset: 2px !important;
+      outline: none !important;
+      outline-offset: 0 !important;
+    }
+    
+    /* Remove all tap highlights and click animations on mobile */
+    * {
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-touch-callout: none !important;
+    }
+    
+    /* Remove button and link click animations */
+    button, a, .btn-signin, .btn-sign-in-main {
+      -webkit-tap-highlight-color: transparent !important;
+      -webkit-touch-callout: none !important;
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+    }
+
+    /* Fix FREE BONUSES text collision with headings on mobile */
+    div[style*="FREE BONUSES"] {
+      position: relative !important;
+      top: auto !important;
+      right: auto !important;
+      margin-bottom: 1rem !important;
+      border-radius: 8px !important;
+      text-align: center !important;
+      width: 100% !important;
+    }
+    
+    /* Ensure proper spacing for free bonuses sections */
+    div[style*="Free Extras You Get"] {
+      margin-top: 1rem !important;
+    }
+
+    /* Specific fix for SMM page FREE BONUSES collision */
+    .service-page-container div[style*="FREE BONUSES"] {
+      position: relative !important;
+      top: auto !important;
+      right: auto !important;
+      margin-bottom: 1rem !important;
+      border-radius: 8px !important;
+      text-align: center !important;
+      width: 100% !important;
+      display: block !important;
+    }
+
+    /* Fix the container that holds FREE BONUSES to prevent overflow */
+    .service-page-container div[style*="position: relative"][style*="overflow: hidden"] {
+      padding-top: 2rem !important;
+    }
+
+    /* Ensure headings have proper spacing from FREE BONUSES */
+    .service-page-container h3[style*="Free Extras You Get"] {
+      margin-top: 1.5rem !important;
+      margin-bottom: 1rem !important;
     }
 
     /* Larger touch targets for better accessibility */
