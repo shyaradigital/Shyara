@@ -2,18 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { LogIn, Sparkles, Target, Users, Award, Zap, TrendingUp } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Sparkles, Target, Users, Award, Zap, TrendingUp } from 'lucide-react';
 import FancyText from '../components/FancyText';
-import AnimatedHeading from '../components/AnimatedHeading';
 
 const Home = () => {
   const [fadeIn, setFadeIn] = React.useState(false);
   const [loadingDone, setLoadingDone] = useState(false);
-  const [robotIn, setRobotIn] = useState(false);
   const [showLoading, setShowLoading] = useState(true);
   const mainContentRef = useRef(null);
-  const navigate = useNavigate();
   const location = useLocation();
   const [splineReady, setSplineReady] = useState(false);
   const splineRef = useRef(null);
@@ -37,19 +34,27 @@ const Home = () => {
   useEffect(() => {
     // If this is the first load or a hard reload, show loading
     // If navigated via in-app navigation, skip loading
-    const navType = window.performance && window.performance.getEntriesByType
-      ? window.performance.getEntriesByType('navigation')[0]?.type
-      : undefined;
-    const isReload = navType === 'reload' || navType === 'navigate' || navType === 'navigate';
+    // const navType = window.performance && window.performance.getEntriesByType
+    //   ? window.performance.getEntriesByType('navigation')[0]?.type
+    //   : undefined;
+    // const isReload = navType === 'reload' || navType === 'navigate' || navType === 'navigate';
     // sessionStorage flag to ensure loading only on first load/reload
     if (!sessionStorage.getItem('shyaraLoaded')) {
       setShowLoading(true);
       sessionStorage.setItem('shyaraLoaded', 'true');
+      // Start loading Spline immediately when loading screen starts (desktop only)
+      if (!isMobile) {
+        setSplineReady(true);
+      }
     } else {
       setShowLoading(false);
       setLoadingDone(true);
+      // Start loading Spline immediately if no loading screen (desktop only)
+      if (!isMobile) {
+        setSplineReady(true);
+      }
     }
-  }, [location.key]);
+  }, [location.key, isMobile]);
 
   // Fade in main content after loading is done
   useEffect(() => {
@@ -63,34 +68,32 @@ const Home = () => {
   // Trigger robot entrance immediately after loading (only for desktop)
   useEffect(() => {
     if (loadingDone && !isMobile) {
-      // Start loading robot immediately after main content loads
-      setRobotIn(true);
+      // Robot entrance logic can be added here if needed
     }
   }, [loadingDone, isMobile]);
 
-  // Initialize Spline viewer immediately when container is ready (only for desktop)
+  // Initialize robot fade-in when Spline is ready and loading is done
   useEffect(() => {
-    if (loadingDone && mainContentRef.current && !isMobile) {
-      // Load robot immediately without delay
-      setSplineReady(true);
-      // Start robot fade-in animation immediately after loading
+    if (splineReady && loadingDone && !isMobile) {
+      // Start robot fade-in animation immediately after loading is complete
       setTimeout(() => {
         setRobotFadeIn(true);
       }, 100); // Small delay to ensure smooth transition
     }
-  }, [loadingDone, isMobile]);
+  }, [splineReady, loadingDone, isMobile]);
 
   // Handle Spline viewer errors
   useEffect(() => {
-    if (splineRef.current) {
+    const currentRef = splineRef.current;
+    if (currentRef) {
       const handleError = () => {
         setSplineError(true);
       };
       
-      splineRef.current.addEventListener('error', handleError);
+      currentRef.addEventListener('error', handleError);
       return () => {
-        if (splineRef.current) {
-          splineRef.current.removeEventListener('error', handleError);
+        if (currentRef) {
+          currentRef.removeEventListener('error', handleError);
         }
       };
     }
@@ -294,9 +297,10 @@ const Home = () => {
                  minHeight: '1px',
                  zIndex: 0, // Ensure it's behind the main content
                  marginTop: '-15rem', // Move robot up with the hero content
-                 opacity: robotFadeIn ? 1 : 0,
-                 transform: robotFadeIn ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
-                 transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+                 opacity: (loadingDone && robotFadeIn) ? 1 : 0,
+                 transform: (loadingDone && robotFadeIn) ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
+                 transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+                 visibility: loadingDone ? 'visible' : 'hidden' // Hide completely during loading
                }}
              />
            )}
@@ -318,9 +322,10 @@ const Home = () => {
                  background: 'rgba(0,0,0,0.1)',
                  borderRadius: '20px',
                  marginTop: '-15rem', // Move robot up with the hero content
-                 opacity: robotFadeIn ? 1 : 0,
-                 transform: robotFadeIn ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
-                 transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+                 opacity: (loadingDone && robotFadeIn) ? 1 : 0,
+                 transform: (loadingDone && robotFadeIn) ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
+                 transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+                 visibility: loadingDone ? 'visible' : 'hidden' // Hide completely during loading
                }}
              >
               <div style={{ 
