@@ -19,6 +19,7 @@ import PersonalizedServicesPage from './pages/services/PersonalizedServicesPage'
 import Cart from './pages/Cart';
 import AddItemsPage from './pages/AddItemsPage';
 import Checkout from './pages/Checkout';
+import Payment from './pages/Payment';
 import { CartProvider } from './context/CartContext';
 
 // 404 Component
@@ -99,6 +100,7 @@ function App() {
           <Route path="/cart" element={<Layout><Cart /></Layout>} />
           <Route path="/add-items" element={<Layout><AddItemsPage /></Layout>} />
           <Route path="/checkout" element={<Layout><Checkout /></Layout>} />
+          <Route path="/payment" element={<Layout><Payment /></Layout>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </CartProvider>
