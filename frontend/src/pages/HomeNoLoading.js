@@ -47,12 +47,54 @@ const HomeNoLoading = () => {
     }
   }, [splineReady]);
 
-  // Initialize AOS after fade-in
+  // Initialize AOS for individual elements within sections
   useEffect(() => {
     if (fadeIn) {
-      AOS.init({ once: true });
+      AOS.init({ 
+        once: true,
+        duration: 800,
+        easing: 'ease-out-cubic',
+        offset: 0,
+        delay: 0,
+        anchorPlacement: 'top-bottom'
+      });
       AOS.refresh();
     }
+  }, [fadeIn]);
+
+  // Intersection Observer for section-based rendering
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1, // Trigger when 10% of the section is visible
+      rootMargin: '0px 0px 0px 0px' // No margin, trigger exactly when section enters viewport
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Show the entire section immediately
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          
+          // Also trigger any AOS animations within this section
+          const aosElements = entry.target.querySelectorAll('[data-aos]');
+          aosElements.forEach(el => {
+            el.classList.add('aos-animate');
+          });
+        }
+      });
+    }, observerOptions);
+
+    // Target section containers instead of individual elements
+    const sections = document.querySelectorAll('.scroll-section, .scroll-animate');
+    sections.forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      observer.observe(section);
+    });
+
+    return () => observer.disconnect();
   }, [fadeIn]);
 
   // Handle sticky header on scroll
@@ -310,7 +352,7 @@ const HomeNoLoading = () => {
                 </div>
               </div>
               <div className="value-promise" data-aos="fade-up" data-aos-delay="800">
-                <strong>Shyara gives you the expertise of an agency with the flexibility of a freelance team, delivering real results without inflated costs.</strong>
+                <strong>Shyara gives you the expertise of a digital team with the flexibility of a freelance team, delivering real results without inflated costs.</strong>
               </div>
             </div>
           </div>
@@ -478,25 +520,8 @@ const HomeNoLoading = () => {
           </div>
         </section>
 
-        {/* Section 5 - Limited Time Offer */}
-        <section className="scroll-section limited-offer">
-          <div className="container">
-            <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
-              <h2 className="section-headline">Your Brand Could Be the Next Success Story</h2>
-              <p className="offer-description">
-                Get a Free Brand Growth Plan—your personalized roadmap to more reach, sales, and visibility.
-              </p>
-              <p className="offer-timing">📅 Offer available for a limited time.</p>
-              <div className="offer-cta">
-                <Link to="/contact" className="btn-secondary">
-                  🚀 Claim My Free Brand Growth Plan →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* Section 6 - Contact */}
+        {/* Section 5 - Contact */}
         <section className="scroll-section contact-section">
           <div className="container">
             <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
@@ -563,7 +588,7 @@ const HomeNoLoading = () => {
           </div>
         </section>
 
-        {/* Section 7 - Final Trust Close */}
+        {/* Section 6 - Final Trust Close */}
         <section className="scroll-section trust-close">
           <div className="container">
             <div className="section-content" data-aos="fade-up" data-aos-duration="1000">
@@ -577,7 +602,7 @@ const HomeNoLoading = () => {
 
         <footer className="site-footer">
         <div className="footer-content">
-          <span>© Shyara Agency 2025. All rights reserved.</span>
+          <span>© Shyara Digital 2025. All rights reserved.</span>
           <div className="footer-socials">
             <a href="https://www.instagram.com/shyaradigital?igsh=YXBsNXlkbDUzZnpn" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="Instagram">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>

@@ -583,11 +583,16 @@ const PersonalizedServicesPage = () => {
       return;
     }
     
+    // Handle custom quote services
+    const isCustomQuote = service.basePrice === 0 || service.price === 'Custom Quote';
+    
     addToCart({
       id: service.id,
       name: service.title,
-      price: service.basePrice,
-      description: service.desc
+      price: isCustomQuote ? 0 : service.basePrice,
+      description: service.desc,
+      isCustomQuote: isCustomQuote,
+      priceText: isCustomQuote ? 'Custom Quote' : `₹${service.basePrice}`
     });
   };
 

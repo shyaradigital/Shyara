@@ -33,10 +33,16 @@ const Cart = () => {
     navigate(-1); // Go back to the previous page
   };
   
-  const total = cart.reduce((sum, item) => {
-    const itemTotal = (item.price || 0) * (item.quantity || 1);
-    return sum + itemTotal;
+  // Calculate total for fixed-price items only
+  const fixedPriceTotal = cart.reduce((sum, item) => {
+    if (!item.isCustomQuote && item.price && item.price > 0) {
+      return sum + (item.price * (item.quantity || 1));
+    }
+    return sum;
   }, 0);
+
+  // Check if cart has custom quote items
+  const hasCustomQuoteItems = cart.some(item => item.isCustomQuote);
 
   const handleQuantityChange = (id, currentQuantity, change) => {
     const newQuantity = currentQuantity + change;
@@ -113,7 +119,7 @@ const Cart = () => {
                 <ul style={{ listStyle: 'none', padding: 0, marginBottom: 40 }}>
                   {cart.map(item => {
                     const quantity = item.quantity || 1;
-                    const itemTotal = (item.price || 0) * quantity;
+                    const itemTotal = item.isCustomQuote ? 0 : (item.price || 0) * quantity;
                     
                     return (
                     <li key={item.id} className="cart-item" style={{
@@ -130,10 +136,22 @@ const Cart = () => {
                                                   <div className="cart-item-details" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div style={{ flex: 1 }}>
                               <span style={{ fontWeight: 700, color: '#e7e7e7', fontSize: '1.3rem' }}>{item.name}</span>
+                              {item.description && (
+                                <div style={{ color: '#a7a7a7', fontSize: '0.9rem', marginTop: 4 }}>
+                                  {item.description}
+                                </div>
+                              )}
                             </div>
-                            <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.4rem' }}>
-                              {itemTotal === 0 ? 'Custom' : `₹${itemTotal.toLocaleString()}`}
-                            </span>
+                            <div style={{ textAlign: 'right' }}>
+                              <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.4rem' }}>
+                                {item.isCustomQuote ? 'Custom Quote' : `₹${itemTotal.toLocaleString()}`}
+                              </span>
+                              {item.isCustomQuote && (
+                                <div style={{ color: '#a7a7a7', fontSize: '0.8rem', marginTop: 4 }}>
+                                  + Price after discussion
+                                </div>
+                              )}
+                            </div>
                           </div>
                         
                                                   <div className="cart-item-actions" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -187,13 +205,13 @@ const Cart = () => {
                                   <Plus size={16} />
                                 </button>
                               </div>
-                              {item.price > 0 ? (
+                              {!item.isCustomQuote && item.price > 0 ? (
                                 <span style={{ color: '#a7a7a7', fontSize: '1rem', fontWeight: 600 }}>
                                   @ ₹{item.price.toLocaleString()}
                                 </span>
-                              ) : item.price === 0 && (
+                              ) : item.isCustomQuote && (
                                 <span style={{ color: '#a7a7a7', fontSize: '1rem', fontWeight: 600 }}>
-                                  @ Custom
+                                  @ Custom Quote
                                 </span>
                               )}
                             </div>
@@ -246,7 +264,18 @@ const Cart = () => {
                   </button>
                   <div style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: '1.1rem', fontWeight: 600, color: '#a7a7a7', marginBottom: '0.5rem' }}>Total Amount</div>
-                    <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#a259f7' }}>₹{total.toLocaleString()}</div>
+                    <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#a259f7' }}>
+                      {hasCustomQuoteItems ? (
+                        <div>
+                          <div>₹{fixedPriceTotal.toLocaleString()}</div>
+                          <div style={{ fontSize: '1rem', color: '#a7a7a7', marginTop: 4 }}>
+                            + custom quote
+                          </div>
+                        </div>
+                      ) : (
+                        `₹${fixedPriceTotal.toLocaleString()}`
+                      )}
+                    </div>
                   </div>
                 </div>
                 <div style={{ textAlign: 'center' }}>

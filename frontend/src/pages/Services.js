@@ -11,6 +11,7 @@ const services = [
     desc: 'Creative content and community engagement across all platforms.',
     price: 'Starting at ₹5,000/month',
     route: '/services/social-media-management',
+    basePrice: 5000,
   },
   {
     icon: <Sparkles className="w-8 h-8 text-primary" />,
@@ -18,6 +19,7 @@ const services = [
     desc: 'Branded festival creatives with your logo and contact info.',
     price: '₹5,000/year',
     route: '/services/festive-posts',
+    basePrice: 5000,
   },
   {
     icon: <Megaphone className="w-8 h-8 text-primary" />,
@@ -25,6 +27,7 @@ const services = [
     desc: 'High-ROI ads on Meta & Google with free creatives and reporting.',
     price: '₹0/month',
     route: '/services/ads-campaign-management',
+    basePrice: 0,
   },
   {
     icon: <Globe className="w-8 h-8 text-primary" />,
@@ -32,6 +35,7 @@ const services = [
     desc: 'Fast, responsive websites for portfolios, businesses, and e-commerce.',
     price: 'Custom Quote',
     route: '/services/website-development',
+    basePrice: 0,
   },
   {
     icon: <Smartphone className="w-8 h-8 text-primary" />,
@@ -39,6 +43,7 @@ const services = [
     desc: 'Mobile apps for Android & iOS with UI/UX design and deployment.',
     price: 'Custom Quote',
     route: '/services/app-development',
+    basePrice: 0,
   },
   {
     icon: <Film className="w-8 h-8 text-primary" />,
@@ -46,6 +51,7 @@ const services = [
     desc: 'High-performing reels and video content from your raw footage.',
     price: 'Starting at ₹15,000/month',
     route: '/services/video-editing-reels',
+    basePrice: 15000,
   },
 ];
 

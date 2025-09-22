@@ -1,70 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Users, CheckCircle, ShoppingCart, ArrowLeft, Share2 } from 'lucide-react';
+import { CheckCircle, ShoppingCart, ArrowLeft, Share2 } from 'lucide-react';
 import { CartContext } from '../../context/CartContext';
 import FancyText from '../../components/FancyText';
 
-const FeatureItem = ({ children }) => {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <li
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
-      tabIndex={0}
-      style={{
-        position: 'relative',
-        background: 'none',
-        border: 'none',
-        borderRadius: 0,
-        padding: '0.8rem 1.2rem',
-        fontSize: '1rem',
-        color: 'var(--color-text-primary)',
-        fontWeight: 500,
-        boxShadow: 'none',
-        transition: hovered ? 'transform 0.38s cubic-bezier(.22,1.5,.36,1)' : 'transform 0.32s cubic-bezier(.4,2,.6,1)',
-        transform: hovered ? 'scale(1.035)' : 'none',
-        outline: 'none',
-      }}
-    >
-      {/* Glass background on hover */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '-8px',
-          left: '-10px',
-          right: '-10px',
-          bottom: '-8px',
-          zIndex: 0,
-          pointerEvents: 'none',
-          opacity: hovered ? 1 : 0,
-          transform: hovered ? 'scale(1.045)' : 'scale(0.98)',
-          transition: 'opacity 0.32s cubic-bezier(.4,2,.6,1), transform 0.48s cubic-bezier(.22,1.5,.36,1)',
-          background: 'linear-gradient(120deg, rgba(162,89,247,0.08) 0%, rgba(30,30,40,0.38) 100%)',
-          borderRadius: 16,
-          boxShadow: hovered ? '0 4px 16px 0 #a259f733, 0 1px 4px 0 #0002' : 'none',
-          backdropFilter: 'blur(10px)',
-          WebkitBackdropFilter: 'blur(10px)',
-          border: '1.2px solid',
-          borderImage: 'linear-gradient(90deg, #a259f7 0%, #7f42a7 100%) 1',
-          filter: hovered ? 'brightness(1.01)' : 'none',
-        }}
-      />
-      <span style={{ position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: 10 }}>
-        {children}
-      </span>
-    </li>
-  );
-};
 
 const SocialMediaManagementPage = () => {
   const navigate = useNavigate();
-  const { cart, addToCart, removeFromCart } = useContext(CartContext);
-  
-  const handleAddToCart = (item) => {
-    addToCart(item);
-  };
+  const { cart, addToCart } = useContext(CartContext);
 
   const isBasicInCart = cart.some(item => item.id === 'smm-basic');
   const isIntermediateInCart = cart.some(item => item.id === 'smm-intermediate');
@@ -72,6 +15,16 @@ const SocialMediaManagementPage = () => {
   
   return (
     <div className="service-page-container" style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .plan-cards-grid {
+              grid-template-columns: 1fr !important;
+              max-width: 400px !important;
+            }
+          }
+        `}
+      </style>
       {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
@@ -188,11 +141,14 @@ const SocialMediaManagementPage = () => {
             Select the plan that best fits your social media management needs.
           </p>
           
-          <div style={{ 
+          <div className="plan-cards-grid" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+            gridTemplateColumns: 'repeat(3, 1fr)', 
             gap: 20, 
-            width: '100%' 
+            width: '100%',
+            alignItems: 'stretch', // Ensure all cards stretch to same height
+            maxWidth: '900px', // Limit max width for better symmetry
+            margin: '0 auto' // Center the entire grid
           }}>
             
             {/* Basic Plan */}
@@ -204,7 +160,7 @@ const SocialMediaManagementPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content',
+              minHeight: '280px', // Set consistent minimum height
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
@@ -271,7 +227,7 @@ const SocialMediaManagementPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content',
+              minHeight: '280px', // Set consistent minimum height
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
@@ -353,7 +309,7 @@ const SocialMediaManagementPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content',
+              minHeight: '280px', // Set consistent minimum height
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
@@ -409,6 +365,252 @@ const SocialMediaManagementPage = () => {
               >
                 <ShoppingCart style={{ width: 18, height: 18 }} /> {isProfessionalInCart ? 'Added to Cart' : 'Add Professional Plan'}
               </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Pricing Table Section */}
+        <div style={{ marginTop: 48, marginBottom: 32, position: 'relative' }}>
+          {/* Discount Badge - Positioned above the section */}
+          <div style={{
+            position: 'absolute',
+            top: -12,
+            right: 0,
+            background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
+            color: 'white',
+            padding: '8px 16px',
+            fontSize: '0.85rem',
+            fontWeight: '700',
+            borderRadius: 25,
+            boxShadow: '0 4px 12px rgba(255,107,107,0.4)',
+            zIndex: 10,
+            border: '2px solid rgba(255,255,255,0.2)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
+          }}>
+            🔥 30-40% OFF
+          </div>
+          
+          <h3 style={{ 
+            color: '#a259f7', 
+            fontSize: '1.4rem', 
+            fontWeight: '700', 
+            marginBottom: 16, 
+            textAlign: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 8,
+            paddingRight: 120 // Add padding to prevent overlap
+          }}>
+            <span style={{ fontSize: '1.2rem' }}>💰</span>
+            Detailed Pricing Breakdown
+          </h3>
+          <p style={{ 
+            color: '#a7a7a7', 
+            fontSize: '0.95rem', 
+            marginBottom: 24, 
+            textAlign: 'center',
+            maxWidth: 600,
+            margin: '0 auto 24px'
+          }}>
+            All prices shown are discounted rates. Choose the plan that fits your content needs.
+          </p>
+          
+          <div style={{
+            background: 'rgba(30,30,30,0.6)',
+            border: '1.5px solid rgba(162,89,247,0.2)',
+            borderRadius: 16,
+            padding: 24,
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            overflow: 'hidden',
+            position: 'relative'
+          }}>
+
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 500
+              }}>
+                <thead>
+                  <tr style={{ borderBottom: '2px solid rgba(162,89,247,0.3)' }}>
+                    <th style={{
+                      padding: '16px 12px',
+                      textAlign: 'left',
+                      color: '#a259f7',
+                      fontWeight: '700',
+                      fontSize: '1rem',
+                      background: 'rgba(162,89,247,0.05)'
+                    }}>Category</th>
+                    <th style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#a259f7',
+                      fontWeight: '700',
+                      fontSize: '1rem',
+                      background: 'rgba(162,89,247,0.05)'
+                    }}>Price</th>
+                    <th style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#a259f7',
+                      fontWeight: '700',
+                      fontSize: '1rem',
+                      background: 'rgba(162,89,247,0.05)'
+                    }}>Image Posts</th>
+                    <th style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#a259f7',
+                      fontWeight: '700',
+                      fontSize: '1rem',
+                      background: 'rgba(162,89,247,0.05)'
+                    }}>Videos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style={{ borderBottom: '1px solid rgba(162,89,247,0.1)' }}>
+                    <td style={{
+                      padding: '16px 12px',
+                      color: '#e7e7e7',
+                      fontWeight: '600',
+                      fontSize: '0.95rem'
+                    }}>Basic</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#4CAF50',
+                      fontWeight: '700',
+                      fontSize: '1.1rem'
+                    }}>₹3,500</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#e7e7e7',
+                      fontWeight: '500',
+                      fontSize: '0.95rem'
+                    }}>15</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#e7e7e7',
+                      fontWeight: '500',
+                      fontSize: '0.95rem'
+                    }}>0</td>
+                  </tr>
+                  <tr style={{ borderBottom: '1px solid rgba(162,89,247,0.1)' }}>
+                    <td style={{
+                      padding: '16px 12px',
+                      color: '#e7e7e7',
+                      fontWeight: '600',
+                      fontSize: '0.95rem'
+                    }}>Intermediate</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#4CAF50',
+                      fontWeight: '700',
+                      fontSize: '1.1rem'
+                    }}>₹5,600</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#e7e7e7',
+                      fontWeight: '500',
+                      fontSize: '0.95rem'
+                    }}>20</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#e7e7e7',
+                      fontWeight: '500',
+                      fontSize: '0.95rem'
+                    }}>2</td>
+                  </tr>
+                  <tr style={{ borderBottom: '1px solid rgba(162,89,247,0.1)' }}>
+                    <td style={{
+                      padding: '16px 12px',
+                      color: '#e7e7e7',
+                      fontWeight: '600',
+                      fontSize: '0.95rem'
+                    }}>Premium</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#4CAF50',
+                      fontWeight: '700',
+                      fontSize: '1.1rem'
+                    }}>₹7,000</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#e7e7e7',
+                      fontWeight: '500',
+                      fontSize: '0.95rem'
+                    }}>25</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#e7e7e7',
+                      fontWeight: '500',
+                      fontSize: '0.95rem'
+                    }}>4</td>
+                  </tr>
+                  <tr>
+                    <td style={{
+                      padding: '16px 12px',
+                      color: '#a259f7',
+                      fontWeight: '700',
+                      fontSize: '0.95rem',
+                      background: 'rgba(162,89,247,0.1)'
+                    }}>Elite</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#4CAF50',
+                      fontWeight: '700',
+                      fontSize: '1.1rem',
+                      background: 'rgba(162,89,247,0.1)'
+                    }}>₹15,000</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#a259f7',
+                      fontWeight: '600',
+                      fontSize: '0.95rem',
+                      background: 'rgba(162,89,247,0.1)'
+                    }}>15</td>
+                    <td style={{
+                      padding: '16px 12px',
+                      textAlign: 'center',
+                      color: '#a259f7',
+                      fontWeight: '600',
+                      fontSize: '0.95rem',
+                      background: 'rgba(162,89,247,0.1)'
+                    }}>15</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div style={{
+              marginTop: 16,
+              padding: 12,
+              background: 'rgba(76,175,80,0.1)',
+              border: '1px solid rgba(76,175,80,0.3)',
+              borderRadius: 8,
+              textAlign: 'center'
+            }}>
+              <p style={{
+                color: '#4CAF50',
+                fontSize: '0.9rem',
+                fontWeight: '600',
+                margin: 0
+              }}>
+                ✨ All plans include account management, captions, hashtags, and community engagement
+              </p>
             </div>
           </div>
         </div>

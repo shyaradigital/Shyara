@@ -7,7 +7,7 @@ import { Mail, Phone } from 'lucide-react';
 
 const ContactPage = () => {
   // --- Begin new implementation based on attached file, but keep inline styles ---
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [showCartAlert, setShowCartAlert] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -23,6 +23,33 @@ const ContactPage = () => {
     e.preventDefault();
     setError('');
     setSuccess(false);
+    
+    // Validate required fields
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.message.trim()) {
+      setError('Please fill in all required fields.');
+      return;
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    
+    // Validate phone number (basic validation)
+    const phoneRegex = /^[+]?[0-9\s\-()]{10,}$/;
+    if (!phoneRegex.test(form.phone.replace(/\s/g, ''))) {
+      setError('Please enter a valid mobile number.');
+      return;
+    }
+    
+    // Check for empty message content
+    if (form.message.trim().length < 10) {
+      setError('Please write a meaningful message (at least 10 characters).');
+      return;
+    }
+    
     if (cart && cart.length > 0) {
       setShowCartAlert(true);
       return;
@@ -34,7 +61,7 @@ const ContactPage = () => {
     setSubmitting(true);
     setTimeout(() => {
       setSuccess(true);
-      setForm({ name: '', email: '', message: '' });
+      setForm({ name: '', email: '', phone: '', message: '' });
       setSubmitting(false);
       setShowCartAlert(false);
     }, 800);
@@ -72,6 +99,27 @@ const ContactPage = () => {
           boxShadow: 'none',
           flexWrap: 'wrap',
         }}>
+          <style jsx>{`
+            @media (max-width: 768px) {
+              .contact-content {
+                flex-direction: column !important;
+                gap: 24px !important;
+                padding: 0 1rem !important;
+              }
+              .contact-info {
+                min-width: 100% !important;
+                max-width: 100% !important;
+                padding: 24px !important;
+                gap: 20px !important;
+                min-height: auto !important;
+              }
+              .contact-form {
+                min-width: 100% !important;
+                max-width: 100% !important;
+                padding: 24px !important;
+              }
+            }
+          `}</style>
           {/* Contact Info */}
           <div className="contact-info" style={{
             flex: '1 1 340px',
@@ -129,16 +177,20 @@ const ContactPage = () => {
           }}>
             <form style={{ display: 'flex', flexDirection: 'column', gap: 28, height: '100%' }} onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="name" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Full Name</label>
-                <input type="text" id="name" value={form.name} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+                <label htmlFor="name" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Full Name *</label>
+                <input type="text" id="name" value={form.name} onChange={handleChange} required style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
               </div>
               <div>
-                <label htmlFor="email" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Email Address</label>
-                <input type="email" id="email" value={form.email} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+                <label htmlFor="email" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Email Address *</label>
+                <input type="email" id="email" value={form.email} onChange={handleChange} required style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
               </div>
               <div>
-                <label htmlFor="message" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Message</label>
-                <textarea id="message" rows={5} value={form.message} onChange={handleChange} style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', outline: 'none', fontWeight: 400, resize: 'none' }}></textarea>
+                <label htmlFor="phone" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Mobile Number *</label>
+                <input type="tel" id="phone" value={form.phone} onChange={handleChange} required placeholder="+91 9876543210" style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+              </div>
+              <div>
+                <label htmlFor="message" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Message *</label>
+                <textarea id="message" rows={5} value={form.message} onChange={handleChange} required placeholder="Write your message here" style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', outline: 'none', fontWeight: 400, resize: 'none' }}></textarea>
               </div>
               {error && <div style={{ color: '#ff4d4f', fontSize: 16 }}>{error}</div>}
               {success && <div style={{ color: '#4caf50', fontSize: 16 }}>Message sent successfully!</div>}

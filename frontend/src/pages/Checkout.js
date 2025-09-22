@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
-import { ArrowLeft, CheckCircle, Shield, Lock, CreditCard, User, Mail, Phone, MapPin, FileText, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Shield, Lock, CreditCard, User, MapPin, FileText, Eye, EyeOff } from 'lucide-react';
 
 /*
   IMPORTANT: This is a demo checkout page with simulated payment processing.
@@ -92,7 +92,16 @@ const Checkout = () => {
     }
   }, [cart, navigate]);
 
-  const total = cart ? cart.reduce((sum, item) => sum + (item.price || 0), 0) : 0;
+  // Calculate total for fixed-price items only
+  const fixedPriceTotal = cart ? cart.reduce((sum, item) => {
+    if (!item.isCustomQuote && item.price && item.price > 0) {
+      return sum + (item.price * (item.quantity || 1));
+    }
+    return sum;
+  }, 0) : 0;
+
+  // Check if cart has custom quote items
+  const hasCustomQuoteItems = cart ? cart.some(item => item.isCustomQuote) : false;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -145,8 +154,8 @@ const Checkout = () => {
     
     // Validate form data
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || 
-        !formData.address || !formData.city || !formData.state || !formData.zipCode ||
-        !formData.cardNumber || !formData.expiryDate || !formData.cvv || !formData.cardholderName) {
+        (!formData.address || !formData.city || !formData.state || !formData.zipCode) ||
+        (!formData.cardNumber || !formData.expiryDate || !formData.cvv || !formData.cardholderName)) {
       alert('Please fill in all required fields');
       return;
     }
@@ -1011,9 +1020,19 @@ const Checkout = () => {
                   <div style={{
                     color: '#a259f7',
                     fontWeight: '700',
-                    fontSize: '1.1rem'
+                    fontSize: '1.1rem',
+                    textAlign: 'right'
                   }}>
-                    ₹{item.price ? item.price.toLocaleString() : 'Custom'}
+                    {item.isCustomQuote ? (
+                      <div>
+                        <div>Custom Quote</div>
+                        <div style={{ fontSize: '0.8rem', color: '#a7a7a7', marginTop: 2 }}>
+                          + Price after discussion
+                        </div>
+                      </div>
+                    ) : (
+                      `₹${(item.price * (item.quantity || 1)).toLocaleString()}`
+                    )}
                   </div>
                 </div>
               ))}
@@ -1032,7 +1051,18 @@ const Checkout = () => {
                 borderTop: '1px solid rgba(255, 255, 255, 0.1)'
               }}>
                 <span style={{ color: '#ffffff', fontSize: '1.3rem', fontWeight: '700' }}>Total</span>
-                <span style={{ color: '#a259f7', fontSize: '1.8rem', fontWeight: '700' }}>₹{total.toLocaleString()}</span>
+                <span style={{ color: '#a259f7', fontSize: '1.8rem', fontWeight: '700' }}>
+                  {hasCustomQuoteItems ? (
+                    <div>
+                      <div>₹{fixedPriceTotal.toLocaleString()}</div>
+                      <div style={{ fontSize: '0.9rem', color: '#a7a7a7', marginTop: 4 }}>
+                        + custom quote
+                      </div>
+                    </div>
+                  ) : (
+                    `₹${fixedPriceTotal.toLocaleString()}`
+                  )}
+                </span>
               </div>
             </div>
             

@@ -364,7 +364,7 @@ const HomeMobile = () => {
                   margin: 0,
                   textAlign: 'center'
                 }}>
-                  <strong>Shyara gives you the expertise of an agency with the flexibility of a freelance team, delivering real results without inflated costs.</strong>
+                  <strong>Shyara gives you the expertise of a digital team with the flexibility of a freelance team, delivering real results without inflated costs.</strong>
                 </p>
               </div>
             </div>
@@ -727,7 +727,7 @@ const HomeMobile = () => {
                 marginRight: 'auto',
                 fontWeight: '400'
               }}>
-                We're not just another agency. Here's what makes us different.
+                We're not just another digital team. Here's what makes us different.
               </p>
               
               <div style={{

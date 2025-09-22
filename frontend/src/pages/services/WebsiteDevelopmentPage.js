@@ -189,10 +189,19 @@ const WebsiteDevelopmentPage = () => {
           
           <div className="service-pricing-cards" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+            gridTemplateColumns: '1fr 1fr', 
             gap: 20, 
-            width: '100%' 
+            width: '100%',
+            alignItems: 'stretch'
           }}>
+            <style jsx>{`
+              @media (max-width: 768px) {
+                .service-pricing-cards {
+                  grid-template-columns: 1fr !important;
+                  gap: 16px !important;
+                }
+              }
+            `}</style>
             
             {/* Basic Site Option */}
             <div className="service-pricing-card" style={{
@@ -205,24 +214,93 @@ const WebsiteDevelopmentPage = () => {
               overflow: 'hidden',
               height: 'fit-content'
             }}>
+            {/* Discount Badge */}
             <div style={{
               position: 'absolute',
               top: 0,
               right: 0,
-              background: 'linear-gradient(45deg, #a259f7, #7f42a7)',
+              background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
               color: 'white',
               padding: '8px 16px',
               fontSize: '0.9rem',
               fontWeight: 700,
-              borderBottomLeftRadius: 12
+              borderBottomLeftRadius: 12,
+              zIndex: 2
             }}>
-              ₹15,000+
+              68% OFF
             </div>
+            
+            {/* Pricing Display */}
+            <div style={{ 
+              marginBottom: 16, 
+              textAlign: 'center',
+              paddingTop: '40px'
+            }}>
+              <div style={{ 
+                color: '#a259f7', 
+                fontSize: '1.8rem', 
+                fontWeight: '700',
+                textShadow: '0 2px 4px rgba(162,89,247,0.3)',
+                marginBottom: '8px'
+              }}>
+                ₹12,000
+              </div>
+              
+              {/* Discount Information */}
+              <div style={{
+                background: 'rgba(76, 175, 80, 0.1)',
+                border: '1px solid rgba(76, 175, 80, 0.3)',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                marginBottom: '8px',
+                fontSize: '0.85rem'
+              }}>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontWeight: '600',
+                  marginBottom: '2px'
+                }}>
+                  ₹37,500 → 68% OFF → ₹12,000
+                </div>
+                <div style={{ 
+                  color: '#a7a7a7', 
+                  fontSize: '0.75rem'
+                }}>
+                  Original: ₹37,500 | Discount: 68% | Final: ₹12,000
+                </div>
+              </div>
+            </div>
+            
             <div style={{ marginBottom: 12 }}>
               <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Basic Site</h3>
-              <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                Portfolio, business, or personal website with up to 5 pages
+              <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: '0 0 12px 0', lineHeight: 1.4 }}>
+                Perfect for portfolios, small businesses, and personal websites
               </p>
+              
+              {/* Example Items */}
+              <div style={{ marginBottom: 12 }}>
+                <div style={{ color: '#a7a7a7', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Examples:</div>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {[
+                    'Personal Portfolio',
+                    'Local Bakery Website – Menu and Orders',
+                    'Consultant/Coach Website',
+                    'Wedding/Event Website'
+                  ].map((example, idx) => (
+                    <li key={idx} style={{ 
+                      color: '#bdbdbd', 
+                      fontSize: '0.8rem',
+                      padding: '2px 0',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}>
+                      <span style={{ color: '#a259f7', fontSize: '0.7rem' }}>•</span>
+                      {example}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <button
               style={{
@@ -244,7 +322,7 @@ const WebsiteDevelopmentPage = () => {
                 outline: 'none',
                 width: '100%'
               }}
-              onClick={() => addToCart({ id: 'web-basic', name: 'Website Development - Basic Site', price: 15000, description: 'Portfolio, business, or personal website with up to 5 pages' })}
+              onClick={() => addToCart({ id: 'web-basic', name: 'Website Development - Basic Site', price: 12000, description: 'Perfect for portfolios, small businesses, and personal websites' })}
               disabled={isBasicInCart}
             >
               <ShoppingCart style={{ width: 18, height: 18 }} /> {isBasicInCart ? 'Added to Cart' : 'Add Basic Site'}
@@ -262,24 +340,93 @@ const WebsiteDevelopmentPage = () => {
               overflow: 'hidden',
               height: 'fit-content'
             }}>
+            {/* Discount Badge */}
             <div style={{
               position: 'absolute',
               top: 0,
               right: 0,
-              background: 'linear-gradient(45deg, #a259f7, #7f42a7)',
+              background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
               color: 'white',
               padding: '8px 16px',
               fontSize: '0.9rem',
               fontWeight: 700,
-              borderBottomLeftRadius: 12
+              borderBottomLeftRadius: 12,
+              zIndex: 2
             }}>
-              ₹45,000+
+              40% OFF
             </div>
+            
+            {/* Pricing Display */}
+            <div style={{ 
+              marginBottom: 16, 
+              textAlign: 'center',
+              paddingTop: '40px'
+            }}>
+              <div style={{ 
+                color: '#a259f7', 
+                fontSize: '1.8rem', 
+                fontWeight: '700',
+                textShadow: '0 2px 4px rgba(162,89,247,0.3)',
+                marginBottom: '8px'
+              }}>
+                ₹45,000
+              </div>
+              
+              {/* Discount Information */}
+              <div style={{
+                background: 'rgba(76, 175, 80, 0.1)',
+                border: '1px solid rgba(76, 175, 80, 0.3)',
+                borderRadius: '8px',
+                padding: '8px 12px',
+                marginBottom: '8px',
+                fontSize: '0.85rem'
+              }}>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontWeight: '600',
+                  marginBottom: '2px'
+                }}>
+                  ₹75,000 → 40% OFF → ₹45,000
+                </div>
+                <div style={{ 
+                  color: '#a7a7a7', 
+                  fontSize: '0.75rem'
+                }}>
+                  Original: ₹75,000 | Discount: 40% | Final: ₹45,000
+                </div>
+              </div>
+            </div>
+            
             <div style={{ marginBottom: 12 }}>
-              <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>E-commerce/Booking</h3>
-              <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+              <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>E-commerce / Booking</h3>
+              <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: '0 0 12px 0', lineHeight: 1.4 }}>
                 Online store or booking system with payment integration
               </p>
+              
+              {/* Example Items */}
+              <div style={{ marginBottom: 12 }}>
+                <div style={{ color: '#a7a7a7', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Examples:</div>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  {[
+                    'Clothing Brand Online Store',
+                    'Salon/Clinic Booking System',
+                    'Restaurant Ordering & Table Booking',
+                    'Yoga Class Booking Website'
+                  ].map((example, idx) => (
+                    <li key={idx} style={{ 
+                      color: '#bdbdbd', 
+                      fontSize: '0.8rem',
+                      padding: '2px 0',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px'
+                    }}>
+                      <span style={{ color: '#a259f7', fontSize: '0.7rem' }}>•</span>
+                      {example}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <button
               style={{
@@ -307,63 +454,180 @@ const WebsiteDevelopmentPage = () => {
               <ShoppingCart style={{ width: 18, height: 18 }} /> {isEcomInCart ? 'Added to Cart' : 'Add E-commerce Site'}
             </button>
           </div>
-
-                      {/* Custom Option */}
-            <div className="service-pricing-card" style={{
-              background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
-              border: '2px solid rgba(162,89,247,0.2)',
-              borderRadius: 16,
-              padding: 20,
-              width: '100%',
-              position: 'relative',
-              overflow: 'hidden',
-              height: 'fit-content'
-            }}>
+          </div>
+          
+          {/* Custom Option - Full Width Below */}
+          <div className="custom-website-card" style={{
+            background: 'linear-gradient(135deg, rgba(162,89,247,0.12) 0%, rgba(30,30,40,0.2) 100%)',
+            border: '2px solid rgba(162,89,247,0.4)',
+            borderRadius: 20,
+            padding: 24,
+            width: '100%',
+            position: 'relative',
+            overflow: 'hidden',
+            height: 'fit-content',
+            boxShadow: '0 8px 32px rgba(162,89,247,0.15)',
+            marginTop: 20
+          }}>
+            {/* Premium Badge */}
             <div style={{
               position: 'absolute',
               top: 0,
               right: 0,
-              background: 'linear-gradient(45deg, #a259f7, #7f42a7)',
+              background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
               color: 'white',
-              padding: '8px 16px',
-              fontSize: '0.9rem',
-              fontWeight: 700,
-              borderBottomLeftRadius: 12
+              padding: '10px 20px',
+              fontSize: '1rem',
+              fontWeight: 800,
+              borderBottomLeftRadius: 16,
+              boxShadow: '0 4px 16px rgba(255,107,107,0.3)',
+              zIndex: 2
             }}>
-              Custom Quote
+              PREMIUM
             </div>
-            <div style={{ marginBottom: 12 }}>
-              <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Custom Website</h3>
-              <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                Fully custom website with unique features and requirements
-              </p>
+            
+            {/* Pricing Display */}
+            <div style={{ 
+              marginBottom: 16, 
+              textAlign: 'center',
+              paddingTop: '50px'
+            }}>
+              <div style={{ 
+                color: '#a259f7', 
+                fontSize: '2rem', 
+                fontWeight: '700',
+                textShadow: '0 2px 4px rgba(162,89,247,0.3)',
+                marginBottom: '8px'
+              }}>
+                Custom Quote
+              </div>
+              
+              {/* Premium Information */}
+              <div style={{
+                background: 'rgba(255,107,107,0.1)',
+                border: '1px solid rgba(255,107,107,0.3)',
+                borderRadius: '12px',
+                padding: '10px 16px',
+                marginBottom: '8px',
+                fontSize: '0.9rem'
+              }}>
+                <div style={{ 
+                  color: '#ff6b6b', 
+                  fontWeight: '600',
+                  marginBottom: '2px'
+                }}>
+                  Tailored to Your Vision
+                </div>
+                <div style={{ 
+                  color: '#a7a7a7', 
+                  fontSize: '0.8rem'
+                }}>
+                  Advanced features • Custom integrations • Dedicated support
+                </div>
+              </div>
             </div>
-            <button
-              style={{
-                background: isCustomInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-                color: isCustomInCart ? '#a259f7' : '#fff',
-                fontWeight: 700,
-                fontSize: '1rem',
-                border: 'none',
-                borderRadius: 8,
-                padding: '0.8rem 1.5rem',
-                boxShadow: isCustomInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-                cursor: isCustomInCart ? 'not-allowed' : 'pointer',
-                opacity: isCustomInCart ? 0.6 : 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 8,
-                transition: 'all 0.2s ease',
-                outline: 'none',
-                width: '100%'
-              }}
-              onClick={() => addToCart({ id: 'web-custom', name: 'Website Development - Custom', price: 0, description: 'Fully custom website with unique features and requirements' })}
-              disabled={isCustomInCart}
-            >
-              <ShoppingCart style={{ width: 18, height: 18 }} /> {isCustomInCart ? 'Added to Cart' : 'Get Custom Quote'}
-            </button>
-          </div>
+            
+            <div style={{ display: 'flex', gap: 40, alignItems: 'flex-start' }}>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.2rem', fontWeight: 700, margin: '0 0 8px 0' }}>Custom Website</h3>
+                <p style={{ color: '#bdbdbd', fontSize: '0.95rem', margin: '0 0 16px 0', lineHeight: 1.4 }}>
+                  Fully custom website with unique features and requirements
+                </p>
+                
+                {/* Premium Features */}
+                <div style={{ 
+                  background: 'rgba(162,89,247,0.08)', 
+                  borderRadius: '12px', 
+                  padding: '12px', 
+                  marginBottom: '16px',
+                  border: '1px solid rgba(162,89,247,0.2)'
+                }}>
+                  <div style={{ color: '#a259f7', fontSize: '0.9rem', fontWeight: '600', marginBottom: '8px' }}>Premium Features:</div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                    {['Custom Design', 'Advanced Features', 'API Integration', 'Dedicated Support'].map((feature, idx) => (
+                      <span key={idx} style={{
+                        background: 'rgba(162,89,247,0.15)',
+                        color: '#a259f7',
+                        padding: '4px 8px',
+                        borderRadius: '6px',
+                        fontSize: '0.75rem',
+                        fontWeight: '600'
+                      }}>
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              <div style={{ flex: 1 }}>
+                {/* Example Items */}
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ color: '#a7a7a7', fontSize: '0.85rem', fontWeight: '600', marginBottom: '8px' }}>Examples:</div>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    {[
+                      'Social Media Platform',
+                      'Marketplace Website',
+                      'Custom LMS (Learning Management System)',
+                      'Construction Project Portal',
+                      'Healthcare Portal'
+                    ].map((example, idx) => (
+                      <li key={idx} style={{ 
+                        color: '#bdbdbd', 
+                        fontSize: '0.8rem',
+                        padding: '2px 0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}>
+                        <span style={{ color: '#ff6b6b', fontSize: '0.7rem' }}>•</span>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div style={{ textAlign: 'center', marginTop: 20 }}>
+              <button
+                style={{
+                  background: isCustomInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+                  color: isCustomInCart ? '#a259f7' : '#fff',
+                  fontWeight: 700,
+                  fontSize: '1.1rem',
+                  border: 'none',
+                  borderRadius: 12,
+                  padding: '1rem 2rem',
+                  boxShadow: isCustomInCart ? '0 2px 12px #0002' : '0 4px 20px rgba(255,107,107,0.4)',
+                  cursor: isCustomInCart ? 'not-allowed' : 'pointer',
+                  opacity: isCustomInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 10,
+                  transition: 'all 0.3s ease',
+                  outline: 'none',
+                  margin: '0 auto'
+                }}
+                onClick={() => addToCart({ id: 'web-custom', name: 'Website Development - Custom', price: 0, description: 'Fully custom website with unique features and requirements', isCustomQuote: true, priceText: 'Custom Quote' })}
+                disabled={isCustomInCart}
+                onMouseEnter={(e) => {
+                  if (!isCustomInCart) {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 6px 24px rgba(255,107,107,0.5)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!isCustomInCart) {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(255,107,107,0.4)';
+                  }
+                }}
+              >
+                {isCustomInCart ? 'Added to Cart' : 'Get Custom Quote'}
+              </button>
+            </div>
           </div>
         </div>
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>

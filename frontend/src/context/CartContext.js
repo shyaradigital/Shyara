@@ -7,6 +7,7 @@ export const CartContext = createContext({
   updateQuantity: () => {},
   updateCartItem: () => {},
   clearCart: () => {},
+  showNotification: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -14,12 +15,29 @@ export const CartProvider = ({ children }) => {
     const stored = localStorage.getItem('cart');
     return stored ? JSON.parse(stored) : [];
   });
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
+  const showNotification = (message, type = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
   const addToCart = (item) => {
+    // Ensure proper service name and price handling
+    const cartItem = {
+      ...item,
+      quantity: item.quantity || 1,
+      // Handle custom quote services
+      isCustomQuote: item.price === 0 || item.price === null || item.price === undefined || item.priceText === 'Custom Quote',
+      priceText: item.priceText || (item.price === 0 || item.price === null || item.price === undefined ? 'Custom Quote' : `₹${item.price}`),
+      // Ensure service name is properly set
+      name: item.name || item.title || 'Service'
+    };
+
     setCart((prev) => {
       // Check if item already exists
       const existingItem = prev.find((i) => i.id === item.id);
@@ -32,8 +50,11 @@ export const CartProvider = ({ children }) => {
         );
       }
       // If item doesn't exist, add it with quantity 1
-      return [...prev, { ...item, quantity: item.quantity || 1 }];
+      return [...prev, cartItem];
     });
+
+    // Show confirmation message
+    showNotification(`${cartItem.name} added to cart`);
   };
 
   const removeFromCart = (id) => {
@@ -70,8 +91,27 @@ export const CartProvider = ({ children }) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, updateCartItem, clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, updateCartItem, clearCart, showNotification }}>
       {children}
+      {/* Notification Component */}
+      {notification && (
+        <div style={{
+          position: 'fixed',
+          top: '20px',
+          right: '20px',
+          background: notification.type === 'success' ? '#4CAF50' : '#f44336',
+          color: 'white',
+          padding: '12px 20px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          zIndex: 10000,
+          fontSize: '14px',
+          fontWeight: '500',
+          animation: 'slideInRight 0.3s ease-out'
+        }}>
+          {notification.message}
+        </div>
+      )}
     </CartContext.Provider>
   );
 }; 

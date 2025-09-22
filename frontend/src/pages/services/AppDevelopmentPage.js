@@ -151,9 +151,38 @@ const AppDevelopmentPage = () => {
               </div>
               <div style={{ marginBottom: 12 }}>
                 <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Basic App</h3>
-                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: '0 0 12px 0', lineHeight: 1.4 }}>
                   Simple app with core features, perfect for MVP or basic functionality
                 </p>
+                
+                {/* Example Items */}
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ color: '#a7a7a7', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Examples:</div>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    {[
+                      'Business Profile App',
+                      'Portfolio App',
+                      'Restaurant Menu App',
+                      'Event App',
+                      'Educational Notes/Content App',
+                      'Booking Enquiry App',
+                      'Community App',
+                      'News/Blog App'
+                    ].map((example, idx) => (
+                      <li key={idx} style={{ 
+                        color: '#bdbdbd', 
+                        fontSize: '0.8rem',
+                        padding: '2px 0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}>
+                        <span style={{ color: '#a259f7', fontSize: '0.7rem' }}>•</span>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
               <button
                 style={{
@@ -232,7 +261,7 @@ const AppDevelopmentPage = () => {
                   outline: 'none',
                   width: '100%'
                 }}
-                onClick={() => addToCart({ id: 'app-enterprise', name: 'App Development - Custom/Enterprise', price: 0, description: 'Complex app with advanced features, integrations, and custom requirements' })}
+                onClick={() => addToCart({ id: 'app-enterprise', name: 'App Development - Custom/Enterprise', price: 0, description: 'Complex app with advanced features, integrations, and custom requirements', isCustomQuote: true, priceText: 'Custom Quote' })}
                 disabled={isEnterpriseInCart}
               >
                 <ShoppingCart style={{ width: 18, height: 18 }} /> {isEnterpriseInCart ? 'Added to Cart' : 'Get Custom Quote'}

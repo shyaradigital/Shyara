@@ -99,14 +99,14 @@ const Home = () => {
     }
   }, [splineReady]);
 
-  // Initialize AOS after fade-in with enhanced settings
+  // Initialize AOS for individual elements within sections
   useEffect(() => {
     if (fadeIn) {
       AOS.init({ 
         once: true,
-        duration: 1200,
+        duration: 800, // Faster duration since sections render immediately
         easing: 'ease-out-cubic',
-        offset: 100,
+        offset: 0, // No offset needed since sections handle visibility
         delay: 0,
         anchorPlacement: 'top-bottom'
       });
@@ -114,28 +114,36 @@ const Home = () => {
     }
   }, [fadeIn]);
 
-  // Intersection Observer for scroll-triggered animations
+  // Intersection Observer for section-based rendering
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.1, // Trigger when 10% of the section is visible
+      rootMargin: '0px 0px 0px 0px' // No margin, trigger exactly when section enters viewport
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          // Show the entire section immediately
           entry.target.style.opacity = '1';
           entry.target.style.transform = 'translateY(0)';
+          
+          // Also trigger any AOS animations within this section
+          const aosElements = entry.target.querySelectorAll('[data-aos]');
+          aosElements.forEach(el => {
+            el.classList.add('aos-animate');
+          });
         }
       });
     }, observerOptions);
 
-    const elements = document.querySelectorAll('.scroll-animate');
-    elements.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
-      observer.observe(el);
+    // Target section containers instead of individual elements
+    const sections = document.querySelectorAll('.scroll-section, .scroll-animate');
+    sections.forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      observer.observe(section);
     });
 
     return () => observer.disconnect();
@@ -547,7 +555,7 @@ const Home = () => {
                 data-aos-duration="1000"
                 data-aos-easing="ease-out-back"
               >
-                <strong>Shyara gives you the expertise of an agency with the flexibility of a freelance team, delivering real results without inflated costs.</strong>
+                <strong>Shyara gives you the expertise of a digital team with the flexibility of a freelance team, delivering real results without inflated costs.</strong>
               </div>
             </div>
           </div>
@@ -1241,124 +1249,8 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Section 5 - Limited Time Offer */}
-        <div className="scroll-animate" style={{ marginBottom: '6rem' }}>
-          <div style={{
-            background: 'rgba(30,30,30,0.55)',
-            borderRadius: 28,
-            padding: '3rem',
-            boxShadow: '0 8px 32px 0 rgba(80,80,120,0.18)',
-            border: '1.5px solid rgba(127,66,167,0.18)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            maxWidth: 800,
-            margin: '0 auto',
-            textAlign: 'center'
-          }}>
-            <h2 style={{ 
-              fontSize: '2rem', 
-              fontWeight: '600', 
-              color: 'var(--color-text-primary)', 
-              marginBottom: '2rem',
-              lineHeight: 1.3
-            }}>
-              Your Brand Could Be the Next Success Story
-            </h2>
-            
-            <p style={{
-              fontSize: '1.1rem',
-              color: 'var(--color-text-secondary)',
-              lineHeight: 1.7,
-              marginBottom: '2rem',
-              maxWidth: 600,
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}>
-              Get a Free Brand Growth Plan—your personalized roadmap to more reach, sales, and visibility.
-            </p>
-            
-            <p style={{
-              fontSize: '1rem',
-              color: 'var(--color-text-secondary)',
-              marginBottom: '2.5rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.5rem'
-            }}>
-              <span style={{
-                background: 'rgba(162,89,247,0.15)',
-                color: 'var(--color-primary)',
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                  <line x1="16" y1="2" x2="16" y2="6"/>
-                  <line x1="8" y1="2" x2="8" y2="6"/>
-                  <line x1="3" y1="10" x2="21" y2="10"/>
-                </svg>
-              </span>
-              <span>Offer available for a limited time.</span>
-            </p>
-            
-            <Link to="/contact" style={{
-              background: 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-              color: '#fff',
-              fontWeight: '700',
-              fontSize: '1.1rem',
-              border: 'none',
-              borderRadius: 16,
-              padding: '1rem 2.5rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              boxShadow: '0 8px 24px rgba(162,89,247,0.3)',
-              transform: 'scale(1)',
-              position: 'relative',
-              overflow: 'hidden',
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.05) translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 12px 32px rgba(162,89,247,0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1) translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(162,89,247,0.3)';
-            }}>
-              <span style={{
-                background: 'rgba(255,255,255,0.2)',
-                width: '32px',
-                height: '32px',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
-                  <path d="M9.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
-                  <path d="M14.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
-                  <path d="M19.5 9.5V5a2.5 2.5 0 0 1 5 0v4.5"/>
-                  <path d="M4.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
-                  <path d="M9.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
-                  <path d="M14.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
-                  <path d="M19.5 9.5v9a2.5 2.5 0 0 0 5 0v-9"/>
-                </svg>
-              </span>
-              Claim My Free Brand Growth Plan →
-            </Link>
-          </div>
-        </div>
 
-        {/* Section 6 - Contact */}
+        {/* Section 5 - Contact */}
         <div className="scroll-animate" style={{ marginBottom: '6rem' }}>
           <h2 style={{ 
             fontSize: '2.2rem', 
@@ -1430,7 +1322,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Section 7 - Final Trust Close */}
+        {/* Section 6 - Final Trust Close */}
         <div className="scroll-animate" style={{ marginBottom: '6rem' }}>
           <div style={{
             background: 'rgba(30,30,30,0.55)',

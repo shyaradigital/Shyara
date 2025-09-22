@@ -12,11 +12,11 @@ const AboutPage = () => {
   const [hoveredTeam, setHoveredTeam] = useState(null);
   const [hoveredStat, setHoveredStat] = useState(null);
 
-  // Intersection Observer for scroll-triggered animations
+  // Intersection Observer for faster scroll-triggered animations
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: '0px 0px 50px 0px' // Trigger earlier with positive margin
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -31,8 +31,8 @@ const AboutPage = () => {
     const elements = document.querySelectorAll('.scroll-animate');
     elements.forEach(el => {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+      el.style.transform = 'translateY(20px)'; // Reduced from 30px
+      el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out'; // Faster transitions
       observer.observe(el);
     });
 
@@ -231,10 +231,10 @@ const AboutPage = () => {
                 "Great results don't need big offices — they need big ideas and the right people."
               </p>
               <p style={{ marginBottom: '1.5rem' }}>
-                We saw too many small businesses, startups, and creators struggling to get quality digital work without paying agency-sized bills.
+                We saw too many small businesses, startups, and creators struggling to get quality digital work without paying digital team-sized bills.
               </p>
               <p style={{ marginBottom: '1.5rem' }}>
-                So, we built Shyara — not as an agency, but as a curated collective of skilled freelancers who could deliver top-tier results with speed, creativity, and flexibility.
+                So, we built Shyara — not as a digital team, but as a curated collective of skilled freelancers who could deliver top-tier results with speed, creativity, and flexibility.
               </p>
               <p style={{ 
                 fontSize: '1.1rem', 
@@ -414,7 +414,7 @@ const AboutPage = () => {
           </div>
         </div>
 
-        {/* Section 3: Meet the People */}
+        {/* Section 3: we have */}
         <div className="scroll-animate" style={{ marginBottom: '6rem' }}>
           <h2 style={{ 
             fontSize: '2.2rem', 
@@ -424,7 +424,7 @@ const AboutPage = () => {
             textAlign: 'center',
             letterSpacing: '-0.01em'
           }}>
-            <FancyText text="Meet the People" />
+            <FancyText text="We Have" />
           </h2>
           
           <div style={{ 

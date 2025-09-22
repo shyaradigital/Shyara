@@ -12,11 +12,11 @@ const AboutTablet = () => {
   const [hoveredTeam, setHoveredTeam] = useState(null);
   const [hoveredStat, setHoveredStat] = useState(null);
 
-  // Intersection Observer for scroll-triggered animations
+  // Intersection Observer for faster scroll-triggered animations
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      rootMargin: '0px 0px 50px 0px' // Trigger earlier with positive margin
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -31,8 +31,8 @@ const AboutTablet = () => {
     const elements = document.querySelectorAll('.scroll-animate');
     elements.forEach(el => {
       el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+      el.style.transform = 'translateY(20px)'; // Reduced from 30px
+      el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out'; // Faster transitions
       observer.observe(el);
     });
 
@@ -220,7 +220,7 @@ const AboutTablet = () => {
                 marginBottom: '1.5rem',
                 textAlign: 'center'
               }}>
-                Shyara started as a simple idea: what if we could give growing brands the expertise of an agency without the overhead? 
+                Shyara started as a simple idea: what if we could give growing brands the expertise of a digital team without the overhead? 
                 We're a collective of handpicked freelancers, each a specialist in their field, working together to deliver results that matter.
               </p>
               

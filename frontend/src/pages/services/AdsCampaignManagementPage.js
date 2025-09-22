@@ -361,7 +361,7 @@ const AdsCampaignManagementPage = () => {
                   outline: 'none',
                   width: '100%'
                 }}
-                onClick={() => addToCart({ id: 'ads-mgmt', name: 'Ad Campaign Management (20% of Budget)', price: 0, description: 'Complete ad campaign management with strategy, optimization, and reporting. Free ad creatives included. 100% advance payment required.' })}
+                onClick={() => addToCart({ id: 'ads-mgmt', name: 'Ad Campaign Management (20% of Budget)', price: 0, description: 'Complete ad campaign management with strategy, optimization, and reporting. Free ad creatives included. 100% advance payment required.', isCustomQuote: true, priceText: 'Custom Quote' })}
                 disabled={isAdMgmtInCart}
               >
                 <ShoppingCart style={{ width: 18, height: 18 }} /> {isAdMgmtInCart ? 'Added to Cart' : 'Add Ad Management'}

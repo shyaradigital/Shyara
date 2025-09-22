@@ -166,6 +166,17 @@ body:has(.loading-screen) {
   50% { text-shadow: 0 0 30px rgba(231, 231, 231, 0.6), 0 0 40px rgba(231, 231, 231, 0.3); }
 }
 
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .main-content, .home-entrance {
     display: flex;
     flex-direction: column;

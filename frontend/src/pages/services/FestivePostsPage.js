@@ -70,10 +70,32 @@ const FestivePostsPage = () => {
   
   return (
     <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
+      {/* Mobile-specific styles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .mobile-back-button {
+            left: 20px !important;
+            width: 44px !important;
+            height: 44px !important;
+          }
+          .mobile-pricing-container {
+            padding-top: 50px !important;
+          }
+          .mobile-discount-info {
+            font-size: 0.8rem !important;
+            padding: 6px 10px !important;
+          }
+          .mobile-discount-detail {
+            font-size: 0.7rem !important;
+          }
+        }
+      `}</style>
+      
       {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
         aria-label="Back to Services"
+        className="mobile-back-button"
         style={{
           position: 'fixed',
           top: 100,
@@ -145,7 +167,7 @@ const FestivePostsPage = () => {
               flexDirection: 'column',
               justifyContent: 'space-between'
             }}>
-              {/* Best Value Badge */}
+              {/* Best Value Badge - Mobile Responsive */}
               <div style={{
                 position: 'absolute',
                 top: 0,
@@ -155,26 +177,56 @@ const FestivePostsPage = () => {
                 padding: '8px 16px',
                 fontSize: '0.9rem',
                 fontWeight: '700',
-                borderBottomLeftRadius: 12
+                borderBottomLeftRadius: 12,
+                zIndex: 2
               }}>
                 BEST VALUE
               </div>
               
-              {/* Pricing Display */}
-              <div style={{ marginBottom: 16, textAlign: 'center' }}>
+              {/* Pricing Display with Mobile Responsive Spacing */}
+              <div className="mobile-pricing-container" style={{ 
+                marginBottom: 16, 
+                textAlign: 'center',
+                paddingTop: '40px' // Add space for badge on mobile
+              }}>
                 <div style={{ 
                   color: '#a259f7', 
                   fontSize: '1.8rem', 
                   fontWeight: '700',
-                  textShadow: '0 2px 4px rgba(162,89,247,0.3)'
+                  textShadow: '0 2px 4px rgba(162,89,247,0.3)',
+                  marginBottom: '8px'
                 }}>
                   ₹5,000
                 </div>
+                
+                {/* Discount Information */}
+                <div className="mobile-discount-info" style={{
+                  background: 'rgba(76, 175, 80, 0.1)',
+                  border: '1px solid rgba(76, 175, 80, 0.3)',
+                  borderRadius: '8px',
+                  padding: '8px 12px',
+                  marginBottom: '8px',
+                  fontSize: '0.85rem'
+                }}>
+                  <div style={{ 
+                    color: '#4CAF50', 
+                    fontWeight: '600',
+                    marginBottom: '2px'
+                  }}>
+                    ₹12,500 → 60% OFF → ₹5,000
+                  </div>
+                  <div className="mobile-discount-detail" style={{ 
+                    color: '#a7a7a7', 
+                    fontSize: '0.75rem'
+                  }}>
+                    Original: ₹12,500 | Discount: 60% | Final: ₹5,000
+                  </div>
+                </div>
+                
                 <div style={{ 
                   color: '#4CAF50', 
                   fontSize: '0.9rem', 
-                  fontWeight: '600',
-                  marginTop: 4
+                  fontWeight: '600'
                 }}>
                   Only / Year
                 </div>
