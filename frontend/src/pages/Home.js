@@ -12,10 +12,7 @@ const Home = () => {
   const [showLoading, setShowLoading] = useState(true);
   const mainContentRef = useRef(null);
   const location = useLocation();
-  const [splineReady, setSplineReady] = useState(false);
-  const [splineLoaded, setSplineLoaded] = useState(false);
   const splineRef = useRef(null);
-  const [splineError, setSplineError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showScrollArrow, setShowScrollArrow] = useState(true);
   const [robotFadeIn, setRobotFadeIn] = useState(false);
@@ -31,31 +28,16 @@ const Home = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Only show loading screen on first load or hard reload
+  // Show loading screen on first load or hard reload
   useEffect(() => {
-    // If this is the first load or a hard reload, show loading
-    // If navigated via in-app navigation, skip loading
-    // const navType = window.performance && window.performance.getEntriesByType
-    //   ? window.performance.getEntriesByType('navigation')[0]?.type
-    //   : undefined;
-    // const isReload = navType === 'reload' || navType === 'navigate' || navType === 'navigate';
-    // sessionStorage flag to ensure loading only on first load/reload
     if (!sessionStorage.getItem('shyaraLoaded')) {
       setShowLoading(true);
       sessionStorage.setItem('shyaraLoaded', 'true');
-      // Start loading Spline immediately when loading screen starts (desktop only)
-      if (!isMobile) {
-        setSplineReady(true);
-      }
     } else {
       setShowLoading(false);
       setLoadingDone(true);
-      // Start loading Spline immediately if no loading screen (desktop only)
-      if (!isMobile) {
-        setSplineReady(true);
-      }
     }
-  }, [location.key, isMobile]);
+  }, [location.key]);
 
   // Fade in main content after loading is done
   useEffect(() => {
@@ -66,91 +48,15 @@ const Home = () => {
     }
   }, [loadingDone]);
 
-  // Trigger robot entrance immediately after loading (only for desktop)
+  // Initialize robot fade-in when loading is done
   useEffect(() => {
     if (loadingDone && !isMobile) {
-      // Robot entrance logic can be added here if needed
-    }
-  }, [loadingDone, isMobile]);
-
-  // Initialize robot fade-in when Spline is ready and loading is done
-  useEffect(() => {
-    if (splineReady && loadingDone && !isMobile) {
       // Start robot fade-in animation immediately after loading is complete
       setTimeout(() => {
         setRobotFadeIn(true);
       }, 100); // Small delay to ensure smooth transition
     }
-  }, [splineReady, loadingDone, isMobile]);
-
-  // Handle loading completion - wait for Spline on desktop
-  useEffect(() => {
-    if (isMobile) {
-      // On mobile, finish loading immediately (no Spline)
-      if (showLoading) {
-        setTimeout(() => {
-          setLoadingDone(true);
-          setShowLoading(false);
-        }, 1500); // Keep loading screen for a bit on mobile
-      }
-    } else {
-      // On desktop, wait for Spline to be fully loaded
-      if (splineLoaded && showLoading) {
-        setTimeout(() => {
-          setLoadingDone(true);
-          setShowLoading(false);
-        }, 500); // Small delay to ensure smooth transition
-      }
-    }
-  }, [isMobile, splineLoaded, showLoading]);
-
-  // Fallback timeout for Spline loading (in case events don't fire)
-  useEffect(() => {
-    if (!isMobile && showLoading && splineReady) {
-      const fallbackTimeout = setTimeout(() => {
-        if (!splineLoaded) {
-          console.log('Spline loading fallback triggered');
-          setSplineLoaded(true);
-        }
-      }, 8000); // 8 second fallback timeout
-
-      return () => clearTimeout(fallbackTimeout);
-    }
-  }, [isMobile, showLoading, splineReady, splineLoaded]);
-
-  // Handle Spline viewer loading and errors
-  useEffect(() => {
-    const currentRef = splineRef.current;
-    if (currentRef) {
-      const handleError = () => {
-        setSplineError(true);
-        setSplineLoaded(true); // Consider error as "loaded" to continue
-      };
-      
-      const handleLoad = () => {
-        setSplineLoaded(true);
-      };
-      
-      const handleProgress = (event) => {
-        // Check if loading is complete (progress = 1)
-        if (event.detail && event.detail.progress === 1) {
-          setSplineLoaded(true);
-        }
-      };
-      
-      currentRef.addEventListener('error', handleError);
-      currentRef.addEventListener('load', handleLoad);
-      currentRef.addEventListener('progress', handleProgress);
-      
-      return () => {
-        if (currentRef) {
-          currentRef.removeEventListener('error', handleError);
-          currentRef.removeEventListener('load', handleLoad);
-          currentRef.removeEventListener('progress', handleProgress);
-        }
-      };
-    }
-  }, [splineReady]);
+  }, [loadingDone, isMobile]);
 
   // Initialize AOS for individual elements within sections
   useEffect(() => {
@@ -235,7 +141,7 @@ const Home = () => {
           }
         `}
       </style>
-      {showLoading && !loadingDone && <LoadingScreen onFinish={() => {}} canZoom={isMobile || splineLoaded} />}
+      {showLoading && !loadingDone && <LoadingScreen onFinish={() => setLoadingDone(true)} />}
       <div
         id="main-content"
         className={`main-content home-entrance${fadeIn ? ' home-entrance-active' : ''}`}
@@ -345,8 +251,8 @@ const Home = () => {
              </p>
            </div>
            
-                      {/* Desktop 3D Robot - Loads behind Shyara animation */}
-           {!isMobile && splineReady && !splineError && (
+                      {/* Desktop 3D Robot - Always renders in background */}
+           {!isMobile && (
              <spline-viewer 
                ref={splineRef}
                className="cbot robot-quick-fade" 
@@ -365,41 +271,6 @@ const Home = () => {
                }}
              />
            )}
-           {!isMobile && splineError && (
-             <div 
-               className="cbot robot-quick-fade"
-               style={{
-                 position: 'absolute',
-                 top: '0%',
-                 right: '-20%',
-                 width: '100%',
-                 height: '100vh',
-                 minWidth: '1px',
-                 minHeight: '1px',
-                 zIndex: 0, // Ensure it's behind the main content
-                 display: 'flex',
-                 alignItems: 'center',
-                 justifyContent: 'center',
-                 background: 'rgba(0,0,0,0.1)',
-                 borderRadius: '20px',
-                 marginTop: '-15rem', // Move robot up with the hero content
-                 opacity: (loadingDone && robotFadeIn) ? 1 : 0,
-                 transform: (loadingDone && robotFadeIn) ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.98)',
-                 transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-                 visibility: loadingDone ? 'visible' : 'hidden' // Hide completely during loading
-               }}
-             >
-              <div style={{ 
-                textAlign: 'center', 
-                color: '#666',
-                fontSize: '14px',
-                opacity: 0.7
-              }}>
-                <div style={{ fontSize: '48px', marginBottom: '8px' }}>🤖</div>
-                <div>3D Experience</div>
-              </div>
-            </div>
-          )}
 
           {/* Mobile Alternative Content */}
           {isMobile && (
