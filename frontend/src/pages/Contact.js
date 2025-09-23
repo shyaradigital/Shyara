@@ -4,6 +4,7 @@ import { CartContext } from '../context/CartContext';
 import FancyText from '../components/FancyText';
 import AnimatedHeading from '../components/AnimatedHeading';
 import { Mail, Phone } from 'lucide-react';
+import emailService from '../services/emailService';
 
 const ContactPage = () => {
   // --- Begin new implementation based on attached file, but keep inline styles ---
@@ -59,12 +60,27 @@ const ContactPage = () => {
 
   const actuallySubmit = async () => {
     setSubmitting(true);
-    setTimeout(() => {
-      setSuccess(true);
-      setForm({ name: '', email: '', phone: '', message: '' });
+    
+    try {
+      // Send email using EmailJS
+      const result = await emailService.sendContactForm(form);
+      
+      if (result.success) {
+        setSuccess(true);
+        setError('');
+        setForm({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setError(result.message);
+        setSuccess(false);
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setError('An unexpected error occurred. Please try again or contact us directly.');
+      setSuccess(false);
+    } finally {
       setSubmitting(false);
       setShowCartAlert(false);
-    }, 800);
+    }
   };
 
   const handleProceed = async () => {
