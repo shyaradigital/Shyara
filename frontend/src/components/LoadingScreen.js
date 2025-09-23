@@ -3,13 +3,19 @@ import React, { useEffect, useRef, useState } from 'react';
 const LoadingScreen = ({ onFinish, message, keepLogoBg = true }) => {
   const screenRef = useRef(null);
   const textRef = useRef(null);
+  const initializedRef = useRef(false);
   const [phase, setPhase] = useState('loading'); // 'loading', 'zooming', 'done'
   const [showBgLogo, setShowBgLogo] = useState(false);
 
   useEffect(() => {
+    // Prevent multiple initializations
+    if (initializedRef.current) return;
+    
     const loadingScreen = screenRef.current;
     const loadingText = textRef.current;
     if (!loadingScreen || !loadingText) return;
+    
+    initializedRef.current = true;
 
     // Hide navbar and ensure full screen coverage
     const navbar = document.querySelector('header, nav, .navbar');
@@ -35,13 +41,16 @@ const LoadingScreen = ({ onFinish, message, keepLogoBg = true }) => {
     let timer1, timer2;
     if (!message) {
       // Pulse for 3 seconds, then zoom in
+      console.log('LoadingScreen: Starting 3-second timer');
       timer1 = setTimeout(() => {
+        console.log('LoadingScreen: 3 seconds elapsed, starting zoom');
         setPhase('zooming');
         loadingScreen.style.transition = 'transform 1.1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1)';
         loadingScreen.style.transform = 'scale(7)';
         loadingScreen.style.opacity = '0.12';
         loadingText.style.animation = 'none';
         timer2 = setTimeout(() => {
+          console.log('LoadingScreen: Zoom complete, finishing');
           setPhase('done');
           if (keepLogoBg) setShowBgLogo(true);
           loadingScreen.style.display = 'none';
@@ -71,6 +80,7 @@ const LoadingScreen = ({ onFinish, message, keepLogoBg = true }) => {
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
+      initializedRef.current = false; // Reset for potential re-mount
       // Ensure navbar is shown if component unmounts
       if (navbar) {
         navbar.style.display = '';

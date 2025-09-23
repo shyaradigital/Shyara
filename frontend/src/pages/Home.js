@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import LoadingScreen from '../components/LoadingScreen';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -47,6 +47,11 @@ const Home = () => {
       }, 0); // Appear immediately after loading
     }
   }, [loadingDone]);
+
+  // Memoize the onFinish callback to prevent re-renders
+  const handleLoadingFinish = useCallback(() => {
+    setLoadingDone(true);
+  }, []);
 
   // Initialize robot fade-in when loading is done
   useEffect(() => {
@@ -141,7 +146,7 @@ const Home = () => {
           }
         `}
       </style>
-      {showLoading && !loadingDone && <LoadingScreen onFinish={() => setLoadingDone(true)} />}
+      {showLoading && !loadingDone && <LoadingScreen onFinish={handleLoadingFinish} />}
       <div
         id="main-content"
         className={`main-content home-entrance${fadeIn ? ' home-entrance-active' : ''}`}
