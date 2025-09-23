@@ -235,7 +235,7 @@ const Home = () => {
           }
         `}
       </style>
-      {showLoading && !loadingDone && <LoadingScreen onFinish={() => {}} />}
+      {showLoading && !loadingDone && <LoadingScreen onFinish={() => {}} canZoom={isMobile || splineLoaded} />}
       <div
         id="main-content"
         className={`main-content home-entrance${fadeIn ? ' home-entrance-active' : ''}`}
