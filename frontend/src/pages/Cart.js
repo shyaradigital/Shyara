@@ -14,7 +14,7 @@ const BRAND_LOGO = (
 );
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
+  const { cart, removeFromCart, updateQuantity, showCelebration } = useContext(CartContext);
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   
@@ -28,18 +28,37 @@ const Cart = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Show celebration modal when cart has items (only once)
+  useEffect(() => {
+    if (cart.length > 0) {
+      const timer = setTimeout(() => {
+        showCelebration();
+      }, 500); // Small delay to let the cart load
+      return () => clearTimeout(timer);
+    }
+  }, [cart.length, showCelebration]);
   
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page
   };
   
-  // Calculate total for fixed-price items only
+  // Calculate totals for fixed-price items only
   const fixedPriceTotal = cart.reduce((sum, item) => {
     if (!item.isCustomQuote && item.price && item.price > 0) {
       return sum + (item.price * (item.quantity || 1));
     }
     return sum;
   }, 0);
+
+  const originalTotal = cart.reduce((sum, item) => {
+    if (!item.isCustomQuote && item.originalPrice && item.originalPrice > 0) {
+      return sum + (item.originalPrice * (item.quantity || 1));
+    }
+    return sum;
+  }, 0);
+
+  const totalSavings = originalTotal - fixedPriceTotal;
 
   // Check if cart has custom quote items
   const hasCustomQuoteItems = cart.some(item => item.isCustomQuote);
@@ -84,7 +103,33 @@ const Cart = () => {
             <div className="cart-container" style={{ width: '100%', maxWidth: 1200, margin: '-5rem auto 0', padding: '0 2rem' }}>
         {BRAND_LOGO}
                 <div style={{ marginTop: 16 }}>
-          <h1 style={{ fontSize: '2.8rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '2rem', textAlign: 'center' }}>Your Cart</h1>
+          <h1 style={{ fontSize: '2.8rem', fontWeight: 'bold', color: '#a259f7', marginBottom: '1rem', textAlign: 'center' }}>Your Cart</h1>
+          {cart.length > 0 && (
+            <div style={{ 
+              textAlign: 'center', 
+              marginBottom: '2rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '12px'
+            }}>
+              <span style={{
+                background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                color: 'white',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                fontSize: '1rem',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(162,89,247,0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}>
+                <span style={{ fontSize: '1.2rem' }}>🎉</span>
+                <span>You're paying only HALF! 50% OFF applied</span>
+              </span>
+            </div>
+          )}
             {cart.length === 0 ? (
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>😔</div>
@@ -159,13 +204,45 @@ const Cart = () => {
                               )}
                             </div>
                             <div style={{ textAlign: 'right' }}>
-                              <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.4rem' }}>
-                                {item.isCustomQuote ? 'Custom Quote' : `₹${itemTotal.toLocaleString()}`}
-                              </span>
-                              {item.isCustomQuote && (
-                                <div style={{ color: '#a7a7a7', fontSize: '0.8rem', marginTop: 4 }}>
-                                  + Price after discussion
+                              {item.isCustomQuote ? (
+                                <div>
+                                  <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.4rem' }}>
+                                    Custom Quote
+                                  </span>
+                                  <div style={{ color: '#a7a7a7', fontSize: '0.8rem', marginTop: 4 }}>
+                                    + Price after discussion
+                                  </div>
                                 </div>
+                              ) : item.isDiscounted && item.originalPrice ? (
+                                <div>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
+                                    <span style={{ 
+                                      color: '#a7a7a7', 
+                                      fontSize: '1rem', 
+                                      textDecoration: 'line-through',
+                                      opacity: 0.7
+                                    }}>
+                                      ₹{item.originalPrice.toLocaleString()}
+                                    </span>
+                                    <span style={{ 
+                                      background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                                      color: 'white',
+                                      padding: '2px 6px',
+                                      borderRadius: '6px',
+                                      fontSize: '0.7rem',
+                                      fontWeight: '600'
+                                    }}>
+                                      50% OFF
+                                    </span>
+                                  </div>
+                                  <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.4rem' }}>
+                                    ₹{itemTotal.toLocaleString()}
+                                  </span>
+                                </div>
+                              ) : (
+                                <span style={{ color: '#a259f7', fontWeight: 700, fontSize: '1.4rem' }}>
+                                  ₹{itemTotal.toLocaleString()}
+                                </span>
                               )}
                             </div>
                           </div>
@@ -286,6 +363,33 @@ const Cart = () => {
                           <div>₹{fixedPriceTotal.toLocaleString()}</div>
                           <div style={{ fontSize: '1rem', color: '#a7a7a7', marginTop: 4 }}>
                             + custom quote
+                          </div>
+                        </div>
+                      ) : totalSavings > 0 ? (
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
+                            <span style={{ 
+                              color: '#a7a7a7', 
+                              fontSize: '1.4rem', 
+                              textDecoration: 'line-through',
+                              opacity: 0.7
+                            }}>
+                              ₹{originalTotal.toLocaleString()}
+                            </span>
+                            <span style={{ 
+                              background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                              color: 'white',
+                              padding: '4px 8px',
+                              borderRadius: '8px',
+                              fontSize: '0.8rem',
+                              fontWeight: '600'
+                            }}>
+                              50% OFF
+                            </span>
+                          </div>
+                          <div>₹{fixedPriceTotal.toLocaleString()}</div>
+                          <div style={{ fontSize: '1rem', color: '#4CAF50', marginTop: 4, fontWeight: '600' }}>
+                            You save ₹{totalSavings.toLocaleString()}!
                           </div>
                         </div>
                       ) : (

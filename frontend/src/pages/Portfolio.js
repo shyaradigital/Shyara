@@ -8,9 +8,12 @@ const portfolioServices = [
     service: 'Social Media Management',
     description: 'Creative content, engaging posts, and strategic social media campaigns',
     samples: [
-      { img: process.env.PUBLIC_URL + '/pics/1.jpg', title: 'Fashion Brand Campaign', description: '3-month social media management with 48 creative posts' },
-      { img: process.env.PUBLIC_URL + '/pics/2.jpg', title: 'Influencer Content', description: 'Monthly reel production and engagement strategy' },
-      { img: process.env.PUBLIC_URL + '/pics/fashion.jpg', title: 'Festive Posts', description: 'Holiday and special occasion content' },
+      { img: process.env.PUBLIC_URL + '/pics/SMM/Apsara Developers Kirty_s Design (1).png', title: 'Apsara Developers Campaign', description: 'Professional design for developer services' },
+      { img: process.env.PUBLIC_URL + '/pics/SMM/Finest Furniture Kirty_s Design  (1).png', title: 'Furniture Brand Content', description: 'Creative posts for furniture business' },
+      { img: process.env.PUBLIC_URL + '/pics/SMM/Living Concept Kirty Design_s (2).png', title: 'Living Concept Posts', description: 'Lifestyle and home decor content' },
+      { img: process.env.PUBLIC_URL + '/pics/SMM/Roy Academy Posts (4).png', title: 'Educational Content', description: 'Academic institution social media' },
+      { img: process.env.PUBLIC_URL + '/pics/SMM/Splendore Kirty_s design (1).png', title: 'Splendore Brand', description: 'Luxury brand social media strategy' },
+      { img: process.env.PUBLIC_URL + '/pics/SMM/Sri kala chakra Kirty_s Design (1).png', title: 'Cultural Arts Content', description: 'Traditional arts and culture posts' },
     ],
     results: 'Average 60% increase in followers, 45% boost in engagement'
   },
@@ -28,10 +31,12 @@ const portfolioServices = [
     service: 'App Development',
     description: 'Cross-platform mobile applications that solve real problems',
     samples: [
-      { img: process.env.PUBLIC_URL + '/pics/event.jpeg', title: 'Event Management App', description: 'Cross-platform MVP for event management' },
-      { img: process.env.PUBLIC_URL + '/pics/event.jpeg', title: 'Fitness Tracking App', description: 'Health and wellness mobile solution' },
-      { img: process.env.PUBLIC_URL + '/pics/event.jpeg', title: 'E-commerce App', description: 'Mobile shopping experience' },
-      { img: process.env.PUBLIC_URL + '/pics/event.jpeg', title: 'Social Networking App', description: 'Community building platform' },
+      { img: process.env.PUBLIC_URL + '/pics/App Dev/WhatsApp Image 2025-09-08 at 23.12.07.jpeg', title: 'Mobile App Interface', description: 'Modern mobile app design and development' },
+      { img: process.env.PUBLIC_URL + '/pics/App Dev/WhatsApp Image 2025-09-08 at 23.12.08 (1).jpeg', title: 'App Dashboard', description: 'User-friendly dashboard design' },
+      { img: process.env.PUBLIC_URL + '/pics/App Dev/WhatsApp Image 2025-09-08 at 23.12.18 (1).jpeg', title: 'App Features', description: 'Core functionality implementation' },
+      { img: process.env.PUBLIC_URL + '/pics/App Dev/WhatsApp Image 2025-09-08 at 23.12.31.jpeg', title: 'User Experience', description: 'Intuitive user interface design' },
+      { img: process.env.PUBLIC_URL + '/pics/App Dev/WhatsApp Image 2025-09-08 at 23.12.55 (1).jpeg', title: 'App Screens', description: 'Multiple screen designs' },
+      { img: process.env.PUBLIC_URL + '/pics/App Dev/WhatsApp Image 2025-09-08 at 23.13.10 (1).jpeg', title: 'Mobile Solution', description: 'Cross-platform mobile development' },
     ],
     results: 'Launched within 8 weeks, secured initial funding'
   },
@@ -39,10 +44,10 @@ const portfolioServices = [
     service: 'Video Editing & Reels',
     description: 'Engaging video content that captures attention and drives engagement',
     samples: [
-      { img: process.env.PUBLIC_URL + '/pics/influencer.png', title: 'Influencer Reels', description: 'Monthly production of 20 engaging reels' },
-      { img: process.env.PUBLIC_URL + '/pics/influencer.png', title: 'Product Showcase', description: 'Professional product demonstration videos' },
-      { img: process.env.PUBLIC_URL + '/pics/influencer.png', title: 'Brand Story Videos', description: 'Compelling brand narrative content' },
-      { img: process.env.PUBLIC_URL + '/pics/influencer.png', title: 'Event Highlights', description: 'Event recap and promotional videos' },
+      { img: process.env.PUBLIC_URL + '/pics/Reels/Black Pink Fashion Modern Outfit Style Photo Collage Instagram Reel.mp4', title: 'Fashion Reel', description: 'Trendy fashion content for Instagram' },
+      { img: process.env.PUBLIC_URL + '/pics/Reels/Gray Beige Modern Spa Treatment Mobile Video (2).mp4', title: 'Spa Treatment Video', description: 'Relaxing spa and wellness content' },
+      { img: process.env.PUBLIC_URL + '/pics/Reels/Neutral Modern Skincare Instagram Reels.mp4', title: 'Skincare Reel', description: 'Beauty and skincare promotional video' },
+      { img: process.env.PUBLIC_URL + '/pics/Reels/Yellow and White Minimalist Video Centric Financial Tips Instagram Reel.mp4', title: 'Financial Tips Video', description: 'Educational financial content' },
     ],
     results: 'Tripled follower count, boosted engagement significantly'
   },
@@ -50,22 +55,25 @@ const portfolioServices = [
     service: 'Ad Campaign Management',
     description: 'Strategic advertising campaigns that deliver measurable results',
     samples: [
-      { img: process.env.PUBLIC_URL + '/pics/3.jpg', title: 'E-commerce Campaign', description: 'Facebook and Instagram ad campaign' },
-      { img: process.env.PUBLIC_URL + '/pics/4.jpg', title: 'Lead Generation', description: 'B2B lead generation campaigns' },
-      { img: process.env.PUBLIC_URL + '/pics/adcampaign.jpg', title: 'Brand Awareness', description: 'Multi-platform brand awareness' },
+      { img: process.env.PUBLIC_URL + '/pics/ads/Apsara Developers Kirty_s Design (2).png', title: 'Developer Services Ad', description: 'Professional services advertising campaign' },
+      { img: process.env.PUBLIC_URL + '/pics/ads/Living Concept Kirty Design_s.png', title: 'Living Concept Ad', description: 'Lifestyle brand advertising' },
+      { img: process.env.PUBLIC_URL + '/pics/ads/Quickcontrol_fb_post (1).png', title: 'QuickControl Campaign', description: 'Tech product advertising' },
+      { img: process.env.PUBLIC_URL + '/pics/ads/Roy Academy Posts (1).png', title: 'Educational Ad', description: 'Academic institution promotion' },
+      { img: process.env.PUBLIC_URL + '/pics/ads/Splendore Kirty_s design (2).png', title: 'Splendore Ad', description: 'Luxury brand advertising' },
     ],
     results: '30% increase in sales, 25% reduction in acquisition cost'
   },
   {
-    service: 'Personalized Services',
-    description: 'Custom solutions tailored to your specific business needs',
+    service: 'Festive Posts',
+    description: 'Special occasion content and festive celebrations for brands',
     samples: [
-      { img: process.env.PUBLIC_URL + '/pics/fashion.jpg', title: 'Custom Branding', description: 'Complete brand identity development' },
-      { img: process.env.PUBLIC_URL + '/pics/porto.png', title: 'Consultation Services', description: 'Strategic digital marketing consultation' },
-      { img: process.env.PUBLIC_URL + '/pics/event.jpeg', title: 'Project Management', description: 'End-to-end project coordination' },
-      { img: process.env.PUBLIC_URL + '/pics/influencer.png', title: 'Training & Support', description: 'Team training and ongoing support' },
+      { img: process.env.PUBLIC_URL + '/pics/Festive Posts/Finest Furniture Kirty_s Design  (4).png', title: 'Festive Furniture Design', description: 'Holiday-themed furniture promotion' },
+      { img: process.env.PUBLIC_URL + '/pics/Festive Posts/Gold Red and Pink Traditional Varalakshmi Vratham Instagram Post.png', title: 'Traditional Festival', description: 'Cultural festival celebration post' },
+      { img: process.env.PUBLIC_URL + '/pics/Festive Posts/Living Concept Kirty Design_s (1).png', title: 'Festive Living', description: 'Holiday home decor content' },
+      { img: process.env.PUBLIC_URL + '/pics/Festive Posts/Quickcontrol_fb_post (2).png', title: 'Festive Tech', description: 'Holiday tech promotion' },
+      { img: process.env.PUBLIC_URL + '/pics/Festive Posts/Splendore Kirty_s design.png', title: 'Festive Splendore', description: 'Luxury festive celebration' },
     ],
-    results: 'Customized solutions for unique business challenges'
+    results: 'Enhanced brand engagement during special occasions and festivals'
   }
 ];
 
@@ -203,16 +211,39 @@ const PortfolioModal = ({ isOpen, onClose, service }) => {
             position: 'relative',
             background: '#111'
           }}>
-            <img
-              src={service.samples[currentImageIndex].img}
-              alt={service.samples[currentImageIndex].title}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                objectPosition: 'center'
-              }}
-            />
+            {service.samples[currentImageIndex].img.endsWith('.mp4') ? (
+              <video
+                src={service.samples[currentImageIndex].img}
+                alt={service.samples[currentImageIndex].title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'center'
+                }}
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            ) : (
+              <img
+                src={service.samples[currentImageIndex].img}
+                alt={service.samples[currentImageIndex].title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'center'
+                }}
+                loading="lazy"
+                onError={(e) => {
+                  console.warn(`Failed to load image: ${service.samples[currentImageIndex].img}`);
+                  e.target.style.display = 'none';
+                }}
+              />
+            )}
             
             {/* Navigation arrows */}
             <button
@@ -302,32 +333,82 @@ const PortfolioModal = ({ isOpen, onClose, service }) => {
           padding: '16px 0',
           borderTop: '1px solid rgba(162,89,247,0.1)'
         }}>
-          {service.samples.map((sample, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: 8,
-                overflow: 'hidden',
-                border: currentImageIndex === index ? '2px solid #a259f7' : '2px solid transparent',
-                cursor: 'pointer',
-                background: 'none',
-                padding: 0
-              }}
-            >
-              <img
-                src={sample.img}
-                alt={sample.title}
+          {service.samples.map((sample, index) => {
+            const isVideo = sample.img.endsWith('.mp4');
+            return (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
                 style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain'
+                  width: 60,
+                  height: 60,
+                  borderRadius: 8,
+                  overflow: 'hidden',
+                  border: currentImageIndex === index ? '2px solid #a259f7' : '2px solid transparent',
+                  cursor: 'pointer',
+                  background: 'none',
+                  padding: 0,
+                  position: 'relative'
                 }}
-              />
-            </button>
-          ))}
+              >
+                {isVideo ? (
+                  <video
+                    src={sample.img}
+                    alt={sample.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain'
+                    }}
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={sample.img}
+                    alt={sample.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'contain'
+                    }}
+                    loading="lazy"
+                    onError={(e) => {
+                      console.warn(`Failed to load thumbnail: ${sample.img}`);
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                )}
+                
+                {/* Video indicator for thumbnails */}
+                {isVideo && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    background: 'rgba(162,89,247,0.8)',
+                    borderRadius: '50%',
+                    width: 20,
+                    height: 20,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    pointerEvents: 'none'
+                  }}>
+                    <div style={{
+                      width: 0,
+                      height: 0,
+                      borderLeft: '6px solid white',
+                      borderTop: '4px solid transparent',
+                      borderBottom: '4px solid transparent',
+                      marginLeft: 1
+                    }} />
+                  </div>
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -336,6 +417,11 @@ const PortfolioModal = ({ isOpen, onClose, service }) => {
 
 const ServiceCard = ({ service, onOpenModal }) => {
   const [hovered, setHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Get the first sample as thumbnail
+  const thumbnail = service.samples[0];
+  const isVideo = thumbnail.img.endsWith('.mp4');
 
   return (
     <div
@@ -363,21 +449,107 @@ const ServiceCard = ({ service, onOpenModal }) => {
       onBlur={() => setHovered(false)}
       onClick={() => onOpenModal(service)}
     >
-      <div style={{ width: '100%', height: 220, overflow: 'hidden', background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
-        <img
-          src={service.service === 'Website Development' ? process.env.PUBLIC_URL + '/pics/porto.png' : 
-               service.service === 'Ad Campaign Management' ? process.env.PUBLIC_URL + '/pics/adcampaign.jpg' : 
-               service.samples[0].img}
-          alt={service.service}
-          style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'center', filter: hovered ? 'none' : 'grayscale(1)', transition: 'all 0.5s', borderRadius: 0, display: 'block' }}
-          loading="lazy"
-        />
+      <div style={{ 
+        width: '100%', 
+        height: 220, 
+        overflow: 'hidden', 
+        background: '#111', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        position: 'relative' 
+      }}>
+        {isVideo ? (
+          <video
+            src={thumbnail.img}
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'contain', 
+              objectPosition: 'center',
+              filter: hovered ? 'none' : 'grayscale(1)', 
+              transition: 'all 0.5s',
+              borderRadius: 0
+            }}
+            muted
+            loop
+            playsInline
+            onLoadedData={() => setImageLoaded(true)}
+            loading="lazy"
+          />
+        ) : (
+          <img
+            src={thumbnail.img}
+            alt={service.service}
+            style={{ 
+              width: '100%', 
+              height: '100%', 
+              objectFit: 'contain', 
+              objectPosition: 'center', 
+              filter: hovered ? 'none' : 'grayscale(1)', 
+              transition: 'all 0.5s', 
+              borderRadius: 0, 
+              display: 'block',
+              opacity: imageLoaded ? 1 : 0.7
+            }}
+            loading="lazy"
+            onLoad={() => setImageLoaded(true)}
+            onError={(e) => {
+              console.warn(`Failed to load image: ${thumbnail.img}`);
+              e.target.style.display = 'none';
+            }}
+          />
+        )}
+        
+        {/* Video play indicator */}
+        {isVideo && (
+          <div style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            background: 'rgba(162,89,247,0.8)',
+            borderRadius: '50%',
+            width: 60,
+            height: 60,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            transition: 'opacity 0.3s'
+          }}>
+            <div style={{
+              width: 0,
+              height: 0,
+              borderLeft: '20px solid white',
+              borderTop: '12px solid transparent',
+              borderBottom: '12px solid transparent',
+              marginLeft: 4
+            }} />
+          </div>
+        )}
+        
+        {/* Image count indicator */}
+        {service.samples.length > 1 && (
+          <div style={{
+            position: 'absolute',
+            top: 12,
+            right: 12,
+            background: 'rgba(0,0,0,0.8)',
+            color: 'white',
+            padding: '4px 8px',
+            borderRadius: 12,
+            fontSize: '0.8rem',
+            fontWeight: 600
+          }}>
+            +{service.samples.length - 1} more
+          </div>
+        )}
       </div>
       <div style={{ padding: '24px 24px 16px 24px', flex: 1, textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: 120 }}>
         <h3 style={{ fontWeight: 700, fontSize: 22, color: 'var(--color-text-primary)', marginBottom: 8 }}><FancyText text={service.service} /></h3>
         <p style={{ color: 'var(--color-text-secondary)', fontSize: 15 }}>{service.results}</p>
       </div>
-
     </div>
   );
 };
@@ -398,6 +570,63 @@ const Portfolio = () => {
 
   return (
   <div style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0 0 3rem 0', marginTop:'-5rem', fontFamily: 'inherit' }}>
+    <style>
+      {`
+        @media (max-width: 768px) {
+          .portfolio-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+            padding: 0 !important;
+          }
+          
+          .portfolio-item {
+            min-height: 280px !important;
+          }
+          
+          .portfolio-modal {
+            padding: 1rem !important;
+            margin: 1rem !important;
+            max-height: 90vh !important;
+          }
+          
+          .portfolio-modal h2 {
+            font-size: 1.8rem !important;
+          }
+          
+          .portfolio-modal p {
+            font-size: 1rem !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .portfolio-item {
+            min-height: 250px !important;
+          }
+          
+          .portfolio-modal {
+            padding: 0.5rem !important;
+            margin: 0.5rem !important;
+          }
+          
+          .portfolio-modal h2 {
+            font-size: 1.5rem !important;
+          }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .portfolio-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+        
+        @media (min-width: 1025px) {
+          .portfolio-grid {
+            grid-template-columns: repeat(3, 1fr) !important;
+          }
+        }
+      `}
+    </style>
+    
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1rem' }}>
         <AnimatedHeading text="Our Portfolio" />
         <p style={{ fontSize: '1.15rem', color: '#a7a7a7', textAlign: 'center', marginBottom: '3rem', maxWidth: 700, marginLeft: 'auto', marginRight: 'auto' }}>
@@ -406,9 +635,10 @@ const Portfolio = () => {
         
         <div className="portfolio-grid" style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', 
-          gap: 32, 
-          marginBottom: 64 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+          gap: 'clamp(20px, 4vw, 32px)', 
+          marginBottom: 64,
+          padding: '0 1rem'
         }}>
           {portfolioServices.map((service, idx) => (
             <ServiceCard key={idx} service={service} onOpenModal={handleOpenModal} />

@@ -2,11 +2,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { ArrowLeft, Lock, User, MapPin, FileText } from 'lucide-react';
+import TermsAndConditions from '../components/TermsAndConditions';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { cart } = useContext(CartContext);
   const [isMobile, setIsMobile] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   
   // Form states with localStorage persistence
   const [formData, setFormData] = useState(() => {
@@ -71,6 +74,12 @@ const Checkout = () => {
       return;
     }
     
+    // Validate terms agreement
+    if (!agreeToTerms) {
+      alert('Please agree to the Terms & Conditions to proceed');
+      return;
+    }
+    
     // Navigate to payment page (keep form data in localStorage for back navigation)
     navigate('/payment', { 
       state: { 
@@ -119,9 +128,33 @@ const Checkout = () => {
 
       <div style={{ maxWidth: 1200, width: '100%', margin: '-5rem auto 0', padding: '0 2rem' }}>
         <div style={{ textAlign: 'center', marginBottom: 60 }}>
-          <h1 style={{ fontSize: '3.2rem', fontWeight: 800, color: '#a259f7', marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>
+          <h1 style={{ fontSize: '3.2rem', fontWeight: 800, color: '#a259f7', marginBottom: '1rem', letterSpacing: '-0.02em' }}>
             Checkout
           </h1>
+          {cart.length > 0 && (
+            <div style={{ 
+              marginBottom: '1.5rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <span style={{
+                background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                color: 'white',
+                padding: '6px 12px',
+                borderRadius: '16px',
+                fontSize: '0.9rem',
+                fontWeight: '600',
+                boxShadow: '0 4px 12px rgba(162,89,247,0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}>
+                <span style={{ fontSize: '1rem' }}>🎉</span>
+                <span>50% OFF applied - Pay only half now!</span>
+              </span>
+            </div>
+          )}
           <p style={{ color: '#bdbdbd', fontSize: '1.2rem', maxWidth: 600, margin: '0 auto', lineHeight: 1.6 }}>
             Complete your order details and proceed to payment
           </p>
@@ -608,6 +641,30 @@ const Checkout = () => {
                             + Price after discussion
                           </div>
                         </div>
+                      ) : item.isDiscounted && item.originalPrice ? (
+                        <div>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'flex-end', marginBottom: 4 }}>
+                            <span style={{ 
+                              color: '#a7a7a7', 
+                              fontSize: '0.9rem', 
+                              textDecoration: 'line-through',
+                              opacity: 0.7
+                            }}>
+                              ₹{item.originalPrice.toLocaleString()}
+                            </span>
+                            <span style={{ 
+                              background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                              color: 'white',
+                              padding: '1px 4px',
+                              borderRadius: '4px',
+                              fontSize: '0.6rem',
+                              fontWeight: '600'
+                            }}>
+                              50% OFF
+                            </span>
+                          </div>
+                          <div>₹{(item.price * (item.quantity || 1)).toLocaleString()}</div>
+                        </div>
                       ) : (
                         `₹${(item.price * (item.quantity || 1)).toLocaleString()}`
                       )}
@@ -651,6 +708,57 @@ const Checkout = () => {
                   fontWeight: 500
                 }}>
                   Total Amount
+                </div>
+              </div>
+
+              {/* Terms and Conditions Agreement */}
+              <div style={{ 
+                marginBottom: '24px',
+                padding: '20px',
+                background: 'rgba(162,89,247,0.05)',
+                borderRadius: '12px',
+                border: '1px solid rgba(162,89,247,0.15)'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                  <input
+                    type="checkbox"
+                    id="agreeToTerms"
+                    checked={agreeToTerms}
+                    onChange={(e) => setAgreeToTerms(e.target.checked)}
+                    style={{
+                      marginTop: '2px',
+                      accentColor: '#a259f7',
+                      transform: 'scale(1.2)'
+                    }}
+                  />
+                  <label 
+                    htmlFor="agreeToTerms"
+                    style={{
+                      color: '#e7e7e7',
+                      fontSize: '0.95rem',
+                      lineHeight: '1.5',
+                      cursor: 'pointer',
+                      flex: 1
+                    }}
+                  >
+                    I agree to the{' '}
+                    <button
+                      type="button"
+                      onClick={() => setShowTerms(true)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#a259f7',
+                        textDecoration: 'underline',
+                        cursor: 'pointer',
+                        fontSize: 'inherit',
+                        padding: 0
+                      }}
+                    >
+                      Terms & Conditions
+                    </button>
+                    {' '}and understand the payment terms, including the 50% advance payment requirement and refund policy.
+                  </label>
                 </div>
               </div>
 
@@ -702,6 +810,12 @@ const Checkout = () => {
           </div>
         </div>
       </div>
+      
+      {/* Terms and Conditions Modal */}
+      <TermsAndConditions 
+        isOpen={showTerms} 
+        onClose={() => setShowTerms(false)} 
+      />
     </div>
   );
 };

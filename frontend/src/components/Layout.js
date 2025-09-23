@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LogIn } from 'lucide-react';
 import { CartContext } from '../context/CartContext';
+import TermsAndConditions from './TermsAndConditions';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -10,6 +11,7 @@ const Layout = ({ children }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileNav, setShowMobileNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [showTerms, setShowTerms] = useState(false);
 
   // Detect mobile device
   useEffect(() => {
@@ -117,7 +119,36 @@ const Layout = ({ children }) => {
         
         <footer className="site-footer">
           <div className="footer-content">
-            <span>© Shyara Digital 2025. All rights reserved.</span>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '16px',
+              justifyContent: 'center',
+              flexWrap: 'wrap'
+            }}>
+              <span>© Shyara Digital 2025. All rights reserved.</span>
+              <button
+                onClick={() => setShowTerms(true)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: '#a7a7a7',
+                  fontSize: '0.9rem',
+                  textDecoration: 'underline',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s',
+                  padding: '4px 0'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = '#a259f7';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = '#a7a7a7';
+                }}
+              >
+                Terms & Conditions
+              </button>
+            </div>
             <div className="footer-socials">
               <a href="https://www.instagram.com/shyaradigital?igsh=YXBsNXlkbDUzZnpn" target="_blank" rel="noopener noreferrer" className="footer-icon" aria-label="Instagram">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
@@ -134,6 +165,12 @@ const Layout = ({ children }) => {
             </div>
           </div>
         </footer>
+        
+        {/* Terms and Conditions Modal */}
+        <TermsAndConditions 
+          isOpen={showTerms} 
+          onClose={() => setShowTerms(false)} 
+        />
       </div>
     </div>
   );

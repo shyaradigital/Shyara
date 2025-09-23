@@ -4261,3 +4261,37 @@ html {
     opacity: 1;
   }
 }
+
+/* Celebration modal animations */
+@keyframes celebrationPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 20px 60px rgba(162,89,247,0.4);
+  }
+  100% {
+    transform: scale(1.02);
+    box-shadow: 0 25px 70px rgba(162,89,247,0.6);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Terms and Conditions Modal Styles */
+.terms-content::-webkit-scrollbar {
+  display: none;
+}
+
+.terms-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

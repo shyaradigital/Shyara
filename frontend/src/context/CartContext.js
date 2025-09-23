@@ -8,6 +8,8 @@ export const CartContext = createContext({
   updateCartItem: () => {},
   clearCart: () => {},
   showNotification: () => {},
+  showCelebration: () => {},
+  hideCelebration: () => {},
 });
 
 export const CartProvider = ({ children }) => {
@@ -16,6 +18,11 @@ export const CartProvider = ({ children }) => {
     return stored ? JSON.parse(stored) : [];
   });
   const [notification, setNotification] = useState(null);
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [hasSeenCelebration, setHasSeenCelebration] = useState(() => {
+    const stored = localStorage.getItem('hasSeenCelebration');
+    return stored ? JSON.parse(stored) : false;
+  });
 
   // Service type mapping
   const getServiceType = (itemId) => {
@@ -45,23 +52,36 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
+  useEffect(() => {
+    localStorage.setItem('hasSeenCelebration', JSON.stringify(hasSeenCelebration));
+  }, [hasSeenCelebration]);
+
   const showNotification = (message, type = 'success') => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
   };
 
   const addToCart = (item) => {
+    // Apply 50% discount to all items (except custom quotes)
+    const originalPrice = item.price || 0;
+    const discountedPrice = item.isCustomQuote !== false ? originalPrice : Math.round(originalPrice * 0.5);
+    
     // Ensure proper service name and price handling
     const cartItem = {
       ...item,
       quantity: item.quantity || 1,
+      // Store original price and discounted price
+      originalPrice: originalPrice,
+      price: discountedPrice,
       // Handle custom quote services - respect explicit isCustomQuote if provided, otherwise determine automatically
-      isCustomQuote: item.isCustomQuote !== undefined ? item.isCustomQuote : (item.price === 0 || item.price === null || item.price === undefined || item.priceText === 'Custom Quote'),
-      priceText: item.priceText || (item.price === 0 || item.price === null || item.price === undefined ? 'Custom Quote' : `₹${item.price}`),
+      isCustomQuote: item.isCustomQuote !== undefined ? item.isCustomQuote : (originalPrice === 0 || originalPrice === null || originalPrice === undefined || item.priceText === 'Custom Quote'),
+      priceText: item.priceText || (originalPrice === 0 || originalPrice === null || originalPrice === undefined ? 'Custom Quote' : `₹${discountedPrice}`),
       // Ensure service name is properly set
       name: item.name || item.title || 'Service',
       // Add personalized tag for items from Personalized Services page
-      isPersonalized: item.isPersonalized || false
+      isPersonalized: item.isPersonalized || false,
+      // Mark as discounted
+      isDiscounted: !item.isCustomQuote && originalPrice > 0
     };
 
     // Check for service type conflicts
@@ -130,8 +150,19 @@ export const CartProvider = ({ children }) => {
     setCart([]);
   };
 
+  const showCelebrationModal = () => {
+    if (!hasSeenCelebration) {
+      setShowCelebration(true);
+    }
+  };
+
+  const hideCelebrationModal = () => {
+    setShowCelebration(false);
+    setHasSeenCelebration(true);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, updateCartItem, clearCart, showNotification }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, updateCartItem, clearCart, showNotification, showCelebration: showCelebrationModal, hideCelebration: hideCelebrationModal }}>
       {children}
       {/* Notification Component */}
       {notification && (
@@ -153,6 +184,102 @@ export const CartProvider = ({ children }) => {
           border: notification.type === 'error' ? '1px solid rgba(255,255,255,0.2)' : 'none'
         }}>
           {notification.message}
+        </div>
+      )}
+
+      {/* Celebration Modal */}
+      {showCelebration && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(0,0,0,0.9)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 10001,
+          padding: '20px'
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(162,89,247,0.95), rgba(127,66,167,0.95))',
+            borderRadius: '24px',
+            padding: '40px',
+            maxWidth: '500px',
+            width: '100%',
+            textAlign: 'center',
+            boxShadow: '0 20px 60px rgba(162,89,247,0.4)',
+            border: '2px solid rgba(255,255,255,0.2)',
+            animation: 'celebrationPulse 2s ease-in-out infinite alternate'
+          }}>
+            <div style={{
+              fontSize: '4rem',
+              marginBottom: '20px',
+              animation: 'bounce 1s ease-in-out infinite'
+            }}>
+              🎉
+            </div>
+            <h2 style={{
+              color: 'white',
+              fontSize: '2rem',
+              fontWeight: '800',
+              marginBottom: '16px',
+              textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+            }}>
+              Pay Only Half!
+            </h2>
+            <p style={{
+              color: 'rgba(255,255,255,0.95)',
+              fontSize: '1.2rem',
+              marginBottom: '20px',
+              lineHeight: '1.6'
+            }}>
+              You're getting <strong>50% OFF</strong> on all services!<br />
+              Pay the discounted amount now and the rest when you receive your product.
+            </p>
+            <div style={{
+              background: 'rgba(255,255,255,0.15)',
+              borderRadius: '12px',
+              padding: '16px',
+              marginBottom: '24px',
+              border: '1px solid rgba(255,255,255,0.2)'
+            }}>
+              <p style={{
+                color: 'white',
+                fontSize: '0.9rem',
+                margin: '0',
+                fontStyle: 'italic'
+              }}>
+                * Refer to our Terms & Conditions for complete payment terms and delivery schedule
+              </p>
+            </div>
+            <button
+              onClick={hideCelebrationModal}
+              style={{
+                background: 'white',
+                color: '#a259f7',
+                border: 'none',
+                borderRadius: '50px',
+                padding: '16px 32px',
+                fontSize: '1.1rem',
+                fontWeight: '700',
+                cursor: 'pointer',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'scale(1.05)';
+                e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'scale(1)';
+                e.target.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)';
+              }}
+            >
+              Continue Shopping
+            </button>
+          </div>
         </div>
       )}
     </CartContext.Provider>
