@@ -135,7 +135,23 @@ const Cart = () => {
                       }}>
                                                   <div className="cart-item-details" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <div style={{ flex: 1 }}>
-                              <span style={{ fontWeight: 700, color: '#e7e7e7', fontSize: '1.3rem' }}>{item.name}</span>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
+                                <span style={{ fontWeight: 700, color: '#e7e7e7', fontSize: '1.3rem' }}>{item.name}</span>
+                                {item.isPersonalized && (
+                                  <span style={{
+                                    background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                                    color: 'white',
+                                    padding: '2px 8px',
+                                    borderRadius: '12px',
+                                    fontSize: '0.7rem',
+                                    fontWeight: 600,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.5px'
+                                  }}>
+                                    Personalized
+                                  </span>
+                                )}
+                              </div>
                               {item.description && (
                                 <div style={{ color: '#a7a7a7', fontSize: '0.9rem', marginTop: 4 }}>
                                   {item.description}

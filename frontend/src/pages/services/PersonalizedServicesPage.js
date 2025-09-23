@@ -89,9 +89,10 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
   const handleAddPackage = () => {
     const totalPrice = (numPosts * postsPricePer) + (numReels * reelsPricePer);
     const newItem = {
-      id: 'social-media-package',
+      id: 'personalized-social-media-package',
       name: `Social Media Management Package`,
       price: totalPrice,
+      priceText: `₹${totalPrice.toLocaleString()}`,
       quantity: 1,
       description: `Custom social media package with ${numPosts} posts (₹${postsPricePer} each) and ${numReels} reels (₹${reelsPricePer} each) per month`,
       details: {
@@ -99,13 +100,16 @@ const SliderModal = ({ isOpen, onClose, service, onAddToCart, cart, updateCartIt
         reels: numReels,
         postsPrice: postsPricePer,
         reelsPrice: reelsPricePer
-      }
+      },
+      isPersonalized: true, // Mark as personalized service
+      isCustomQuote: false // Explicitly mark as NOT a custom quote since it has a fixed price
     };
     
     // Remove any existing individual items
     removeFromCart('custom-posts');
     removeFromCart('custom-reels');
     removeFromCart('social-media-package');
+    removeFromCart('personalized-social-media-package');
     
     // Add the package
     onAddToCart(newItem);
@@ -501,7 +505,7 @@ const PersonalizedServicesPage = () => {
   // Regular services (with quantity management)
   const regularServices = [
     {
-      id: 'festive-posts',
+      id: 'personalized-festive-posts',
       icon: <Sparkles size={24} />,
       title: 'Festive Post Designs',
       desc: 'Ready-to-share branded festival creatives to boost reach on special occasions. Includes your logo and contact info for brand recognition.',
@@ -510,16 +514,16 @@ const PersonalizedServicesPage = () => {
       basePrice: 1000,
     },
     {
-      id: 'ads-campaign-management',
+      id: 'personalized-ads-campaign-management',
       icon: <Megaphone size={24} />,
       title: 'Ads Campaign Management',
       desc: 'Run powerful, high-ROI ads across Meta, Google, and more. Includes free ad creatives, strategic budget management, and transparent reporting.',
-      price: '₹0/month',
+      price: 'Custom Quote',
       route: '/services/ads-campaign-management',
       basePrice: 0,
     },
     {
-      id: 'video-editing-reels',
+      id: 'personalized-video-editing-reels',
       icon: <Film size={24} />,
       title: 'Video & Reels Editing',
       desc: 'Grow your brand with high-performing reels and video content. You provide the raw footage, and we handle the rest.',
@@ -532,7 +536,7 @@ const PersonalizedServicesPage = () => {
   // Website development options (checkbox style - only one can be selected)
   const websiteOptions = [
     {
-      id: 'web-basic',
+      id: 'personalized-web-basic',
       icon: <Globe size={24} />,
       title: 'Basic Website',
       desc: 'Portfolio, business, or personal website with up to 5 pages. Responsive design, SEO optimization, and content management system.',
@@ -540,7 +544,7 @@ const PersonalizedServicesPage = () => {
       basePrice: 15000,
     },
     {
-      id: 'web-ecom',
+      id: 'personalized-web-ecom',
       icon: <Globe size={24} />,
       title: 'E-commerce Website',
       desc: 'Online store or booking system with payment integration, product management, and secure checkout system.',
@@ -548,7 +552,7 @@ const PersonalizedServicesPage = () => {
       basePrice: 45000,
     },
     {
-      id: 'web-custom',
+      id: 'personalized-web-custom',
       icon: <Globe size={24} />,
       title: 'Custom Website',
       desc: 'Fully custom website with unique features, advanced integrations, and specific requirements tailored to your business.',
@@ -560,7 +564,7 @@ const PersonalizedServicesPage = () => {
   // App development options (checkbox style - only one can be selected)
   const appOptions = [
     {
-      id: 'app-basic',
+      id: 'personalized-app-basic',
       icon: <Smartphone size={24} />,
       title: 'Basic App',
       desc: 'Simple app with core features, perfect for MVP or basic functionality. Cross-platform development for Android and iOS.',
@@ -568,7 +572,7 @@ const PersonalizedServicesPage = () => {
       basePrice: 30000,
     },
     {
-      id: 'app-enterprise',
+      id: 'personalized-app-enterprise',
       icon: <Smartphone size={24} />,
       title: 'Custom App',
       desc: 'Complex app with advanced features, integrations, and custom requirements. Full UI/UX design and deployment.',
@@ -579,7 +583,7 @@ const PersonalizedServicesPage = () => {
 
   const handleAddServiceToCart = (service) => {
     // Prevent adding Festive Posts if Social Media Management is in cart
-    if (service.id === 'festive-posts' && isSocialMediaInCart) {
+    if (service.id === 'personalized-festive-posts' && isSocialMediaInCart) {
       return;
     }
     
@@ -592,7 +596,8 @@ const PersonalizedServicesPage = () => {
       price: isCustomQuote ? 0 : service.basePrice,
       description: service.desc,
       isCustomQuote: isCustomQuote,
-      priceText: isCustomQuote ? 'Custom Quote' : `₹${service.basePrice}`
+      priceText: isCustomQuote ? 'Custom Quote' : `₹${service.basePrice}`,
+      isPersonalized: true // Mark as personalized service
     });
   };
 
@@ -615,7 +620,7 @@ const PersonalizedServicesPage = () => {
   };
 
   // Check if Social Media Management package is in cart
-  const isSocialMediaInCart = cart.some(item => item.id === 'social-media-package');
+  const isSocialMediaInCart = cart.some(item => item.id === 'social-media-package' || item.id === 'personalized-social-media-package');
 
   const handleShowSlider = (service) => {
     setSliderModal({ isOpen: true, service });
@@ -685,7 +690,7 @@ const PersonalizedServicesPage = () => {
           <div style={{ marginBottom: 24 }}>
             <ServiceCard
               service={{
-                id: 'social-media-management',
+                id: 'personalized-social-media-management',
                 icon: <Share2 size={24} />,
                 title: 'Social Media Management',
                 desc: 'Consistent, creative, and keyword-rich content for all major platforms. We handle everything from posts and reels to community engagement.',
@@ -695,7 +700,7 @@ const PersonalizedServicesPage = () => {
                 hasSlider: true,
               }}
               onAddToCart={handleAddServiceToCart}
-              currentQuantity={getServiceQuantity('social-media-management')}
+              currentQuantity={getServiceQuantity('personalized-social-media-management')}
               onUpdateQuantity={handleUpdateQuantity}
               onShowSlider={handleShowSlider}
             />
@@ -796,7 +801,7 @@ const PersonalizedServicesPage = () => {
         isOpen={sliderModal.isOpen}
         onClose={handleCloseSlider}
         service={sliderModal.service}
-        onAddToCart={handleAddServiceToCart}
+        onAddToCart={addToCart}
         cart={cart}
         updateCartItem={updateCartItem}
         removeFromCart={removeFromCart}

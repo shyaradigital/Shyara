@@ -194,19 +194,19 @@ const ContactPage = () => {
             <form style={{ display: 'flex', flexDirection: 'column', gap: 28, height: '100%' }} onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Full Name *</label>
-                <input type="text" id="name" value={form.name} onChange={handleChange} required style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+                <input type="text" id="name" value={form.name} onChange={handleChange} required placeholder="Enter your full name" style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
               </div>
               <div>
                 <label htmlFor="email" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Email Address *</label>
-                <input type="email" id="email" value={form.email} onChange={handleChange} required style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+                <input type="email" id="email" value={form.email} onChange={handleChange} required placeholder="Enter your email address" style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
               </div>
               <div>
                 <label htmlFor="phone" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Mobile Number *</label>
-                <input type="tel" id="phone" value={form.phone} onChange={handleChange} required placeholder="+91 9876543210" style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
+                <input type="tel" id="phone" value={form.phone} onChange={handleChange} required placeholder="+91 9584661610" style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', marginBottom: 0, outline: 'none', fontWeight: 400 }} />
               </div>
               <div>
                 <label htmlFor="message" style={{ display: 'block', fontSize: 16, fontWeight: 500, color: 'var(--color-text-secondary)', marginBottom: 10 }}>Message *</label>
-                <textarea id="message" rows={5} value={form.message} onChange={handleChange} required placeholder="Write your message here" style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', outline: 'none', fontWeight: 400, resize: 'none' }}></textarea>
+                <textarea id="message" rows={5} value={form.message} onChange={handleChange} required placeholder="Hi, I am interested in your services. Please contact me to discuss my requirements." style={{ width: '100%', background: '#181818', color: '#e0d7f7', padding: '16px 20px', border: '1.5px solid #7f42a7', borderRadius: 10, fontSize: '1.05rem', outline: 'none', fontWeight: 400, resize: 'none' }}></textarea>
               </div>
               {error && <div style={{ color: '#ff4d4f', fontSize: 16 }}>{error}</div>}
               {success && <div style={{ color: '#4caf50', fontSize: 16 }}>Message sent successfully!</div>}
@@ -224,7 +224,23 @@ const ContactPage = () => {
                   <ul style={{ marginBottom: 24, maxHeight: 180, overflowY: 'auto', borderTop: '1px solid #222', borderBottom: '1px solid #222', padding: 0, listStyle: 'none' }}>
                     {cart.map(item => (
                       <li key={item.id} style={{ padding: '8px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: '#e7e7e7' }}>
-                        <span style={{ fontWeight: 500 }}>{item.name}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          <span style={{ fontWeight: 500 }}>{item.name}</span>
+                          {item.isPersonalized && (
+                            <span style={{
+                              background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                              color: 'white',
+                              padding: '1px 6px',
+                              borderRadius: '8px',
+                              fontSize: '0.6rem',
+                              fontWeight: 600,
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.3px'
+                            }}>
+                              Personalized
+                            </span>
+                          )}
+                        </div>
                         <span style={{ color: '#7f42a7', fontWeight: 700 }}> ₹{item.price?.toLocaleString()}</span>
                       </li>
                     ))}

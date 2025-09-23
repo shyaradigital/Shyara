@@ -13,6 +13,7 @@ const Home = () => {
   const mainContentRef = useRef(null);
   const location = useLocation();
   const [splineReady, setSplineReady] = useState(false);
+  const [splineLoaded, setSplineLoaded] = useState(false);
   const splineRef = useRef(null);
   const [splineError, setSplineError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -82,18 +83,70 @@ const Home = () => {
     }
   }, [splineReady, loadingDone, isMobile]);
 
-  // Handle Spline viewer errors
+  // Handle loading completion - wait for Spline on desktop
+  useEffect(() => {
+    if (isMobile) {
+      // On mobile, finish loading immediately (no Spline)
+      if (showLoading) {
+        setTimeout(() => {
+          setLoadingDone(true);
+          setShowLoading(false);
+        }, 1500); // Keep loading screen for a bit on mobile
+      }
+    } else {
+      // On desktop, wait for Spline to be fully loaded
+      if (splineLoaded && showLoading) {
+        setTimeout(() => {
+          setLoadingDone(true);
+          setShowLoading(false);
+        }, 500); // Small delay to ensure smooth transition
+      }
+    }
+  }, [isMobile, splineLoaded, showLoading]);
+
+  // Fallback timeout for Spline loading (in case events don't fire)
+  useEffect(() => {
+    if (!isMobile && showLoading && splineReady) {
+      const fallbackTimeout = setTimeout(() => {
+        if (!splineLoaded) {
+          console.log('Spline loading fallback triggered');
+          setSplineLoaded(true);
+        }
+      }, 8000); // 8 second fallback timeout
+
+      return () => clearTimeout(fallbackTimeout);
+    }
+  }, [isMobile, showLoading, splineReady, splineLoaded]);
+
+  // Handle Spline viewer loading and errors
   useEffect(() => {
     const currentRef = splineRef.current;
     if (currentRef) {
       const handleError = () => {
         setSplineError(true);
+        setSplineLoaded(true); // Consider error as "loaded" to continue
+      };
+      
+      const handleLoad = () => {
+        setSplineLoaded(true);
+      };
+      
+      const handleProgress = (event) => {
+        // Check if loading is complete (progress = 1)
+        if (event.detail && event.detail.progress === 1) {
+          setSplineLoaded(true);
+        }
       };
       
       currentRef.addEventListener('error', handleError);
+      currentRef.addEventListener('load', handleLoad);
+      currentRef.addEventListener('progress', handleProgress);
+      
       return () => {
         if (currentRef) {
           currentRef.removeEventListener('error', handleError);
+          currentRef.removeEventListener('load', handleLoad);
+          currentRef.removeEventListener('progress', handleProgress);
         }
       };
     }
@@ -182,7 +235,7 @@ const Home = () => {
           }
         `}
       </style>
-      {showLoading && !loadingDone && <LoadingScreen onFinish={() => { setLoadingDone(true); setShowLoading(false); }} />}
+      {showLoading && !loadingDone && <LoadingScreen onFinish={() => {}} />}
       <div
         id="main-content"
         className={`main-content home-entrance${fadeIn ? ' home-entrance-active' : ''}`}

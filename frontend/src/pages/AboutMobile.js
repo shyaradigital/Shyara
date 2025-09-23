@@ -120,17 +120,17 @@ const AboutMobile = () => {
 
   const impactStats = [
     {
-      number: '100+',
+      number: '20+',
       label: 'businesses',
       description: 'helped grow their digital presence'
     },
     {
-      number: '5M+',
+      number: '2M+',
       label: 'targeted users',
       description: 'reached through managed campaigns'
     },
     {
-      number: '800+',
+      number: '2000+',
       label: 'unique creatives',
       description: 'designed that built brand recognition'
     }
@@ -470,7 +470,7 @@ const AboutMobile = () => {
             marginBottom: '2.5rem', 
             textAlign: 'center'
           }}>
-            <FancyText text="Our Impact" />
+            <FancyText text="What Our Team has Achieved" />
           </h2>
           
           <div style={{ 

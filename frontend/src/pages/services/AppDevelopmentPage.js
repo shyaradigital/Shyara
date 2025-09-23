@@ -66,6 +66,17 @@ const AppDevelopmentPage = () => {
   
   return (
     <div className="service-page-container" style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .app-cards-grid {
+              grid-template-columns: 1fr !important;
+              max-width: 400px !important;
+              gap: 16px !important;
+            }
+          }
+        `}
+      </style>
       {/* Fixed back button below navbar */}
       <button
         onClick={() => navigate('/services')}
@@ -118,11 +129,14 @@ const AppDevelopmentPage = () => {
             Select one of the following app types. We'll develop exactly one app based on your choice.
           </p>
           
-          <div style={{ 
+          <div className="app-cards-grid" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-            gap: 20, 
-            width: '100%' 
+            gridTemplateColumns: 'repeat(2, 1fr)', 
+            gap: 24, 
+            width: '100%',
+            alignItems: 'stretch',
+            maxWidth: '800px',
+            margin: '0 auto'
           }}>
             
             {/* Basic App Option */}
@@ -134,7 +148,10 @@ const AppDevelopmentPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content'
+              minHeight: '480px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
             }}>
               <div style={{
                 position: 'absolute',
@@ -220,7 +237,10 @@ const AppDevelopmentPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content'
+              minHeight: '480px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
             }}>
               <div style={{
                 position: 'absolute',

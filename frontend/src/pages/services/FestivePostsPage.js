@@ -88,6 +88,11 @@ const FestivePostsPage = () => {
           .mobile-discount-detail {
             font-size: 0.7rem !important;
           }
+          .plan-cards-grid {
+            grid-template-columns: 1fr !important;
+            max-width: 400px !important;
+            gap: 16px !important;
+          }
         }
       `}</style>
       
@@ -146,11 +151,14 @@ const FestivePostsPage = () => {
             Select the festive posts package that best fits your needs.
           </p>
           
-          <div style={{ 
+          <div className="plan-cards-grid" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-            gap: 20, 
-            width: '100%' 
+            gridTemplateColumns: 'repeat(2, 1fr)', 
+            gap: 24, 
+            width: '100%',
+            alignItems: 'stretch',
+            maxWidth: '800px',
+            margin: '0 auto'
           }}>
             
             {/* Yearly Package */}
@@ -162,7 +170,7 @@ const FestivePostsPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content',
+              minHeight: '320px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
@@ -190,6 +198,15 @@ const FestivePostsPage = () => {
                 paddingTop: '40px' // Add space for badge on mobile
               }}>
                 <div style={{ 
+                  color: '#666', 
+                  fontSize: '1.2rem', 
+                  fontWeight: '500',
+                  textDecoration: 'line-through',
+                  marginBottom: '4px'
+                }}>
+                  ₹12,500
+                </div>
+                <div style={{ 
                   color: '#a259f7', 
                   fontSize: '1.8rem', 
                   fontWeight: '700',
@@ -197,30 +214,6 @@ const FestivePostsPage = () => {
                   marginBottom: '8px'
                 }}>
                   ₹5,000
-                </div>
-                
-                {/* Discount Information */}
-                <div className="mobile-discount-info" style={{
-                  background: 'rgba(76, 175, 80, 0.1)',
-                  border: '1px solid rgba(76, 175, 80, 0.3)',
-                  borderRadius: '8px',
-                  padding: '8px 12px',
-                  marginBottom: '8px',
-                  fontSize: '0.85rem'
-                }}>
-                  <div style={{ 
-                    color: '#4CAF50', 
-                    fontWeight: '600',
-                    marginBottom: '2px'
-                  }}>
-                    ₹12,500 → 60% OFF → ₹5,000
-                  </div>
-                  <div className="mobile-discount-detail" style={{ 
-                    color: '#a7a7a7', 
-                    fontSize: '0.75rem'
-                  }}>
-                    Original: ₹12,500 | Discount: 60% | Final: ₹5,000
-                  </div>
                 </div>
                 
                 <div style={{ 
@@ -274,13 +267,22 @@ const FestivePostsPage = () => {
               width: '100%',
               position: 'relative',
               overflow: 'hidden',
-              height: 'fit-content',
+              minHeight: '320px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between'
             }}>
               {/* Pricing Display */}
               <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#666', 
+                  fontSize: '1.2rem', 
+                  fontWeight: '500',
+                  textDecoration: 'line-through',
+                  marginBottom: '4px'
+                }}>
+                  ₹400
+                </div>
                 <div style={{ 
                   color: '#a259f7', 
                   fontSize: '1.8rem', 

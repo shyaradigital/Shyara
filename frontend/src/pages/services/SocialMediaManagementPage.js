@@ -11,16 +11,24 @@ const SocialMediaManagementPage = () => {
 
   const isBasicInCart = cart.some(item => item.id === 'smm-basic');
   const isIntermediateInCart = cart.some(item => item.id === 'smm-intermediate');
-  const isProfessionalInCart = cart.some(item => item.id === 'smm-professional');
+  const isPremiumInCart = cart.some(item => item.id === 'smm-premium');
+  const isEliteInCart = cart.some(item => item.id === 'smm-elite');
   
   return (
     <div className="service-page-container" style={{ minHeight: '100vh', color: 'var(--color-text-primary)', padding: '0', fontFamily: 'inherit', position: 'relative', background: 'none' }}>
       <style>
         {`
+          @media (max-width: 1200px) {
+            .plan-cards-grid {
+              grid-template-columns: repeat(2, 1fr) !important;
+              max-width: 800px !important;
+            }
+          }
           @media (max-width: 768px) {
             .plan-cards-grid {
               grid-template-columns: 1fr !important;
               max-width: 400px !important;
+              gap: 16px !important;
             }
           }
         `}
@@ -50,7 +58,7 @@ const SocialMediaManagementPage = () => {
       >
         <ArrowLeft size={28} />
       </button>
-      <div style={{ maxWidth: 900, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
+      <div style={{ maxWidth: 1200, width: '100%', margin: '-5rem auto 0', padding: '0 1.5rem', background: 'none', border: 'none', borderRadius: 0, boxShadow: 'none', position: 'relative' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 18 }}>
           <Share2 style={{ width: 38, height: 38, color: '#a259f7' }} />
           <h1 style={{ fontSize: '2.2rem', fontWeight: 800, color: '#a259f7', margin: 0 }}><FancyText text="Social Media Management" /></h1>
@@ -143,11 +151,11 @@ const SocialMediaManagementPage = () => {
           
           <div className="plan-cards-grid" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(3, 1fr)', 
-            gap: 20, 
+            gridTemplateColumns: 'repeat(4, 1fr)', 
+            gap: 24, 
             width: '100%',
             alignItems: 'stretch', // Ensure all cards stretch to same height
-            maxWidth: '900px', // Limit max width for better symmetry
+            maxWidth: '1200px', // Adjusted to match content width
             margin: '0 auto' // Center the entire grid
           }}>
             
@@ -168,6 +176,15 @@ const SocialMediaManagementPage = () => {
               {/* Pricing Display */}
               <div style={{ marginBottom: 16, textAlign: 'center' }}>
                 <div style={{ 
+                  color: '#666', 
+                  fontSize: '1.2rem', 
+                  fontWeight: '500',
+                  textDecoration: 'line-through',
+                  marginBottom: 4
+                }}>
+                  ₹7,500
+                </div>
+                <div style={{ 
                   color: '#a259f7', 
                   fontSize: '1.8rem', 
                   fontWeight: '700',
@@ -186,10 +203,14 @@ const SocialMediaManagementPage = () => {
               </div>
               
               <div style={{ marginBottom: 12, flex: 1 }}>
-                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 8px 0' }}>Basic</h3>
-                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  15 image posts (Alternate days posting)
-                </p>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 12px 0' }}>Basic</h3>
+                <ul style={{ color: '#bdbdbd', fontSize: '0.85rem', lineHeight: 1.5, margin: 0, paddingLeft: '16px' }}>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>15 High-Quality Image Posts</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Alternate Day Posting Schedule</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Professional Captions & Hashtags</li>
+                  <li style={{ marginBottom: '8px', fontWeight: '500' }}>Community Engagement</li>
+                </ul>
+                <div style={{ fontSize: '0.8rem', color: '#888', fontStyle: 'italic', marginTop: '8px' }}>Perfect for startups & small businesses</div>
               </div>
               <button
                 style={{
@@ -250,12 +271,21 @@ const SocialMediaManagementPage = () => {
               {/* Pricing Display */}
               <div style={{ marginBottom: 16, textAlign: 'center' }}>
                 <div style={{ 
+                  color: '#666', 
+                  fontSize: '1.2rem', 
+                  fontWeight: '500',
+                  textDecoration: 'line-through',
+                  marginBottom: 4
+                }}>
+                  ₹13,000
+                </div>
+                <div style={{ 
                   color: '#a259f7', 
                   fontSize: '1.8rem', 
                   fontWeight: '700',
                   textShadow: '0 2px 4px rgba(162,89,247,0.3)'
                 }}>
-                  ₹10,000
+                  ₹8,000
                 </div>
                 <div style={{ 
                   color: '#4CAF50', 
@@ -268,10 +298,14 @@ const SocialMediaManagementPage = () => {
               </div>
               
               <div style={{ marginBottom: 12, flex: 1 }}>
-                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 8px 0' }}>Intermediate</h3>
-                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  20 image posts + 4 video posts (Video posts every Saturday)
-                </p>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 12px 0' }}>Intermediate</h3>
+                <ul style={{ color: '#bdbdbd', fontSize: '0.85rem', lineHeight: 1.5, margin: 0, paddingLeft: '16px' }}>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>20 Image Posts + 2 Video Posts</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Weekly Video Content (Saturdays)</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Advanced Engagement Strategies</li>
+                  <li style={{ marginBottom: '8px', fontWeight: '500' }}>Trend-Based Content Creation</li>
+                </ul>
+                <div style={{ fontSize: '0.8rem', color: '#888', fontStyle: 'italic', marginTop: '8px' }}>Ideal for growing businesses</div>
               </div>
               <button
                 style={{
@@ -293,14 +327,14 @@ const SocialMediaManagementPage = () => {
                   outline: 'none',
                   width: '100%'
                 }}
-                onClick={() => addToCart({ id: 'smm-intermediate', name: 'SMM Intermediate Plan', price: 10000, description: 'Social media management with 20 image posts + 4 video posts (video posts every Saturday)' })}
+                onClick={() => addToCart({ id: 'smm-intermediate', name: 'SMM Intermediate Plan', price: 8000, description: 'Social media management with 20 image posts + 2 video posts (video posts every Saturday)' })}
                 disabled={isIntermediateInCart}
               >
                 <ShoppingCart style={{ width: 18, height: 18 }} /> {isIntermediateInCart ? 'Added to Cart' : 'Add Intermediate Plan'}
               </button>
             </div>
 
-            {/* Professional Plan */}
+            {/* Premium Plan */}
             <div style={{
               background: 'linear-gradient(135deg, rgba(162,89,247,0.05) 0%, rgba(30,30,40,0.1) 100%)',
               border: '2px solid rgba(162,89,247,0.2)',
@@ -316,6 +350,110 @@ const SocialMediaManagementPage = () => {
             }}>
               {/* Pricing Display */}
               <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#666', 
+                  fontSize: '1.2rem', 
+                  fontWeight: '500',
+                  textDecoration: 'line-through',
+                  marginBottom: 4
+                }}>
+                  ₹17,000
+                </div>
+                <div style={{ 
+                  color: '#a259f7', 
+                  fontSize: '1.8rem', 
+                  fontWeight: '700',
+                  textShadow: '0 2px 4px rgba(162,89,247,0.3)'
+                }}>
+                  ₹10,000
+                </div>
+                <div style={{ 
+                  color: '#4CAF50', 
+                  fontSize: '0.9rem', 
+                  fontWeight: '600',
+                  marginTop: 4
+                }}>
+                  Only / Month
+                </div>
+              </div>
+              
+              <div style={{ marginBottom: 12, flex: 1 }}>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 12px 0' }}>Premium</h3>
+                <ul style={{ color: '#bdbdbd', fontSize: '0.85rem', lineHeight: 1.5, margin: 0, paddingLeft: '16px' }}>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>25 Image Posts + 4 Video Posts</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Daily Content Strategy</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Story Management & Highlights</li>
+                  <li style={{ marginBottom: '8px', fontWeight: '500' }}>Analytics & Performance Reports</li>
+                </ul>
+                <div style={{ fontSize: '0.8rem', color: '#888', fontStyle: 'italic', marginTop: '8px' }}>Perfect for established brands</div>
+              </div>
+              <button
+                style={{
+                  background: isPremiumInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isPremiumInCart ? '#a259f7' : '#fff',
+                  fontWeight: '700',
+                  fontSize: '1rem',
+                  border: 'none',
+                  borderRadius: 8,
+                  padding: '0.8rem 1.5rem',
+                  boxShadow: isPremiumInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isPremiumInCart ? 'not-allowed' : 'pointer',
+                  opacity: isPremiumInCart ? 0.6 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  outline: 'none',
+                  width: '100%'
+                }}
+                onClick={() => addToCart({ id: 'smm-premium', name: 'SMM Premium Plan', price: 10000, description: 'Social media management with 25 image posts + 4 video posts' })}
+                disabled={isPremiumInCart}
+              >
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isPremiumInCart ? 'Added to Cart' : 'Add Premium Plan'}
+              </button>
+            </div>
+
+            {/* Elite Plan */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(162,89,247,0.08) 0%, rgba(30,30,40,0.15) 100%)',
+              border: '2px solid rgba(162,89,247,0.3)',
+              borderRadius: 16,
+              padding: 20,
+              width: '100%',
+              position: 'relative',
+              overflow: 'hidden',
+              minHeight: '280px', // Set consistent minimum height
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between'
+            }}>
+              {/* Elite Badge */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                background: 'linear-gradient(45deg, #ffd700, #ffb347)',
+                color: '#333',
+                padding: '8px 16px',
+                fontSize: '0.9rem',
+                fontWeight: '700',
+                borderBottomLeftRadius: 12
+              }}>
+                ELITE
+              </div>
+              
+              {/* Pricing Display */}
+              <div style={{ marginBottom: 16, textAlign: 'center' }}>
+                <div style={{ 
+                  color: '#666', 
+                  fontSize: '1.2rem', 
+                  fontWeight: '500',
+                  textDecoration: 'line-through',
+                  marginBottom: 4
+                }}>
+                  ₹42,000
+                </div>
                 <div style={{ 
                   color: '#a259f7', 
                   fontSize: '1.8rem', 
@@ -335,23 +473,27 @@ const SocialMediaManagementPage = () => {
               </div>
               
               <div style={{ marginBottom: 12, flex: 1 }}>
-                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 8px 0' }}>Professional</h3>
-                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
-                  15 image posts + 15 video posts
-                </p>
+                <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: '700', margin: '0 0 12px 0' }}>Elite</h3>
+                <ul style={{ color: '#bdbdbd', fontSize: '0.85rem', lineHeight: 1.5, margin: 0, paddingLeft: '16px' }}>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>15 Image Posts + 15 Video Posts</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Premium Video Content Creation</li>
+                  <li style={{ marginBottom: '6px', fontWeight: '500' }}>Multi-Platform Management</li>
+                  <li style={{ marginBottom: '8px', fontWeight: '500' }}>Dedicated Account Manager</li>
+                </ul>
+                <div style={{ fontSize: '0.8rem', color: '#888', fontStyle: 'italic', marginTop: '8px' }}>Ultimate solution for enterprises</div>
               </div>
               <button
                 style={{
-                  background: isProfessionalInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
-                  color: isProfessionalInCart ? '#a259f7' : '#fff',
+                  background: isEliteInCart ? 'rgba(162,89,247,0.10)' : 'linear-gradient(90deg,#7f42a7,#6600c5 80%)',
+                  color: isEliteInCart ? '#a259f7' : '#fff',
                   fontWeight: '700',
                   fontSize: '1rem',
                   border: 'none',
                   borderRadius: 8,
                   padding: '0.8rem 1.5rem',
-                  boxShadow: isProfessionalInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
-                  cursor: isProfessionalInCart ? 'not-allowed' : 'pointer',
-                  opacity: isProfessionalInCart ? 0.6 : 1,
+                  boxShadow: isEliteInCart ? '0 2px 12px #0002' : '0 2px 12px #a259f7aa',
+                  cursor: isEliteInCart ? 'not-allowed' : 'pointer',
+                  opacity: isEliteInCart ? 0.6 : 1,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -360,260 +502,15 @@ const SocialMediaManagementPage = () => {
                   outline: 'none',
                   width: '100%'
                 }}
-                onClick={() => addToCart({ id: 'smm-professional', name: 'SMM Professional Plan', price: 25000, description: 'Social media management with 15 image posts + 15 video posts' })}
-                disabled={isProfessionalInCart}
+                onClick={() => addToCart({ id: 'smm-elite', name: 'SMM Elite Plan', price: 25000, description: 'Social media management with 15 image posts + 15 video posts' })}
+                disabled={isEliteInCart}
               >
-                <ShoppingCart style={{ width: 18, height: 18 }} /> {isProfessionalInCart ? 'Added to Cart' : 'Add Professional Plan'}
+                <ShoppingCart style={{ width: 18, height: 18 }} /> {isEliteInCart ? 'Added to Cart' : 'Add Elite Plan'}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Pricing Table Section */}
-        <div style={{ marginTop: 48, marginBottom: 32, position: 'relative' }}>
-          {/* Discount Badge - Positioned above the section */}
-          <div style={{
-            position: 'absolute',
-            top: -12,
-            right: 0,
-            background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
-            color: 'white',
-            padding: '8px 16px',
-            fontSize: '0.85rem',
-            fontWeight: '700',
-            borderRadius: 25,
-            boxShadow: '0 4px 12px rgba(255,107,107,0.4)',
-            zIndex: 10,
-            border: '2px solid rgba(255,255,255,0.2)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px'
-          }}>
-            🔥 30-40% OFF
-          </div>
-          
-          <h3 style={{ 
-            color: '#a259f7', 
-            fontSize: '1.4rem', 
-            fontWeight: '700', 
-            marginBottom: 16, 
-            textAlign: 'center',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 8,
-            paddingRight: 120 // Add padding to prevent overlap
-          }}>
-            <span style={{ fontSize: '1.2rem' }}>💰</span>
-            Detailed Pricing Breakdown
-          </h3>
-          <p style={{ 
-            color: '#a7a7a7', 
-            fontSize: '0.95rem', 
-            marginBottom: 24, 
-            textAlign: 'center',
-            maxWidth: 600,
-            margin: '0 auto 24px'
-          }}>
-            All prices shown are discounted rates. Choose the plan that fits your content needs.
-          </p>
-          
-          <div style={{
-            background: 'rgba(30,30,30,0.6)',
-            border: '1.5px solid rgba(162,89,247,0.2)',
-            borderRadius: 16,
-            padding: 24,
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            overflow: 'hidden',
-            position: 'relative'
-          }}>
-
-            <div style={{ overflowX: 'auto' }}>
-              <table style={{
-                width: '100%',
-                borderCollapse: 'collapse',
-                minWidth: 500
-              }}>
-                <thead>
-                  <tr style={{ borderBottom: '2px solid rgba(162,89,247,0.3)' }}>
-                    <th style={{
-                      padding: '16px 12px',
-                      textAlign: 'left',
-                      color: '#a259f7',
-                      fontWeight: '700',
-                      fontSize: '1rem',
-                      background: 'rgba(162,89,247,0.05)'
-                    }}>Category</th>
-                    <th style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#a259f7',
-                      fontWeight: '700',
-                      fontSize: '1rem',
-                      background: 'rgba(162,89,247,0.05)'
-                    }}>Price</th>
-                    <th style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#a259f7',
-                      fontWeight: '700',
-                      fontSize: '1rem',
-                      background: 'rgba(162,89,247,0.05)'
-                    }}>Image Posts</th>
-                    <th style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#a259f7',
-                      fontWeight: '700',
-                      fontSize: '1rem',
-                      background: 'rgba(162,89,247,0.05)'
-                    }}>Videos</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style={{ borderBottom: '1px solid rgba(162,89,247,0.1)' }}>
-                    <td style={{
-                      padding: '16px 12px',
-                      color: '#e7e7e7',
-                      fontWeight: '600',
-                      fontSize: '0.95rem'
-                    }}>Basic</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#4CAF50',
-                      fontWeight: '700',
-                      fontSize: '1.1rem'
-                    }}>₹3,500</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#e7e7e7',
-                      fontWeight: '500',
-                      fontSize: '0.95rem'
-                    }}>15</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#e7e7e7',
-                      fontWeight: '500',
-                      fontSize: '0.95rem'
-                    }}>0</td>
-                  </tr>
-                  <tr style={{ borderBottom: '1px solid rgba(162,89,247,0.1)' }}>
-                    <td style={{
-                      padding: '16px 12px',
-                      color: '#e7e7e7',
-                      fontWeight: '600',
-                      fontSize: '0.95rem'
-                    }}>Intermediate</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#4CAF50',
-                      fontWeight: '700',
-                      fontSize: '1.1rem'
-                    }}>₹5,600</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#e7e7e7',
-                      fontWeight: '500',
-                      fontSize: '0.95rem'
-                    }}>20</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#e7e7e7',
-                      fontWeight: '500',
-                      fontSize: '0.95rem'
-                    }}>2</td>
-                  </tr>
-                  <tr style={{ borderBottom: '1px solid rgba(162,89,247,0.1)' }}>
-                    <td style={{
-                      padding: '16px 12px',
-                      color: '#e7e7e7',
-                      fontWeight: '600',
-                      fontSize: '0.95rem'
-                    }}>Premium</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#4CAF50',
-                      fontWeight: '700',
-                      fontSize: '1.1rem'
-                    }}>₹7,000</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#e7e7e7',
-                      fontWeight: '500',
-                      fontSize: '0.95rem'
-                    }}>25</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#e7e7e7',
-                      fontWeight: '500',
-                      fontSize: '0.95rem'
-                    }}>4</td>
-                  </tr>
-                  <tr>
-                    <td style={{
-                      padding: '16px 12px',
-                      color: '#a259f7',
-                      fontWeight: '700',
-                      fontSize: '0.95rem',
-                      background: 'rgba(162,89,247,0.1)'
-                    }}>Elite</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#4CAF50',
-                      fontWeight: '700',
-                      fontSize: '1.1rem',
-                      background: 'rgba(162,89,247,0.1)'
-                    }}>₹15,000</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#a259f7',
-                      fontWeight: '600',
-                      fontSize: '0.95rem',
-                      background: 'rgba(162,89,247,0.1)'
-                    }}>15</td>
-                    <td style={{
-                      padding: '16px 12px',
-                      textAlign: 'center',
-                      color: '#a259f7',
-                      fontWeight: '600',
-                      fontSize: '0.95rem',
-                      background: 'rgba(162,89,247,0.1)'
-                    }}>15</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <div style={{
-              marginTop: 16,
-              padding: 12,
-              background: 'rgba(76,175,80,0.1)',
-              border: '1px solid rgba(76,175,80,0.3)',
-              borderRadius: 8,
-              textAlign: 'center'
-            }}>
-              <p style={{
-                color: '#4CAF50',
-                fontSize: '0.9rem',
-                fontWeight: '600',
-                margin: 0
-              }}>
-                ✨ All plans include account management, captions, hashtags, and community engagement
-              </p>
-            </div>
-          </div>
-        </div>
         
         <blockquote style={{ borderLeft: '4px solid #a259f7', paddingLeft: 16, fontStyle: 'italic', color: '#bdbdbd', margin: '1.5rem 0', fontSize: '1.05rem', background: 'none', borderRadius: 0 }}>
           "Shyara transformed our social media presence in just 3 months — our engagement increased by 200%, and we started getting real leads."<br />

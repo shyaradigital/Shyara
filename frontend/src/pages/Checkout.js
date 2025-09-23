@@ -551,9 +551,26 @@ const Checkout = () => {
                         color: '#e7e7e7', 
                         marginBottom: 6,
                         fontSize: '1rem',
-                        lineHeight: 1.4
+                        lineHeight: 1.4,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 8
                       }}>
-                        {item.name}
+                        <span>{item.name}</span>
+                        {item.isPersonalized && (
+                          <span style={{
+                            background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
+                            color: 'white',
+                            padding: '2px 8px',
+                            borderRadius: '12px',
+                            fontSize: '0.65rem',
+                            fontWeight: 600,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.5px'
+                          }}>
+                            Personalized
+                          </span>
+                        )}
                       </div>
                       <div style={{ 
                         color: '#a7a7a7', 

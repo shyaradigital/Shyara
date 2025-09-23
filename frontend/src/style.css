@@ -4249,3 +4249,15 @@ html {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 25px 50px rgba(127, 66, 167, 0.6);
 }
+
+/* Notification animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

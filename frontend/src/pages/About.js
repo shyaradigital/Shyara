@@ -120,17 +120,17 @@ const AboutPage = () => {
 
   const impactStats = [
     {
-      number: '100+',
+      number: '20+',
       label: 'businesses',
       description: 'helped grow their digital presence'
     },
     {
-      number: '5M+',
+      number: '2M+',
       label: 'targeted users',
       description: 'reached through managed campaigns'
     },
     {
-      number: '800+',
+      number: '2000+',
       label: 'unique creatives',
       description: 'designed that built brand recognition'
     }
@@ -720,7 +720,7 @@ const AboutPage = () => {
           </div>
         </div>
 
-        {/* Section 5: Our Impact */}
+        {/* Section 5: What Our Team has Achieved */}
         <div className="scroll-animate" style={{ marginBottom: '6rem' }}>
           <h2 style={{ 
             fontSize: '2.2rem', 
@@ -730,7 +730,7 @@ const AboutPage = () => {
             textAlign: 'center',
             letterSpacing: '-0.01em'
           }}>
-            <FancyText text="Our Impact" />
+            <FancyText text="What Our Team has Achieved" />
           </h2>
           
           <div style={{ 

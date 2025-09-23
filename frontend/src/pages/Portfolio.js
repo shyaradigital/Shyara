@@ -82,20 +82,30 @@ const PortfolioModal = ({ isOpen, onClose, service }) => {
     setCurrentImageIndex((prev) => (prev - 1 + service.samples.length) % service.samples.length);
   };
 
+  const handleBackdropClick = (e) => {
+    // Close modal only if clicking on the backdrop, not the modal content
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      background: 'rgba(0,0,0,0.9)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 10000,
-      padding: '1rem'
-    }}>
+    <div 
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(0,0,0,0.9)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 10000,
+        padding: '1rem'
+      }}
+      onClick={handleBackdropClick}
+    >
       <div className="portfolio-modal" style={{
         background: 'rgba(30,30,40,0.95)',
         borderRadius: 16,
