@@ -141,17 +141,19 @@ const Checkout = () => {
               <span style={{
                 background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
                 color: 'white',
-                padding: '6px 12px',
+                padding: isMobile ? '6px 10px' : '6px 12px',
                 borderRadius: '16px',
-                fontSize: '0.9rem',
+                fontSize: isMobile ? '0.8rem' : '0.9rem',
                 fontWeight: '600',
                 boxShadow: '0 4px 12px rgba(162,89,247,0.3)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px'
+                gap: '6px',
+                textAlign: 'center',
+                lineHeight: isMobile ? '1.3' : '1.4'
               }}>
-                <span style={{ fontSize: '1rem' }}>🎉</span>
-                <span>50% OFF applied - Pay only half now!</span>
+                <span style={{ fontSize: isMobile ? '0.9rem' : '1rem' }}>🎉</span>
+                <span>You're paying 50% in advance. The remaining balance is payable later.</span>
               </span>
             </div>
           )}

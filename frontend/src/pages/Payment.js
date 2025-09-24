@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Lock, QrCode, CreditCard } from 'lucide-react';
+import TermsAndConditions from '../components/TermsAndConditions';
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const Payment = () => {
   });
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
 
   // Get data from checkout page
   const { formData, cart, fixedPriceTotal, hasCustomQuoteItems } = location.state || {};
@@ -344,20 +346,16 @@ const Payment = () => {
                       boxShadow: '0 4px 16px rgba(0,0,0,0.1)'
                     }}>
                       <div style={{ color: '#333', fontSize: '0.9rem', marginBottom: 8 }}>Google Pay QR Code</div>
-                      <div style={{
-                        width: 200,
-                        height: 200,
-                        background: '#f0f0f0',
-                        borderRadius: 8,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#666',
-                        fontSize: '0.8rem',
-                        border: '2px dashed #ccc'
-                      }}>
-                        QR Code Image<br />(Will be provided)
-                      </div>
+                      <img 
+                        src={process.env.PUBLIC_URL + '/pics/rkp.png'} 
+                        alt="Google Pay QR Code"
+                        style={{
+                          width: 200,
+                          height: 200,
+                          borderRadius: 8,
+                          objectFit: 'contain'
+                        }}
+                      />
                     </div>
                   </div>
                   <div>
@@ -375,7 +373,7 @@ const Payment = () => {
                       value={paymentData.utrNumber}
                       onChange={handlePaymentDataChange}
                       required
-                      placeholder="Enter UTR Number from your bank"
+                      placeholder="Enter UTR of your transaction"
                       style={{
                         width: '100%',
                         background: 'rgba(24,24,24,0.8)',
@@ -512,7 +510,17 @@ const Payment = () => {
                     lineHeight: 1.6,
                     fontWeight: 500
                   }}>
-                    I agree to the <span style={{ color: '#a259f7', textDecoration: 'underline', fontWeight: 600 }}>Terms & Conditions</span> and understand the payment terms.
+                    I agree to the <span 
+                      style={{ 
+                        color: '#a259f7', 
+                        textDecoration: 'underline', 
+                        fontWeight: 600,
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => setShowTerms(true)}
+                    >
+                      Terms & Conditions
+                    </span> and understand the payment terms.
                   </span>
                 </label>
               </div>
@@ -577,6 +585,12 @@ const Payment = () => {
           </div>
         </div>
       </div>
+      
+      {/* Terms and Conditions Modal */}
+      <TermsAndConditions 
+        isOpen={showTerms} 
+        onClose={() => setShowTerms(false)} 
+      />
     </div>
   );
 };

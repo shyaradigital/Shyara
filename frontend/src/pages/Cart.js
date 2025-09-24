@@ -116,17 +116,19 @@ const Cart = () => {
               <span style={{
                 background: 'linear-gradient(90deg, #a259f7, #7f42a7)',
                 color: 'white',
-                padding: '8px 16px',
+                padding: isMobile ? '6px 12px' : '8px 16px',
                 borderRadius: '20px',
-                fontSize: '1rem',
+                fontSize: isMobile ? '0.85rem' : '1rem',
                 fontWeight: '600',
                 boxShadow: '0 4px 12px rgba(162,89,247,0.3)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '8px'
+                gap: '8px',
+                textAlign: 'center',
+                lineHeight: isMobile ? '1.3' : '1.4'
               }}>
-                <span style={{ fontSize: '1.2rem' }}>🎉</span>
-                <span>You're paying only HALF! 50% OFF applied</span>
+                <span style={{ fontSize: isMobile ? '1rem' : '1.2rem' }}>🎉</span>
+                <span>You're paying 50% in advance. The remaining balance is payable later.</span>
               </span>
             </div>
           )}

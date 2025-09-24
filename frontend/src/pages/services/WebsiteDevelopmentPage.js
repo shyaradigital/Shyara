@@ -237,6 +237,15 @@ const WebsiteDevelopmentPage = () => {
               paddingTop: '40px'
             }}>
               <div style={{ 
+                color: '#666', 
+                fontSize: '1.2rem', 
+                fontWeight: '500',
+                textDecoration: 'line-through',
+                marginBottom: 4
+              }}>
+                ₹37,500
+              </div>
+              <div style={{ 
                 color: '#a259f7', 
                 fontSize: '1.8rem', 
                 fontWeight: '700',
@@ -245,29 +254,13 @@ const WebsiteDevelopmentPage = () => {
               }}>
                 ₹12,000
               </div>
-              
-              {/* Discount Information */}
-              <div style={{
-                background: 'rgba(76, 175, 80, 0.1)',
-                border: '1px solid rgba(76, 175, 80, 0.3)',
-                borderRadius: '8px',
-                padding: '8px 12px',
-                marginBottom: '8px',
-                fontSize: '0.85rem'
+              <div style={{ 
+                color: '#4CAF50', 
+                fontSize: '0.9rem', 
+                fontWeight: '600',
+                marginTop: 4
               }}>
-                <div style={{ 
-                  color: '#4CAF50', 
-                  fontWeight: '600',
-                  marginBottom: '2px'
-                }}>
-                  ₹37,500 → 68% OFF → ₹12,000
-                </div>
-                <div style={{ 
-                  color: '#a7a7a7', 
-                  fontSize: '0.75rem'
-                }}>
-                  Original: ₹37,500 | Discount: 68% | Final: ₹12,000
-                </div>
+                68% OFF
               </div>
             </div>
             
@@ -363,6 +356,15 @@ const WebsiteDevelopmentPage = () => {
               paddingTop: '40px'
             }}>
               <div style={{ 
+                color: '#666', 
+                fontSize: '1.2rem', 
+                fontWeight: '500',
+                textDecoration: 'line-through',
+                marginBottom: 4
+              }}>
+                ₹75,000
+              </div>
+              <div style={{ 
                 color: '#a259f7', 
                 fontSize: '1.8rem', 
                 fontWeight: '700',
@@ -371,29 +373,13 @@ const WebsiteDevelopmentPage = () => {
               }}>
                 ₹45,000
               </div>
-              
-              {/* Discount Information */}
-              <div style={{
-                background: 'rgba(76, 175, 80, 0.1)',
-                border: '1px solid rgba(76, 175, 80, 0.3)',
-                borderRadius: '8px',
-                padding: '8px 12px',
-                marginBottom: '8px',
-                fontSize: '0.85rem'
+              <div style={{ 
+                color: '#4CAF50', 
+                fontSize: '0.9rem', 
+                fontWeight: '600',
+                marginTop: 4
               }}>
-                <div style={{ 
-                  color: '#4CAF50', 
-                  fontWeight: '600',
-                  marginBottom: '2px'
-                }}>
-                  ₹75,000 → 40% OFF → ₹45,000
-                </div>
-                <div style={{ 
-                  color: '#a7a7a7', 
-                  fontSize: '0.75rem'
-                }}>
-                  Original: ₹75,000 | Discount: 40% | Final: ₹45,000
-                </div>
+                40% OFF
               </div>
             </div>
             

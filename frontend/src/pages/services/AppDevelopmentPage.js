@@ -257,9 +257,38 @@ const AppDevelopmentPage = () => {
               </div>
               <div style={{ marginBottom: 12 }}>
                 <h3 style={{ color: '#a259f7', fontSize: '1.1rem', fontWeight: 700, margin: '0 0 8px 0' }}>Custom App</h3>
-                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: 0, lineHeight: 1.4 }}>
+                <p style={{ color: '#bdbdbd', fontSize: '0.9rem', margin: '0 0 12px 0', lineHeight: 1.4 }}>
                   Complex app with advanced features, integrations, and custom requirements
                 </p>
+                
+                {/* Examples Section */}
+                <div style={{ marginBottom: 12 }}>
+                  <div style={{ color: '#a7a7a7', fontSize: '0.85rem', fontWeight: '600', marginBottom: '6px' }}>Examples:</div>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    {[
+                      'E-commerce Marketplace App',
+                      'Social Media Platform',
+                      'Fintech/Banking App',
+                      'Healthcare Management App',
+                      'Real Estate Platform',
+                      'Food Delivery App',
+                      'Fitness Tracking App',
+                      'On-demand Service App'
+                    ].map((example, idx) => (
+                      <li key={idx} style={{ 
+                        color: '#bdbdbd', 
+                        fontSize: '0.8rem',
+                        padding: '2px 0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px'
+                      }}>
+                        <span style={{ color: '#a259f7', fontSize: '0.7rem' }}>•</span>
+                        {example}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
               <button
                 style={{

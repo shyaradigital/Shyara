@@ -227,7 +227,7 @@ export const CartProvider = ({ children }) => {
               marginBottom: '16px',
               textShadow: '0 2px 4px rgba(0,0,0,0.3)'
             }}>
-              Pay Only Half!
+              Pay 50% in Advance!
             </h2>
             <p style={{
               color: 'rgba(255,255,255,0.95)',
@@ -235,8 +235,8 @@ export const CartProvider = ({ children }) => {
               marginBottom: '20px',
               lineHeight: '1.6'
             }}>
-              You're getting <strong>50% OFF</strong> on all services!<br />
-              Pay the discounted amount now and the rest when you receive your product.
+              You're paying <strong>50% in advance</strong> for all services!<br />
+              The remaining balance is payable when you receive your product.
             </p>
             <div style={{
               background: 'rgba(255,255,255,0.15)',
